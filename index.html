@@ -1279,18 +1279,26 @@ btn.addEventListener('click', () => {
 const src = btn.getAttribute('data-src');
 const progressBar = btn.parentElement.querySelector('.music-progress-bar');
 
-// If clicking the same button that is playing
+// If clicking the same button that is currently playing → pause
 if (currentBtn === btn && currentAudio && !currentAudio.paused) {
 currentAudio.pause();
 btn.textContent = '▶';
 btn.classList.remove('playing');
-progressBar.style.width = '0%';
 return;
 }
 
-// Stop previous track
+// If clicking the same button that is paused → resume from where it stopped
+if (currentBtn === btn && currentAudio && currentAudio.paused) {
+currentAudio.play();
+btn.textContent = '⏸';
+btn.classList.add('playing');
+return;
+}
+
+// If clicking a different button → stop previous and start new
 if (currentAudio) {
 currentAudio.pause();
+currentAudio.currentTime = 0; // reset only when switching tracks
 if (currentBtn) {
 currentBtn.textContent = '▶';
 currentBtn.classList.remove('playing');
@@ -1313,7 +1321,7 @@ progressBar.style.width = percent + '%';
 }
 });
 
-// Reset when ended
+// Reset when track ends
 currentAudio.addEventListener('ended', () => {
 btn.textContent = '▶';
 btn.classList.remove('playing');
@@ -1323,7 +1331,7 @@ currentBtn = null;
 });
 });
 });
-
+  
 // Neural Network Canvas Animation
 const canvas = document.getElementById('neural-canvas');
 const ctx = canvas.getContext('2d');
