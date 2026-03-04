@@ -1,1462 +1,1430 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gratati - CV Engineer | AI Developer | Neural Music Creator. Portfolio showcasing AI/ML projects, computer vision, NLP, and neural music compositions.">
-    <meta name="keywords" content="AI Developer, CV Engineer, Machine Learning, Computer Vision, NLP, Python, TensorFlow, PyTorch">
-    <meta name="author" content="Gratati">
-    <meta property="og:title" content="Gratati - CV Engineer & AI Developer">
-    <meta property="og:description" content="Portfolio of AI/ML projects, computer vision, and neural music.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://gratati.github.io">
-    <title>Gratati - CV Engineer | AI Developer</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --bg-dark: #0a0e27;
-            --bg-darker: #050810;
-            --card-bg: #1a1f3a;
-            --text-primary: #e0e6ff;
-            --text-secondary: #a0a8d8;
-            --neon-purple: #d946ef;
-            --neon-cyan: #00d9ff;
-            --neon-lime: #39ff14;
-            --neon-pink: #ff006e;
-            --border-color: #2d3561;
-            --accent-cv: #00d9ff;
-            --accent-nlp: #d946ef;
-            --accent-ml: #39ff14;
-            --accent-music: #ff006e;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Canvas Background Animation */
-        #neural-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            opacity: 0.15;
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 100;
-            padding: 1rem 2rem;
-        }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-        }
-
-        nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--neon-cyan);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--neon-cyan);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .lang-toggle {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .lang-toggle:hover {
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-        }
-
-        /* Sections */
-        section {
-            padding: 6rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            margin-top: 4rem;
-        }
-
-        section:first-of-type {
-            margin-top: 8rem;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 900;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::before {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-cyan), transparent);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 8rem 2rem 6rem;
-            text-align: center;
-            margin-top: 6rem;
-        }
-
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-lime));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .hero .role {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.3rem;
-            color: var(--neon-cyan);
-            margin-bottom: 2rem;
-            letter-spacing: 1px;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.8;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.8rem 2rem;
-            border: 2px solid;
-            background: transparent;
-            color: var(--text-primary);
-            cursor: pointer;
-            font-size: 0.95rem;
-            font-family: 'Space Mono', monospace;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            border-radius: 4px;
-        }
-
-        .btn-primary {
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-        }
-
-        .btn-primary:hover {
-            background: var(--neon-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        .btn-secondary {
-            border-color: var(--neon-purple);
-            color: var(--neon-purple);
-        }
-
-        .btn-secondary:hover {
-            background: var(--neon-purple);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--neon-purple);
-        }
-
-        /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-
-        .about-text h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--neon-cyan);
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: var(--text-secondary);
-        }
-
-        .about-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .stat-box {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .stat-box:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            color: var(--neon-cyan);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
-        }
-
-        .skill-category.cv {
-            border-top-color: var(--accent-cv);
-        }
-
-        .skill-category.nlp {
-            border-top-color: var(--accent-nlp);
-        }
-
-        .skill-category.ml {
-            border-top-color: var(--accent-ml);
-        }
-
-        .skill-category.tools {
-            border-top-color: var(--accent-music);
-        }
-
-        .skill-category h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .skill-category.cv h3 { color: var(--accent-cv); }
-        .skill-category.nlp h3 { color: var(--accent-nlp); }
-        .skill-category.ml h3 { color: var(--accent-ml); }
-        .skill-category.tools h3 { color: var(--accent-music); }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-        }
-
-        .skill-tag {
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            color: var(--neon-cyan);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-family: 'Space Mono', monospace;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background: rgba(0, 217, 255, 0.2);
-            border-color: var(--neon-cyan);
-        }
-
-        .skill-category.nlp .skill-tag {
-            background: rgba(217, 70, 239, 0.1);
-            border-color: rgba(217, 70, 239, 0.3);
-            color: var(--neon-purple);
-        }
-
-        .skill-category.nlp .skill-tag:hover {
-            background: rgba(217, 70, 239, 0.2);
-            border-color: var(--neon-purple);
-        }
-
-        .skill-category.ml .skill-tag {
-            background: rgba(57, 255, 20, 0.1);
-            border-color: rgba(57, 255, 20, 0.3);
-            color: var(--neon-lime);
-        }
-
-        .skill-category.ml .skill-tag:hover {
-            background: rgba(57, 255, 20, 0.2);
-            border-color: var(--neon-lime);
-        }
-
-        .skill-category.tools .skill-tag {
-            background: rgba(255, 0, 110, 0.1);
-            border-color: rgba(255, 0, 110, 0.3);
-            color: var(--neon-pink);
-        }
-
-        .skill-category.tools .skill-tag:hover {
-            background: rgba(255, 0, 110, 0.2);
-            border-color: var(--neon-pink);
-        }
-
-        /* Timeline Section */
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 2px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple), transparent);
-        }
-
-        .timeline-item {
-            margin-bottom: 3rem;
-            width: 48%;
-        }
-
-        .timeline-item:nth-child(odd) {
-            margin-left: 0;
-            text-align: right;
-            padding-right: 4%;
-        }
-
-        .timeline-item:nth-child(even) {
-            margin-left: 52%;
-            text-align: left;
-            padding-left: 4%;
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--neon-cyan);
-            border: 3px solid var(--bg-dark);
-            border-radius: 50%;
-            top: 0;
-            z-index: 2;
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        .timeline-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-content:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
-        }
-
-        .timeline-date {
-            font-family: 'Space Mono', monospace;
-            color: var(--neon-cyan);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .timeline-org {
-            color: var(--neon-purple);
-            font-size: 0.95rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .timeline-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item {
-                width: 100%;
-                margin-left: 0 !important;
-                padding-left: 60px !important;
-                padding-right: 0 !important;
-                text-align: left !important;
-            }
-
-            .timeline-dot {
-                left: 20px;
-            }
-        }
-
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .project-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .project-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .project-category {
-            font-size: 0.8rem;
-            color: var(--neon-cyan);
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-        }
-
-        .project-body {
-            padding: 1.5rem;
-            flex-grow: 1;
-        }
-
-        .project-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-metrics {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .metric {
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            color: var(--neon-cyan);
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .project-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .project-link {
-            color: var(--neon-cyan);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-family: 'Space Mono', monospace;
-            border-bottom: 1px solid var(--neon-cyan);
-            transition: all 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: var(--neon-purple);
-            border-color: var(--neon-purple);
-        }
-
-        /* Education Section */
-        .education-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .education-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .education-card:hover {
-            border-color: var(--neon-purple);
-            box-shadow: 0 0 30px rgba(217, 70, 239, 0.15);
-        }
-
-        .education-year {
-            font-family: 'Space Mono', monospace;
-            color: var(--neon-purple);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
-
-        .education-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-        }
-
-        .education-org {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-        }
-
-        .education-desc {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Music Section */
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .music-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-left-color: var(--neon-pink);
-            padding: 2rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .music-card:hover {
-            border-color: var(--neon-pink);
-            box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
-        }
-
-        .music-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--neon-pink);
-        }
-
-        .music-player {
-            width: 100%;
-            margin-bottom: 1.5rem;
-        }
-
-        .music-link {
-            display: inline-block;
-            color: var(--neon-pink);
-            text-decoration: none;
-            font-family: 'Space Mono', monospace;
-            font-size: 0.9rem;
-            border-bottom: 1px solid var(--neon-pink);
-            transition: all 0.3s ease;
-        }
-
-        .music-link:hover {
-            color: var(--neon-cyan);
-            border-color: var(--neon-cyan);
-        }
-
-        /* Contact Section */
-        .contact-container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact-info {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .contact-email {
-            font-family: 'Space Mono', monospace;
-            font-size: 1.3rem;
-            color: var(--neon-cyan);
-            margin-bottom: 1rem;
-            word-break: break-all;
-        }
-
-        .contact-email a {
-            color: var(--neon-cyan);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .contact-email a:hover {
-            color: var(--neon-purple);
-        }
-
-        .contact-links {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .contact-link {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-        }
-
-        .contact-link:hover {
-            color: var(--neon-cyan);
-            border-bottom-color: var(--neon-cyan);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            background: var(--bg-darker);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.8rem;
-            border-radius: 4px;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 1rem;
-            background: transparent;
-            border: 2px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            font-family: 'Space Mono', monospace;
-            font-size: 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: var(--neon-cyan);
-            color: var(--bg-dark);
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--bg-darker);
-            border-top: 1px solid var(--border-color);
-            padding: 2rem;
-            text-align: center;
-            color: var(--text-secondary);
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-name {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 0.9rem;
-            color: var(--neon-cyan);
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-text {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem;
-            }
-
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-                width: 100%;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero .role {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
-
-        /* Animations */
-        @keyframes glow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        .glow-animation {
-            animation: glow 3s ease-in-out infinite;
-        }
-
-        .float-animation {
-            animation: float 3s ease-in-out infinite;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gratati - CV Engineer | AI Developer | Neural Music Creator. Portfolio showcasing AI/ML projects, computer vision, NLP, and neural music compositions.">
+<meta name="keywords" content="AI Developer, CV Engineer, Machine Learning, Computer Vision, NLP, Python, TensorFlow, PyTorch">
+<meta name="author" content="Gratati">
+<meta property="og:title" content="Gratati - CV Engineer & AI Developer">
+<meta property="og:description" content="Portfolio of AI/ML projects, computer vision, and neural music.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gratati.github.io">
+<title>Gratati - CV Engineer | AI Developer</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+:root {
+--bg-dark: #0a0e27;
+--bg-darker: #050810;
+--card-bg: #1a1f3a;
+--text-primary: #e0e6ff;
+--text-secondary: #a0a8d8;
+--neon-purple: #d946ef;
+--neon-cyan: #00d9ff;
+--neon-lime: #39ff14;
+--neon-pink: #ff006e;
+--border-color: #2d3561;
+--accent-cv: #00d9ff;
+--accent-nlp: #d946ef;
+--accent-ml: #39ff14;
+--accent-music: #ff006e;
+}
+html {
+scroll-behavior: smooth;
+}
+body {
+font-family: 'Inter', sans-serif;
+background-color: var(--bg-dark);
+color: var(--text-primary);
+line-height: 1.6;
+overflow-x: hidden;
+}
+/* Canvas Background Animation */
+#neural-canvas {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 0;
+opacity: 0.15;
+}
+/* Main Content */
+main {
+position: relative;
+z-index: 1;
+}
+/* Header & Navigation */
+header {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+background: rgba(10, 14, 39, 0.95);
+backdrop-filter: blur(10px);
+border-bottom: 1px solid var(--border-color);
+z-index: 100;
+padding: 1rem 2rem;
+}
+.header-content {
+max-width: 1200px;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
+.logo {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.5rem;
+font-weight: 900;
+background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+letter-spacing: 2px;
+}
+nav {
+display: flex;
+gap: 2rem;
+align-items: center;
+}
+nav a {
+color: var(--text-secondary);
+text-decoration: none;
+font-size: 0.9rem;
+transition: all 0.3s ease;
+position: relative;
+}
+nav a:hover {
+color: var(--neon-cyan);
+}
+nav a::after {
+content: '';
+position: absolute;
+bottom: -5px;
+left: 0;
+width: 0;
+height: 2px;
+background: var(--neon-cyan);
+transition: width 0.3s ease;
+}
+nav a:hover::after {
+width: 100%;
+}
+.lang-toggle {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+color: var(--text-primary);
+padding: 0.5rem 1rem;
+border-radius: 4px;
+cursor: pointer;
+font-size: 0.85rem;
+transition: all 0.3s ease;
+}
+.lang-toggle:hover {
+border-color: var(--neon-cyan);
+color: var(--neon-cyan);
+}
+/* Mobile Menu Toggle */
+.mobile-toggle {
+display: none;
+background: transparent;
+border: 1px solid var(--neon-cyan);
+color: var(--neon-cyan);
+font-size: 1.5rem;
+padding: 0.5rem;
+cursor: pointer;
+border-radius: 4px;
+}
+.mobile-toggle:hover {
+background: rgba(0, 217, 255, 0.1);
+}
+
+/* Sections */
+section {
+padding: 6rem 2rem;
+max-width: 1200px;
+margin: 0 auto;
+margin-top: 4rem;
+}
+section:first-of-type {
+margin-top: 8rem;
+}
+.section-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 2.5rem;
+font-weight: 900;
+margin-bottom: 3rem;
+text-transform: uppercase;
+letter-spacing: 2px;
+position: relative;
+display: inline-block;
+}
+.section-title::before {
+content: '';
+position: absolute;
+bottom: -10px;
+left: 0;
+width: 100%;
+height: 3px;
+background: linear-gradient(90deg, var(--neon-cyan), transparent);
+}
+/* Hero Section */
+.hero {
+padding: 8rem 2rem 6rem;
+text-align: center;
+margin-top: 6rem;
+}
+.hero h1 {
+font-family: 'Orbitron', sans-serif;
+font-size: 3.5rem;
+font-weight: 900;
+margin-bottom: 1rem;
+background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-lime));
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+letter-spacing: 3px;
+text-transform: uppercase;
+}
+.hero .role {
+font-family: 'Space Mono', monospace;
+font-size: 1.3rem;
+color: var(--neon-cyan);
+margin-bottom: 2rem;
+letter-spacing: 1px;
+}
+.hero p {
+font-size: 1.1rem;
+color: var(--text-secondary);
+max-width: 600px;
+margin: 0 auto 2rem;
+line-height: 1.8;
+}
+.cta-buttons {
+display: flex;
+gap: 1rem;
+justify-content: center;
+flex-wrap: wrap;
+}
+.btn {
+padding: 0.8rem 2rem;
+border: 2px solid;
+background: transparent;
+color: var(--text-primary);
+cursor: pointer;
+font-size: 0.95rem;
+font-family: 'Space Mono', monospace;
+transition: all 0.3s ease;
+text-decoration: none;
+display: inline-block;
+border-radius: 4px;
+}
+.btn-primary {
+border-color: var(--neon-cyan);
+color: var(--neon-cyan);
+}
+.btn-primary:hover {
+background: var(--neon-cyan);
+color: var(--bg-dark);
+box-shadow: 0 0 20px var(--neon-cyan);
+}
+.btn-secondary {
+border-color: var(--neon-purple);
+color: var(--neon-purple);
+}
+.btn-secondary:hover {
+background: var(--neon-purple);
+color: var(--bg-dark);
+box-shadow: 0 0 20px var(--neon-purple);
+}
+/* About Section */
+.about-content {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+align-items: center;
+}
+.about-text h3 {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.8rem;
+margin-bottom: 1.5rem;
+color: var(--neon-cyan);
+}
+.about-text p {
+margin-bottom: 1.5rem;
+line-height: 1.8;
+color: var(--text-secondary);
+}
+.about-stats {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 1.5rem;
+margin-top: 2rem;
+}
+.stat-box {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+padding: 1.5rem;
+border-radius: 8px;
+text-align: center;
+transition: all 0.3s ease;
+}
+.stat-box:hover {
+border-color: var(--neon-cyan);
+box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+.stat-number {
+font-family: 'Orbitron', sans-serif;
+font-size: 2rem;
+color: var(--neon-cyan);
+margin-bottom: 0.5rem;
+}
+.stat-label {
+font-size: 0.9rem;
+color: var(--text-secondary);
+}
+/* Skills Section */
+.skills-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+gap: 2rem;
+}
+.skill-category {
+background: var(--card-bg);
+border: 2px solid var(--border-color);
+padding: 2rem;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+.skill-category:hover {
+border-color: var(--neon-cyan);
+box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+.skill-category.cv {
+border-top-color: var(--accent-cv);
+}
+.skill-category.nlp {
+border-top-color: var(--accent-nlp);
+}
+.skill-category.ml {
+border-top-color: var(--accent-ml);
+}
+.skill-category.tools {
+border-top-color: var(--accent-music);
+}
+.skill-category h3 {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.3rem;
+margin-bottom: 1.5rem;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+.skill-category.cv h3 { color: var(--accent-cv); }
+.skill-category.nlp h3 { color: var(--accent-nlp); }
+.skill-category.ml h3 { color: var(--accent-ml); }
+.skill-category.tools h3 { color: var(--accent-music); }
+.skill-list {
+display: flex;
+flex-wrap: wrap;
+gap: 0.8rem;
+}
+.skill-tag {
+background: rgba(0, 217, 255, 0.1);
+border: 1px solid rgba(0, 217, 255, 0.3);
+color: var(--neon-cyan);
+padding: 0.5rem 1rem;
+border-radius: 20px;
+font-size: 0.85rem;
+font-family: 'Space Mono', monospace;
+transition: all 0.3s ease;
+}
+.skill-tag:hover {
+background: rgba(0, 217, 255, 0.2);
+border-color: var(--neon-cyan);
+}
+.skill-category.nlp .skill-tag {
+background: rgba(217, 70, 239, 0.1);
+border-color: rgba(217, 70, 239, 0.3);
+color: var(--neon-purple);
+}
+.skill-category.nlp .skill-tag:hover {
+background: rgba(217, 70, 239, 0.2);
+border-color: var(--neon-purple);
+}
+.skill-category.ml .skill-tag {
+background: rgba(57, 255, 20, 0.1);
+border-color: rgba(57, 255, 20, 0.3);
+color: var(--neon-lime);
+}
+.skill-category.ml .skill-tag:hover {
+background: rgba(57, 255, 20, 0.2);
+border-color: var(--neon-lime);
+}
+.skill-category.tools .skill-tag {
+background: rgba(255, 0, 110, 0.1);
+border-color: rgba(255, 0, 110, 0.3);
+color: var(--neon-pink);
+}
+.skill-category.tools .skill-tag:hover {
+background: rgba(255, 0, 110, 0.2);
+border-color: var(--neon-pink);
+}
+/* Timeline Section */
+.timeline {
+position: relative;
+padding: 2rem 0;
+}
+.timeline::before {
+content: '';
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+width: 2px;
+height: 100%;
+background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple), transparent);
+}
+.timeline-item {
+margin-bottom: 3rem;
+width: 48%;
+}
+.timeline-item:nth-child(odd) {
+margin-left: 0;
+text-align: right;
+padding-right: 4%;
+}
+.timeline-item:nth-child(even) {
+margin-left: 52%;
+text-align: left;
+padding-left: 4%;
+}
+.timeline-dot {
+position: absolute;
+left: 50%;
+transform: translateX(-50%);
+width: 12px;
+height: 12px;
+background: var(--neon-cyan);
+border: 3px solid var(--bg-dark);
+border-radius: 50%;
+top: 0;
+z-index: 2;
+box-shadow: 0 0 20px var(--neon-cyan);
+}
+.timeline-content {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+padding: 1.5rem;
+border-radius: 8px;
+transition: all 0.3s ease;
+}
+.timeline-content:hover {
+border-color: var(--neon-cyan);
+box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
+}
+.timeline-date {
+font-family: 'Space Mono', monospace;
+color: var(--neon-cyan);
+font-size: 0.9rem;
+margin-bottom: 0.5rem;
+}
+.timeline-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.2rem;
+margin-bottom: 0.5rem;
+color: var(--text-primary);
+}
+.timeline-org {
+color: var(--neon-purple);
+font-size: 0.95rem;
+margin-bottom: 0.8rem;
+}
+.timeline-desc {
+color: var(--text-secondary);
+font-size: 0.9rem;
+line-height: 1.6;
+}
+@media (max-width: 768px) {
+.timeline::before {
+left: 20px;
+}
+.timeline-item {
+width: 100%;
+margin-left: 0 !important;
+padding-left: 60px !important;
+padding-right: 0 !important;
+text-align: left !important;
+}
+.timeline-dot {
+left: 20px;
+}
+}
+/* Projects Section */
+.projects-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+gap: 2rem;
+}
+.project-card {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+border-radius: 8px;
+overflow: hidden;
+transition: all 0.3s ease;
+display: flex;
+flex-direction: column;
+}
+.project-card:hover {
+border-color: var(--neon-cyan);
+box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
+transform: translateY(-5px);
+}
+.project-header {
+padding: 1.5rem;
+border-bottom: 1px solid var(--border-color);
+}
+.project-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.2rem;
+margin-bottom: 0.5rem;
+color: var(--text-primary);
+}
+.project-category {
+font-size: 0.8rem;
+color: var(--neon-cyan);
+font-family: 'Space Mono', monospace;
+text-transform: uppercase;
+}
+.project-body {
+padding: 1.5rem;
+flex-grow: 1;
+}
+.project-desc {
+color: var(--text-secondary);
+font-size: 0.95rem;
+line-height: 1.6;
+margin-bottom: 1.5rem;
+}
+.project-metrics {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+margin-bottom: 1.5rem;
+}
+.metric {
+background: rgba(0, 217, 255, 0.1);
+border: 1px solid rgba(0, 217, 255, 0.2);
+color: var(--neon-cyan);
+padding: 0.4rem 0.8rem;
+border-radius: 4px;
+font-size: 0.8rem;
+font-family: 'Space Mono', monospace;
+}
+.project-links {
+display: flex;
+gap: 1rem;
+margin-top: 1rem;
+}
+.project-link {
+color: var(--neon-cyan);
+text-decoration: none;
+font-size: 0.9rem;
+font-family: 'Space Mono', monospace;
+border-bottom: 1px solid var(--neon-cyan);
+transition: all 0.3s ease;
+}
+.project-link:hover {
+color: var(--neon-purple);
+border-color: var(--neon-purple);
+}
+/* Education Section */
+.education-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+}
+.education-card {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+padding: 2rem;
+border-radius: 8px;
+transition: all 0.3s ease;
+text-align: center;
+}
+.education-card:hover {
+border-color: var(--neon-purple);
+box-shadow: 0 0 30px rgba(217, 70, 239, 0.15);
+}
+.education-year {
+font-family: 'Space Mono', monospace;
+color: var(--neon-purple);
+font-size: 0.9rem;
+margin-bottom: 1rem;
+}
+.education-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.2rem;
+margin-bottom: 0.5rem;
+color: var(--text-primary);
+}
+.education-org {
+color: var(--text-secondary);
+font-size: 0.95rem;
+margin-bottom: 1rem;
+}
+.education-desc {
+color: var(--text-secondary);
+font-size: 0.9rem;
+line-height: 1.6;
+}
+/* Music Section */
+.music-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 2rem;
+}
+.music-card {
+background: var(--card-bg);
+border: 2px solid var(--border-color);
+border-left-color: var(--neon-pink);
+padding: 2rem;
+border-radius: 8px;
+transition: all 0.3s ease;
+position: relative;
+}
+.music-card:hover {
+border-color: var(--neon-pink);
+box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
+}
+.music-title {
+font-family: 'Orbitron', sans-serif;
+font-size: 1.2rem;
+margin-bottom: 1rem;
+color: var(--neon-pink);
+}
+/* Custom Music Controls */
+.music-controls {
+display: flex;
+align-items: center;
+gap: 1rem;
+margin-bottom: 1.5rem;
+}
+.music-play-btn {
+background: transparent;
+border: 2px solid var(--neon-pink);
+color: var(--neon-pink);
+width: 50px;
+height: 50px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.2rem;
+cursor: pointer;
+transition: all 0.3s ease;
+flex-shrink: 0;
+}
+.music-play-btn:hover {
+background: var(--neon-pink);
+color: var(--bg-dark);
+box-shadow: 0 0 15px var(--neon-pink);
+}
+.music-play-btn.playing {
+background: var(--neon-pink);
+color: var(--bg-dark);
+}
+.music-progress {
+flex-grow: 1;
+height: 4px;
+background: rgba(255, 0, 110, 0.3);
+border-radius: 2px;
+position: relative;
+overflow: hidden;
+}
+.music-progress-bar {
+height: 100%;
+background: var(--neon-pink);
+width: 0%;
+transition: width 0.1s linear;
+}
+/* End Custom Music Controls */
+.music-link {
+display: inline-block;
+color: var(--neon-pink);
+text-decoration: none;
+font-family: 'Space Mono', monospace;
+font-size: 0.9rem;
+border-bottom: 1px solid var(--neon-pink);
+transition: all 0.3s ease;
+}
+.music-link:hover {
+color: var(--neon-cyan);
+border-color: var(--neon-cyan);
+}
+/* Contact Section */
+.contact-container {
+max-width: 600px;
+margin: 0 auto;
+}
+.contact-info {
+background: var(--card-bg);
+border: 1px solid var(--border-color);
+padding: 2rem;
+border-radius: 8px;
+margin-bottom: 2rem;
+text-align: center;
+}
+.contact-email {
+font-family: 'Space Mono', monospace;
+font-size: 1.3rem;
+color: var(--neon-cyan);
+margin-bottom: 1rem;
+word-break: break-all;
+}
+.contact-email a {
+color: var(--neon-cyan);
+text-decoration: none;
+transition: all 0.3s ease;
+}
+.contact-email a:hover {
+color: var(--neon-purple);
+}
+.contact-links {
+display: flex;
+gap: 1.5rem;
+justify-content: center;
+flex-wrap: wrap;
+margin-top: 1.5rem;
+}
+.contact-link {
+color: var(--text-secondary);
+text-decoration: none;
+font-size: 0.95rem;
+transition: all 0.3s ease;
+border-bottom: 2px solid transparent;
+}
+.contact-link:hover {
+color: var(--neon-cyan);
+border-bottom-color: var(--neon-cyan);
+}
+.form-group {
+margin-bottom: 1.5rem;
+}
+.form-group label {
+display: block;
+margin-bottom: 0.5rem;
+color: var(--text-primary);
+font-size: 0.95rem;
+}
+.form-group input,
+.form-group textarea {
+width: 100%;
+background: var(--bg-darker);
+border: 1px solid var(--border-color);
+color: var(--text-primary);
+padding: 0.8rem;
+border-radius: 4px;
+font-family: 'Inter', sans-serif;
+transition: all 0.3s ease;
+}
+.form-group input:focus,
+.form-group textarea:focus {
+outline: none;
+border-color: var(--neon-cyan);
+box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
+}
+.form-group textarea {
+resize: vertical;
+min-height: 120px;
+}
+.submit-btn {
+width: 100%;
+padding: 1rem;
+background: transparent;
+border: 2px solid var(--neon-cyan);
+color: var(--neon-cyan);
+font-family: 'Space Mono', monospace;
+font-size: 1rem;
+cursor: pointer;
+border-radius: 4px;
+transition: all 0.3s ease;
+}
+.submit-btn:hover {
+background: var(--neon-cyan);
+color: var(--bg-dark);
+box-shadow: 0 0 20px var(--neon-cyan);
+}
+/* Footer */
+footer {
+background: var(--bg-darker);
+border-top: 1px solid var(--border-color);
+padding: 2rem;
+text-align: center;
+color: var(--text-secondary);
+margin-top: 4rem;
+}
+.footer-content {
+max-width: 1200px;
+margin: 0 auto;
+}
+.footer-name {
+font-family: 'Orbitron', sans-serif;
+font-size: 0.9rem;
+color: var(--neon-cyan);
+margin-bottom: 0.5rem;
+}
+.footer-text {
+font-size: 0.85rem;
+color: var(--text-secondary);
+}
+/* Responsive */
+@media (max-width: 768px) {
+header {
+padding: 1rem;
+}
+.header-content {
+flex-direction: row; /* Keep row for logo and toggle */
+gap: 1rem;
+}
+.mobile-toggle {
+display: block;
+margin-left: auto;
+}
+nav {
+display: none;
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+background: rgba(10, 14, 39, 0.98);
+flex-direction: column;
+gap: 1rem;
+padding: 1rem 2rem;
+border-bottom: 1px solid var(--border-color);
+}
+nav.nav-active {
+display: flex;
+}
+.hero h1 {
+font-size: 2rem;
+}
+.hero .role {
+font-size: 1rem;
+}
+.section-title {
+font-size: 1.8rem;
+}
+.about-content {
+grid-template-columns: 1fr;
+}
+.cta-buttons {
+flex-direction: column;
+}
+.btn {
+width: 100%;
+}
+}
+/* Animations */
+@keyframes glow {
+0%, 100% {
+box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+50% {
+box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
+}
+}
+@keyframes float {
+0%, 100% {
+transform: translateY(0px);
+}
+50% {
+transform: translateY(-10px);
+}
+}
+.glow-animation {
+animation: glow 3s ease-in-out infinite;
+}
+.float-animation {
+animation: float 3s ease-in-out infinite;
+}
+</style>
 </head>
 <body>
-    <!-- Neural Network Canvas Background -->
-    <canvas id="neural-canvas"></canvas>
+<!-- Neural Network Canvas Background -->
+<canvas id="neural-canvas"></canvas>
+<!-- Header -->
+<header>
+<div class="header-content">
+<a href="https://tatyana-cv-b4y4sevr.manus.space/" class="logo" style="color: inherit; text-decoration: none;">GRATATI</a>
+<button class="mobile-toggle" id="mobile-toggle">☰</button>
+<nav id="main-nav">
+<a href="#about" data-en="About" data-ru="Обо мне">Обо мне</a>
+<a href="#skills" data-en="Skills" data-ru="Навыки">Навыки</a>
+<a href="#experience" data-en="Experience" data-ru="Опыт">Опыт</a>
+<a href="#projects" data-en="Projects" data-ru="Проекты">Проекты</a>
+<a href="#education" data-en="Education" data-ru="Образование">Образование</a>
+<a href="#music" data-en="Music" data-ru="Музыка">Музыка</a>
+<a href="#contact" data-en="Contact" data-ru="Контакты">Контакты</a>
+<button class="lang-toggle" id="lang-toggle">EN</button>
+</nav>
+</div>
+</header>
+<!-- Main Content -->
+<main>
+<!-- Hero Section -->
+<section class="hero">
+<h1 data-en="GRATATI" data-ru="GRATATI">GRATATI</h1>
+<div class="role" data-en="CV Engineer | AI Developer | Neural Music Creator" data-ru="CV Engineer | AI Developer | Опытный вайб-кодер">CV Engineer | AI Developer | Опытный вайб-кодер</div>
+<p data-en="Transforming ideas into intelligent systems. Specializing in Computer Vision, NLP, and Machine Learning with a passion for neural music creation." data-ru="Превращаю идеи в интеллектуальные системы. Специализируюсь на Computer Vision, NLP и Machine Learning с увлечением созданием нейромузыки.">Превращаю идеи в интеллектуальные системы. Специализируюсь на Computer Vision, NLP и Machine Learning с увлечением созданием нейромузыки.</p>
+<div class="cta-buttons">
+<a href="#projects" class="btn btn-primary" data-en="View Projects" data-ru="Смотреть проекты">Смотреть проекты</a>
+<a href="#contact" class="btn btn-secondary" data-en="Get in Touch" data-ru="Связаться">Связаться</a>
+</div>
+</section>
+<!-- About Section -->
+<section id="about">
+<h2 class="section-title" data-en="About" data-ru="Обо мне">Обо мне</h2>
+<div class="about-content">
+<div class="about-text">
+<h3 data-en="Journey to AI" data-ru="Путь в AI">Путь в AI</h3>
+<p data-en="Started as a Tech Support specialist at КонсультантПлюс (2014-2020), I transitioned into AI development through intensive learning and hands-on projects. My expertise spans Computer Vision, NLP, and Machine Learning, with a focus on building production-ready solutions." data-ru="Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешел в AI-разработку через интенсивное обучение и практические проекты. Мой опыт охватывает Computer Vision, NLP и Machine Learning с фокусом на создание production-ready решений.">Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешел в AI-разработку через интенсивное обучение и практические проекты. Мой опыт охватывает Computer Vision, NLP и Machine Learning с фокусом на создание production-ready решений.</p>
+<p data-en="English Level: B2 | Passionate about neural music creation and exploring the intersection of AI and creativity." data-ru="Уровень английского: B2 | Увлечен созданием нейромузыки и исследованием пересечения AI и творчества.">Уровень английского: B2 | Увлечен созданием нейромузыки и исследованием пересечения AI и творчества.</p>
+<div class="about-stats">
+<div class="stat-box">
+<div class="stat-number">10+</div>
+<div class="stat-label" data-en="Projects" data-ru="Проектов">Проектов</div>
+</div>
+<div class="stat-box">
+<div class="stat-number">5+</div>
+<div class="stat-label" data-en="Years Experience" data-ru="Лет опыта">Лет опыта</div>
+</div>
+<div class="stat-box">
+<div class="stat-number">94%</div>
+<div class="stat-label" data-en="Accuracy" data-ru="Точность">Точность</div>
+</div>
+<div class="stat-box">
+<div class="stat-number">B2</div>
+<div class="stat-label" data-en="English" data-ru="Английский">Английский</div>
+</div>
+</div>
+</div>
+<div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; text-align: center;">
+<div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
+<p style="color: var(--text-secondary); margin-bottom: 1.5rem;" data-en="AI/ML Specialist" data-ru="AI/ML Специалист">AI/ML Специалист</p>
+<p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;" data-en="Combining deep learning expertise with creative vision to build intelligent systems that matter." data-ru="Объединяю опыт глубокого обучения с творческим видением для создания интеллектуальных систем.">Объединяю опыт глубокого обучения с творческим видением для создания интеллектуальных систем.</p>
+</div>
+</div>
+</section>
+<!-- Skills Section -->
+<section id="skills">
+<h2 class="section-title" data-en="Skills" data-ru="Навыки">Навыки</h2>
+<div class="skills-grid">
+<div class="skill-category cv">
+<h3 data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</h3>
+<div class="skill-list">
+<span class="skill-tag">OpenCV</span>
+<span class="skill-tag">YOLO</span>
+<span class="skill-tag">SAM</span>
+<span class="skill-tag">Grounding DINO</span>
+<span class="skill-tag">EfficientNet</span>
+<span class="skill-tag">FPN</span>
+</div>
+</div>
+<div class="skill-category nlp">
+<h3 data-en="NLP" data-ru="NLP">NLP</h3>
+<div class="skill-list">
+<span class="skill-tag">BERT</span>
+<span class="skill-tag">LangChain</span>
+<span class="skill-tag">Qdrant</span>
+<span class="skill-tag">Vector DB</span>
+<span class="skill-tag">Sentiment Analysis</span>
+<span class="skill-tag">Chatbots</span>
+</div>
+</div>
+<div class="skill-category ml">
+<h3 data-en="Machine Learning" data-ru="Machine Learning">Machine Learning</h3>
+<div class="skill-list">
+<span class="skill-tag">TensorFlow</span>
+<span class="skill-tag">PyTorch</span>
+<span class="skill-tag">Scikit-learn</span>
+<span class="skill-tag">XGBoost</span>
+<span class="skill-tag">Optuna</span>
+<span class="skill-tag">AutoML</span>
+</div>
+</div>
+<div class="skill-category tools">
+<h3 data-en="Tools & Languages" data-ru="Инструменты">Инструменты</h3>
+<div class="skill-list">
+<span class="skill-tag">Python</span>
+<span class="skill-tag">SQL</span>
+<span class="skill-tag">Kotlin</span>
+<span class="skill-tag">Git</span>
+<span class="skill-tag">Docker</span>
+<span class="skill-tag">Streamlit</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Experience Timeline -->
+<section id="experience">
+<h2 class="section-title" data-en="Experience" data-ru="Опыт">Опыт</h2>
+<div class="timeline">
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-date">05.2025 – 07.2025</div>
+<div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
+<div class="timeline-org">Московский Политех</div>
+<div class="timeline-desc" data-en="Developed cascade sentiment model (XGBoost + BERT), created Streamlit application for real-time analysis." data-ru="Разработка каскадной модели тональности (XGBoost + BERT), создание Streamlit приложения.">Разработка каскадной модели тональности (XGBoost + BERT), создание Streamlit приложения.</div>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-date">12.2024</div>
+<div class="timeline-title" data-en="CV Engineer" data-ru="CV Engineer">CV Engineer</div>
+<div class="timeline-org">QGI (Medical)</div>
+<div class="timeline-desc" data-en="Paneth cell detection, attention mechanisms (CBAM), Feature Pyramid Networks." data-ru="Детекция клеток Панета, механизмы внимания (CBAM), FPN.">Детекция клеток Панета, механизмы внимания (CBAM), FPN.</div>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-date">11.2024</div>
+<div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
+<div class="timeline-org">QGI (Medical)</div>
+<div class="timeline-desc" data-en="YOLOv5/v9 optimization, EfficientNet implementation for medical imaging." data-ru="Оптимизация YOLOv5/v9, использование EfficientNet.">Оптимизация YOLOv5/v9, использование EfficientNet.</div>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-date">04.2024 – 06.2024</div>
+<div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
+<div class="timeline-org">Volley Play</div>
+<div class="timeline-desc" data-en="Volleyball court segmentation (SAM, Grounding DINO), Android integration." data-ru="Сегментация волейбольной площадки (SAM, Grounding DINO), интеграция в Android.">Сегментация волейбольной площадки (SAM, Grounding DINO), интеграция в Android.</div>
+</div>
+</div>
+<div class="timeline-item">
+<div class="timeline-dot"></div>
+<div class="timeline-content">
+<div class="timeline-date">01.2024 – 03.2024</div>
+<div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
+<div class="timeline-org">SGMU (Razumovskiy)</div>
+<div class="timeline-desc" data-en="Knowledge base creation, vector database chatbot testing." data-ru="Создание баз знаний, тестирование чат-ботов на векторных базах.">Создание баз знаний, тестирование чат-ботов на векторных базах.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects Section -->
+<section id="projects">
+<h2 class="section-title" data-en="Projects" data-ru="Проекты">Проекты</h2>
+<div class="projects-grid">
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="AI Document Constructor" data-ru="AI Конструктор документов">AI Конструктор документов</div>
+<div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="AI-powered legal document creation and editing platform with dual-panel interface. Real-time AI consulting integrated with interactive document editor." data-ru="Приложение для составления и редактирования юридических документов со встроенным AI-помощником. Двухпанельный интерфейс: чат на основе AI слева и интерактивный редактор справа.">Приложение для составления и редактирования юридических документов со встроенным AI-помощником. Двухпанельный интерфейс: чат на основе AI слева и интерактивный редактор справа.</p>
+<div class="project-metrics">
+<span class="metric">AI Integration</span>
+<span class="metric">Legal Tech</span>
+</div>
+<div class="project-links">
+<a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
+</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="IFS Therapy Facilitator" data-ru="IFS Therapy Facilitator">IFS Therapy Facilitator</div>
+<div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="Professional AI-driven session for Internal Family Systems, Gestalt, and Psychosynthesis therapy integration. Supports therapeutic workflows with intelligent guidance." data-ru="Профессиональный AI-ассистент для сеансов Internal Family Systems, Gestalt и Psychosynthesis терапии.">Профессиональный AI-ассистент для сеансов Internal Family Systems, Gestalt и Psychosynthesis терапии.</p>
+<div class="project-metrics">
+<span class="metric">Therapy Tech</span>
+<span class="metric">AI Assistant</span>
+</div>
+<div class="project-links">
+<a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
+</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="AI News Bot" data-ru="AI News Bot">AI News Bot</div>
+<div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="Russian-language AI assistant for delivering latest AI and technology news. Curated updates with intelligent summarization." data-ru="Русскоязычный AI-ассистент для доставки последних новостей об искусственном интеллекте и технологиях.">Русскоязычный AI-ассистент для доставки последних новостей об искусственном интеллекте и технологиях.</p>
+<div class="project-metrics">
+<span class="metric">NLP</span>
+<span class="metric">News Aggregation</span>
+</div>
+<div class="project-links">
+<a href="https://gclnk.com/XEGqVnxo" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
+</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="Sentiment Analysis" data-ru="Анализ тональности">Анализ тональности</div>
+<div class="project-category" data-en="NLP" data-ru="NLP">NLP</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="Cascade sentiment model combining XGBoost and BERT. Real-time analysis with Streamlit interface." data-ru="Каскадная модель тональности (XGBoost + BERT), Streamlit приложение для анализа.">Каскадная модель тональности (XGBoost + BERT), Streamlit приложение для анализа.</p>
+<div class="project-metrics">
+<span class="metric">Accuracy: 94%</span>
+<span class="metric">BERT</span>
+</div>
+<div class="project-links">
+<a href="https://gratati.github.io/docs/анализ тональности.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
+</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="CV Segmentation" data-ru="Сегментация CV">Сегментация CV</div>
+<div class="project-category" data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="SAM + U-Net segmentation model for medical imaging. Advanced attention mechanisms and feature extraction." data-ru="Модель сегментации SAM + U-Net для медицинских изображений.">Модель сегментации SAM + U-Net для медицинских изображений.</p>
+<div class="project-metrics">
+<span class="metric">SAM</span>
+<span class="metric">U-Net</span>
+</div>
+<div class="project-links">
+<a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
+</div>
+</div>
+</div>
+<div class="project-card">
+<div class="project-header">
+<div class="project-title" data-en="Object Detection" data-ru="Object Detection">Object Detection</div>
+<div class="project-category" data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</div>
+</div>
+<div class="project-body">
+<p class="project-desc" data-en="YOLOv5/v9 optimization and EfficientNet implementation for real-time detection." data-ru="Оптимизация YOLOv5/v9 и использование EfficientNet для детекции в реальном времени.">Оптимизация YOLOv5/v9 и использование EfficientNet для детекции в реальном времени.</p>
+<div class="project-metrics">
+<span class="metric">YOLO</span>
+<span class="metric">EfficientNet</span>
+</div>
+<div class="project-links">
+<a href="https://gratati.github.io/docs/object-detection.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Education Section -->
+<section id="education">
+<h2 class="section-title" data-en="Education" data-ru="Образование">Образование</h2>
+<div class="education-grid">
+<div class="education-card">
+<div class="education-year">2024</div>
+<div class="education-title" data-en="Android Developer" data-ru="Android разработчик">Android разработчик</div>
+<div class="education-org">Urbanuniversity.ru</div>
+<div class="education-desc" data-en="Professional Android development with Kotlin, modern architecture patterns, and integration with AI/ML models." data-ru="Профессиональная разработка Android приложений на Kotlin, интеграция с AI/ML моделями.">Профессиональная разработка Android приложений на Kotlin, интеграция с AI/ML моделями.</div>
+</div>
+<div class="education-card">
+<div class="education-year">2023</div>
+<div class="education-title" data-en="Data Science & ML" data-ru="Data Science & ML">Data Science & ML</div>
+<div class="education-org">Университет искусственного интеллекта</div>
+<div class="education-desc" data-en="Neural networks, deep learning, machine learning fundamentals, and advanced optimization techniques." data-ru="Нейронные сети, глубокое обучение, основы ML и продвинутые техники оптимизации.">Нейронные сети, глубокое обучение, основы ML и продвинутые техники оптимизации.</div>
+</div>
+<div class="education-card">
+<div class="education-year">1997</div>
+<div class="education-title" data-en="Construction Materials" data-ru="Строительные материалы">Строительные материалы</div>
+<div class="education-org">Национальная Академия (Симферополь)</div>
+<div class="education-desc" data-en="Foundation in technical disciplines and analytical thinking that later translated to AI/ML expertise." data-ru="Основы технических дисциплин и аналитического мышления.">Основы технических дисциплин и аналитического мышления.</div>
+</div>
+</div>
+</section>
+<!-- Music Section -->
+<section id="music">
+<h2 class="section-title" data-en="Neural Music" data-ru="Нейромузыка">Нейромузыка</h2>
+<div class="music-grid">
+<div class="music-card">
+<div class="music-title" data-en="Яблоко в руке" data-ru="Яблоко в руке">Яблоко в руке</div>
+<div class="music-controls">
+<button class="music-play-btn" data-src="https://gratati.github.io/music/Яблоко в руке.mp3">▶</button>
+<div class="music-progress"><div class="music-progress-bar"></div></div>
+</div>
+<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Neural composition exploring themes of simplicity and presence." data-ru="Нейрокомпозиция, исследующая темы простоты и присутствия.">Нейрокомпозиция, исследующая темы простоты и присутствия.</p>
+</div>
+<div class="music-card">
+<div class="music-title" data-en="Carnival Drift" data-ru="Carnival Drift">Carnival Drift</div>
+<div class="music-controls">
+<button class="music-play-btn" data-src="https://gratati.github.io/music/Carnival Drift.mp3">▶</button>
+<div class="music-progress"><div class="music-progress-bar"></div></div>
+</div>
+<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Energetic neural piece with dynamic rhythmic patterns." data-ru="Энергичная нейрокомпозиция с динамичными ритмическими паттернами.">Энергичная нейрокомпозиция с динамичными ритмическими паттернами.</p>
+</div>
+<div class="music-card">
+<div class="music-title" data-en="Code of Desire" data-ru="Code of Desire">Code of Desire</div>
+<div class="music-controls">
+<button class="music-play-btn" data-src="https://gratati.github.io/music/Code of Desire.mp3">▶</button>
+<div class="music-progress"><div class="music-progress-bar"></div></div>
+</div>
+<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Ambient neural composition blending technology and emotion." data-ru="Амбиентная нейрокомпозиция, сочетающая технологию и эмоцию.">Амбиентная нейрокомпозиция, сочетающая технологию и эмоцию.</p>
+</div>
+</div>
+<div style="text-align: center; margin-top: 3rem;">
+<p style="color: var(--text-secondary); margin-bottom: 1rem;" data-en="Explore more on Producer.ai" data-ru="Исследуйте больше на Producer.ai">Исследуйте больше на Producer.ai</p>
+<a href="https://www.producer.ai/gratati" class="music-link" target="_blank" data-en="Visit Producer.ai" data-ru="Посетить Producer.ai">Посетить Producer.ai</a>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact">
+<h2 class="section-title" data-en="Get in Touch" data-ru="Свяжитесь со мной">Свяжитесь со мной</h2>
+<div class="contact-container">
+<div class="contact-info">
+<div class="contact-email">
+<a href="mailto:gratati49@gmail.com">gratati49@gmail.com</a>
+</div>
+<div class="contact-links">
+<a href="https://t.me/mentvork" class="contact-link" target="_blank" data-en="Telegram" data-ru="Telegram">Telegram</a>
+<a href="https://github.com/gratati" class="contact-link" target="_blank" data-en="GitHub" data-ru="GitHub">GitHub</a>
+<a href="https://www.producer.ai/gratati" class="contact-link" target="_blank" data-en="Producer.ai" data-ru="Producer.ai">Producer.ai</a>
+</div>
+</div>
+<form id="contact-form" style="margin-top: 2rem;">
+<div class="form-group">
+<label for="name" data-en="Your Name" data-ru="Ваше имя">Ваше имя</label>
+<input type="text" id="name" name="name" required>
+</div>
+<div class="form-group">
+<label for="email" data-en="Your Email" data-ru="Ваш email">Ваш email</label>
+<input type="email" id="email" name="email" required>
+</div>
+<div class="form-group">
+<label for="subject" data-en="Subject" data-ru="Тема">Тема</label>
+<input type="text" id="subject" name="subject" required>
+</div>
+<div class="form-group">
+<label for="message" data-en="Message" data-ru="Сообщение">Сообщение</label>
+<textarea id="message" name="message" required></textarea>
+</div>
+<button type="submit" class="submit-btn" data-en="Send Message" data-ru="Отправить сообщение">Отправить сообщение</button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer>
+<div class="footer-content">
+<div class="footer-name">Gratati</div>
+<div class="footer-text" data-en="CV Engineer | AI Developer | Neural Music Creator" data-ru="CV Engineer | AI Developer | Опытный вайб-кодер">CV Engineer | AI Developer | Опытный вайб-кодер</div>
+<div class="footer-text" style="margin-top: 1rem; font-size: 0.8rem;" data-en="© 2026 All rights reserved." data-ru="© 2026 Все права защищены.">© 2026 Все права защищены.</div>
+</div>
+</footer>
+<!-- JavaScript -->
+<script>
+// Language Toggle
+let currentLang = 'ru';
+const langToggle = document.getElementById('lang-toggle');
+function setLanguage(lang) {
+currentLang = lang;
+document.documentElement.lang = lang;
+document.querySelectorAll('[data-en][data-ru]').forEach(el => {
+el.textContent = el.getAttribute(`data-${lang}`);
+});
+langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
+localStorage.setItem('language', lang);
+}
+langToggle.addEventListener('click', () => {
+setLanguage(currentLang === 'ru' ? 'en' : 'ru');
+});
+// Load saved language
+const savedLang = localStorage.getItem('language') || 'ru';
+setLanguage(savedLang);
 
-    <!-- Header -->
-    <header>
-        <div class="header-content">
-            <div class="logo">GRATATI</div>
-            <nav>
-                <a href="#about" data-en="About" data-ru="Обо мне">Обо мне</a>
-                <a href="#skills" data-en="Skills" data-ru="Навыки">Навыки</a>
-                <a href="#experience" data-en="Experience" data-ru="Опыт">Опыт</a>
-                <a href="#projects" data-en="Projects" data-ru="Проекты">Проекты</a>
-                <a href="#education" data-en="Education" data-ru="Образование">Образование</a>
-                <a href="#music" data-en="Music" data-ru="Музыка">Музыка</a>
-                <a href="#contact" data-en="Contact" data-ru="Контакты">Контакты</a>
-                <button class="lang-toggle" id="lang-toggle">EN</button>
-            </nav>
-        </div>
-    </header>
+// Mobile Menu Toggle
+const mobileToggle = document.getElementById('mobile-toggle');
+const mainNav = document.getElementById('main-nav');
+mobileToggle.addEventListener('click', () => {
+mainNav.classList.toggle('nav-active');
+mobileToggle.textContent = mainNav.classList.contains('nav-active') ? '✕' : '☰';
+});
 
-    <!-- Main Content -->
-    <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1 data-en="GRATATI" data-ru="GRATATI">GRATATI</h1>
-            <div class="role" data-en="CV Engineer | AI Developer | Neural Music Creator" data-ru="CV Engineer | AI Developer | Опытный вайб-кодер">CV Engineer | AI Developer | Опытный вайб-кодер</div>
-            <p data-en="Transforming ideas into intelligent systems. Specializing in Computer Vision, NLP, and Machine Learning with a passion for neural music creation." data-ru="Превращаю идеи в интеллектуальные системы. Специализируюсь на Computer Vision, NLP и Machine Learning с увлечением созданием нейромузыки.">Превращаю идеи в интеллектуальные системы. Специализируюсь на Computer Vision, NLP и Machine Learning с увлечением созданием нейромузыки.</p>
-            <div class="cta-buttons">
-                <a href="#projects" class="btn btn-primary" data-en="View Projects" data-ru="Смотреть проекты">Смотреть проекты</a>
-                <a href="#contact" class="btn btn-secondary" data-en="Get in Touch" data-ru="Связаться">Связаться</a>
-            </div>
-        </section>
+// Contact Form
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+e.preventDefault();
+const name = document.getElementById('name').value;
+const email = document.getElementById('email').value;
+const subject = document.getElementById('subject').value;
+const message = document.getElementById('message').value;
+const mailtoLink = `mailto:gratati49@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})
+${message}`)}`;
+window.location.href = mailtoLink;
+this.reset();
+});
 
-        <!-- About Section -->
-        <section id="about">
-            <h2 class="section-title" data-en="About" data-ru="Обо мне">Обо мне</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3 data-en="Journey to AI" data-ru="Путь в AI">Путь в AI</h3>
-                    <p data-en="Started as a Tech Support specialist at КонсультантПлюс (2014-2020), I transitioned into AI development through intensive learning and hands-on projects. My expertise spans Computer Vision, NLP, and Machine Learning, with a focus on building production-ready solutions." data-ru="Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешел в AI-разработку через интенсивное обучение и практические проекты. Мой опыт охватывает Computer Vision, NLP и Machine Learning с фокусом на создание production-ready решений.">Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешел в AI-разработку через интенсивное обучение и практические проекты. Мой опыт охватывает Computer Vision, NLP и Machine Learning с фокусом на создание production-ready решений.</p>
-                    <p data-en="English Level: B2 | Passionate about neural music creation and exploring the intersection of AI and creativity." data-ru="Уровень английского: B2 | Увлечен созданием нейромузыки и исследованием пересечения AI и творчества.">Уровень английского: B2 | Увлечен созданием нейромузыки и исследованием пересечения AI и творчества.</p>
-                    <div class="about-stats">
-                        <div class="stat-box">
-                            <div class="stat-number">10+</div>
-                            <div class="stat-label" data-en="Projects" data-ru="Проектов">Проектов</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">5+</div>
-                            <div class="stat-label" data-en="Years Experience" data-ru="Лет опыта">Лет опыта</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">94%</div>
-                            <div class="stat-label" data-en="Accuracy" data-ru="Точность">Точность</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-number">B2</div>
-                            <div class="stat-label" data-en="English" data-ru="Английский">Английский</div>
-                        </div>
-                    </div>
-                </div>
-                <div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; text-align: center;">
-                    <div style="font-size: 3rem; margin-bottom: 1rem;">🧠</div>
-                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;" data-en="AI/ML Specialist" data-ru="AI/ML Специалист">AI/ML Специалист</p>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;" data-en="Combining deep learning expertise with creative vision to build intelligent systems that matter." data-ru="Объединяю опыт глубокого обучения с творческим видением для создания интеллектуальных систем.">Объединяю опыт глубокого обучения с творческим видением для создания интеллектуальных систем.</p>
-                </div>
-            </div>
-        </section>
+// Music Player Script
+const musicButtons = document.querySelectorAll('.music-play-btn');
+let currentAudio = null;
+let currentBtn = null;
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <h2 class="section-title" data-en="Skills" data-ru="Навыки">Навыки</h2>
-            <div class="skills-grid">
-                <div class="skill-category cv">
-                    <h3 data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">OpenCV</span>
-                        <span class="skill-tag">YOLO</span>
-                        <span class="skill-tag">SAM</span>
-                        <span class="skill-tag">Grounding DINO</span>
-                        <span class="skill-tag">EfficientNet</span>
-                        <span class="skill-tag">FPN</span>
-                    </div>
-                </div>
-                <div class="skill-category nlp">
-                    <h3 data-en="NLP" data-ru="NLP">NLP</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">BERT</span>
-                        <span class="skill-tag">LangChain</span>
-                        <span class="skill-tag">Qdrant</span>
-                        <span class="skill-tag">Vector DB</span>
-                        <span class="skill-tag">Sentiment Analysis</span>
-                        <span class="skill-tag">Chatbots</span>
-                    </div>
-                </div>
-                <div class="skill-category ml">
-                    <h3 data-en="Machine Learning" data-ru="Machine Learning">Machine Learning</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">TensorFlow</span>
-                        <span class="skill-tag">PyTorch</span>
-                        <span class="skill-tag">Scikit-learn</span>
-                        <span class="skill-tag">XGBoost</span>
-                        <span class="skill-tag">Optuna</span>
-                        <span class="skill-tag">AutoML</span>
-                    </div>
-                </div>
-                <div class="skill-category tools">
-                    <h3 data-en="Tools & Languages" data-ru="Инструменты">Инструменты</h3>
-                    <div class="skill-list">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Kotlin</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Streamlit</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+musicButtons.forEach(btn => {
+btn.addEventListener('click', () => {
+const src = btn.getAttribute('data-src');
+const progressBar = btn.parentElement.querySelector('.music-progress-bar');
 
-        <!-- Experience Timeline -->
-        <section id="experience">
-            <h2 class="section-title" data-en="Experience" data-ru="Опыт">Опыт</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">05.2025 – 07.2025</div>
-                        <div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
-                        <div class="timeline-org">Московский Политех</div>
-                        <div class="timeline-desc" data-en="Developed cascade sentiment model (XGBoost + BERT), created Streamlit application for real-time analysis." data-ru="Разработка каскадной модели тональности (XGBoost + BERT), создание Streamlit приложения.">Разработка каскадной модели тональности (XGBoost + BERT), создание Streamlit приложения.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">12.2024</div>
-                        <div class="timeline-title" data-en="CV Engineer" data-ru="CV Engineer">CV Engineer</div>
-                        <div class="timeline-org">QGI (Medical)</div>
-                        <div class="timeline-desc" data-en="Paneth cell detection, attention mechanisms (CBAM), Feature Pyramid Networks." data-ru="Детекция клеток Панета, механизмы внимания (CBAM), FPN.">Детекция клеток Панета, механизмы внимания (CBAM), FPN.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">11.2024</div>
-                        <div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
-                        <div class="timeline-org">QGI (Medical)</div>
-                        <div class="timeline-desc" data-en="YOLOv5/v9 optimization, EfficientNet implementation for medical imaging." data-ru="Оптимизация YOLOv5/v9, использование EfficientNet.">Оптимизация YOLOv5/v9, использование EfficientNet.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">04.2024 – 06.2024</div>
-                        <div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
-                        <div class="timeline-org">Volley Play</div>
-                        <div class="timeline-desc" data-en="Volleyball court segmentation (SAM, Grounding DINO), Android integration." data-ru="Сегментация волейбольной площадки (SAM, Grounding DINO), интеграция в Android.">Сегментация волейбольной площадки (SAM, Grounding DINO), интеграция в Android.</div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <div class="timeline-date">01.2024 – 03.2024</div>
-                        <div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
-                        <div class="timeline-org">SGMU (Razumovskiy)</div>
-                        <div class="timeline-desc" data-en="Knowledge base creation, vector database chatbot testing." data-ru="Создание баз знаний, тестирование чат-ботов на векторных базах.">Создание баз знаний, тестирование чат-ботов на векторных базах.</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+// If clicking the same button that is playing
+if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+currentAudio.pause();
+btn.textContent = '▶';
+btn.classList.remove('playing');
+progressBar.style.width = '0%';
+return;
+}
 
-        <!-- Projects Section -->
-        <section id="projects">
-            <h2 class="section-title" data-en="Projects" data-ru="Проекты">Проекты</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="AI Document Constructor" data-ru="AI Конструктор документов">AI Конструктор документов</div>
-                        <div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="AI-powered legal document creation and editing platform with dual-panel interface. Real-time AI consulting integrated with interactive document editor." data-ru="Приложение для составления и редактирования юридических документов со встроенным AI-помощником. Двухпанельный интерфейс: чат на основе AI слева и интерактивный редактор справа.">Приложение для составления и редактирования юридических документов со встроенным AI-помощником. Двухпанельный интерфейс: чат на основе AI слева и интерактивный редактор справа.</p>
-                        <div class="project-metrics">
-                            <span class="metric">AI Integration</span>
-                            <span class="metric">Legal Tech</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://ai.studio/apps/drive/1WR-teFQnjFsi54En8GpRjjPux_sUlhAP" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
-                        </div>
-                    </div>
-                </div>
+// Stop previous track
+if (currentAudio) {
+currentAudio.pause();
+if (currentBtn) {
+currentBtn.textContent = '▶';
+currentBtn.classList.remove('playing');
+currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
+}
+}
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="IFS Therapy Facilitator" data-ru="IFS Therapy Facilitator">IFS Therapy Facilitator</div>
-                        <div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="Professional AI-driven session for Internal Family Systems, Gestalt, and Psychosynthesis therapy integration. Supports therapeutic workflows with intelligent guidance." data-ru="Профессиональный AI-ассистент для сеансов Internal Family Systems, Gestalt и Psychosynthesis терапии.">Профессиональный AI-ассистент для сеансов Internal Family Systems, Gestalt и Psychosynthesis терапии.</p>
-                        <div class="project-metrics">
-                            <span class="metric">Therapy Tech</span>
-                            <span class="metric">AI Assistant</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://docs.google.com/document/d/1_example" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
-                        </div>
-                    </div>
-                </div>
+// Play new track
+currentAudio = new Audio(src);
+currentBtn = btn;
+currentAudio.play();
+btn.textContent = '⏸';
+btn.classList.add('playing');
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="AI News Bot" data-ru="AI News Bot">AI News Bot</div>
-                        <div class="project-category" data-en="Google AI Studio" data-ru="Google AI Studio">Google AI Studio</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="Russian-language AI assistant for delivering latest AI and technology news. Curated updates with intelligent summarization." data-ru="Русскоязычный AI-ассистент для доставки последних новостей об искусственном интеллекте и технологиях.">Русскоязычный AI-ассистент для доставки последних новостей об искусственном интеллекте и технологиях.</p>
-                        <div class="project-metrics">
-                            <span class="metric">NLP</span>
-                            <span class="metric">News Aggregation</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://gclnk.com/XEGqVnxo" class="project-link" data-en="View Docs" data-ru="Смотреть документ">Перейти</a>
-                        </div>
-                    </div>
-                </div>
+// Update progress bar
+currentAudio.addEventListener('timeupdate', () => {
+if (currentAudio.duration) {
+const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
+progressBar.style.width = percent + '%';
+}
+});
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="Sentiment Analysis" data-ru="Анализ тональности">Анализ тональности</div>
-                        <div class="project-category" data-en="NLP" data-ru="NLP">NLP</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="Cascade sentiment model combining XGBoost and BERT. Real-time analysis with Streamlit interface." data-ru="Каскадная модель тональности (XGBoost + BERT), Streamlit приложение для анализа.">Каскадная модель тональности (XGBoost + BERT), Streamlit приложение для анализа.</p>
-                        <div class="project-metrics">
-                            <span class="metric">Accuracy: 94%</span>
-                            <span class="metric">BERT</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://gratati.github.io/docs/анализ тональности.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
-                        </div>
-                    </div>
-                </div>
+// Reset when ended
+currentAudio.addEventListener('ended', () => {
+btn.textContent = '▶';
+btn.classList.remove('playing');
+progressBar.style.width = '0%';
+currentAudio = null;
+currentBtn = null;
+});
+});
+});
 
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="CV Segmentation" data-ru="Сегментация CV">Сегментация CV</div>
-                        <div class="project-category" data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="SAM + U-Net segmentation model for medical imaging. Advanced attention mechanisms and feature extraction." data-ru="Модель сегментации SAM + U-Net для медицинских изображений.">Модель сегментации SAM + U-Net для медицинских изображений.</p>
-                        <div class="project-metrics">
-                            <span class="metric">SAM</span>
-                            <span class="metric">U-Net</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-title" data-en="Object Detection" data-ru="Object Detection">Object Detection</div>
-                        <div class="project-category" data-en="Computer Vision" data-ru="Computer Vision">Computer Vision</div>
-                    </div>
-                    <div class="project-body">
-                        <p class="project-desc" data-en="YOLOv5/v9 optimization and EfficientNet implementation for real-time detection." data-ru="Оптимизация YOLOv5/v9 и использование EfficientNet для детекции в реальном времени.">Оптимизация YOLOv5/v9 и использование EfficientNet для детекции в реальном времени.</p>
-                        <div class="project-metrics">
-                            <span class="metric">YOLO</span>
-                            <span class="metric">EfficientNet</span>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://gratati.github.io/docs/object-detection.pdf" class="project-link" data-en="View PDF" data-ru="Смотреть PDF">Смотреть PDF</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Education Section -->
-        <section id="education">
-            <h2 class="section-title" data-en="Education" data-ru="Образование">Образование</h2>
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-year">2024</div>
-                    <div class="education-title" data-en="Android Developer" data-ru="Android разработчик">Android разработчик</div>
-                    <div class="education-org">Urbanuniversity.ru</div>
-                    <div class="education-desc" data-en="Professional Android development with Kotlin, modern architecture patterns, and integration with AI/ML models." data-ru="Профессиональная разработка Android приложений на Kotlin, интеграция с AI/ML моделями.">Профессиональная разработка Android приложений на Kotlin, интеграция с AI/ML моделями.</div>
-                </div>
-                <div class="education-card">
-                    <div class="education-year">2023</div>
-                    <div class="education-title" data-en="Data Science & ML" data-ru="Data Science & ML">Data Science & ML</div>
-                    <div class="education-org">Университет искусственного интеллекта</div>
-                    <div class="education-desc" data-en="Neural networks, deep learning, machine learning fundamentals, and advanced optimization techniques." data-ru="Нейронные сети, глубокое обучение, основы ML и продвинутые техники оптимизации.">Нейронные сети, глубокое обучение, основы ML и продвинутые техники оптимизации.</div>
-                </div>
-                <div class="education-card">
-                    <div class="education-year">1997</div>
-                    <div class="education-title" data-en="Construction Materials" data-ru="Строительные материалы">Строительные материалы</div>
-                    <div class="education-org">Национальная Академия (Симферополь)</div>
-                    <div class="education-desc" data-en="Foundation in technical disciplines and analytical thinking that later translated to AI/ML expertise." data-ru="Основы технических дисциплин и аналитического мышления.">Основы технических дисциплин и аналитического мышления.</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Music Section -->
-        <section id="music">
-            <h2 class="section-title" data-en="Neural Music" data-ru="Нейромузыка">Нейромузыка</h2>
-            <div class="music-grid">
-                <div class="music-card">
-                    <div class="music-title" data-en="Яблоко в руке" data-ru="Яблоко в руке">Яблоко в руке</div>
-                    <audio class="music-player" controls>
-                        <source src="https://gratati.github.io/music/Яблоко в руке.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Neural composition exploring themes of simplicity and presence." data-ru="Нейрокомпозиция, исследующая темы простоты и присутствия.">Нейрокомпозиция, исследующая темы простоты и присутствия.</p>
-                </div>
-                <div class="music-card">
-                    <div class="music-title" data-en="Carnival Drift" data-ru="Carnival Drift">Carnival Drift</div>
-                    <audio class="music-player" controls>
-                        <source src="https://gratati.github.io/music/Carnival Drift.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Energetic neural piece with dynamic rhythmic patterns." data-ru="Энергичная нейрокомпозиция с динамичными ритмическими паттернами.">Энергичная нейрокомпозиция с динамичными ритмическими паттернами.</p>
-                </div>
-                <div class="music-card">
-                    <div class="music-title" data-en="Code of Desire" data-ru="Code of Desire">Code of Desire</div>
-                    <audio class="music-player" controls>
-                        <source src="https://gratati.github.io/music/Code of Desire.mp3" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Ambient neural composition blending technology and emotion." data-ru="Амбиентная нейрокомпозиция, сочетающая технологию и эмоцию.">Амбиентная нейрокомпозиция, сочетающая технологию и эмоцию.</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 3rem;">
-                <p style="color: var(--text-secondary); margin-bottom: 1rem;" data-en="Explore more on Producer.ai" data-ru="Исследуйте больше на Producer.ai">Исследуйте больше на Producer.ai</p>
-                <a href="https://www.producer.ai/gratati" class="music-link" target="_blank" data-en="Visit Producer.ai" data-ru="Посетить Producer.ai">Посетить Producer.ai</a>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact">
-            <h2 class="section-title" data-en="Get in Touch" data-ru="Свяжитесь со мной">Свяжитесь со мной</h2>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-email">
-                        <a href="mailto:gratati49@gmail.com">gratati49@gmail.com</a>
-                    </div>
-                    <div class="contact-links">
-                        <a href="https://t.me/mentvork" class="contact-link" target="_blank" data-en="Telegram" data-ru="Telegram">Telegram</a>
-                        <a href="https://github.com/gratati" class="contact-link" target="_blank" data-en="GitHub" data-ru="GitHub">GitHub</a>
-                        <a href="https://www.producer.ai/gratati" class="contact-link" target="_blank" data-en="Producer.ai" data-ru="Producer.ai">Producer.ai</a>
-                    </div>
-                </div>
-
-                <form id="contact-form" style="margin-top: 2rem;">
-                    <div class="form-group">
-                        <label for="name" data-en="Your Name" data-ru="Ваше имя">Ваше имя</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email" data-en="Your Email" data-ru="Ваш email">Ваш email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject" data-en="Subject" data-ru="Тема">Тема</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message" data-en="Message" data-ru="Сообщение">Сообщение</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn" data-en="Send Message" data-ru="Отправить сообщение">Отправить сообщение</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-name">Gratati</div>
-            <div class="footer-text" data-en="CV Engineer | AI Developer | Neural Music Creator" data-ru="CV Engineer | AI Developer | Опытный вайб-кодер">CV Engineer | AI Developer | Опытный вайб-кодер</div>
-            <div class="footer-text" style="margin-top: 1rem; font-size: 0.8rem;" data-en="© 2026 All rights reserved." data-ru="© 2026 Все права защищены.">© 2026 Все права защищены.</div>
-        </div>
-    </footer>
-
-    <!-- JavaScript -->
-    <script>
-        // Language Toggle
-        let currentLang = 'ru';
-        const langToggle = document.getElementById('lang-toggle');
-
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.lang = lang;
-            
-            document.querySelectorAll('[data-en][data-ru]').forEach(el => {
-                el.textContent = el.getAttribute(`data-${lang}`);
-            });
-
-            langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
-            localStorage.setItem('language', lang);
-        }
-
-        langToggle.addEventListener('click', () => {
-            setLanguage(currentLang === 'ru' ? 'en' : 'ru');
-        });
-
-        // Load saved language
-        const savedLang = localStorage.getItem('language') || 'ru';
-        setLanguage(savedLang);
-
-        // Contact Form
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject').value;
-            const message = document.getElementById('message').value;
-            
-            const mailtoLink = `mailto:gratati49@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
-            window.location.href = mailtoLink;
-            
-            this.reset();
-        });
-
-        // Neural Network Canvas Animation
-        const canvas = document.getElementById('neural-canvas');
-        const ctx = canvas.getContext('2d');
-        
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const connections = [];
-        let mouseX = canvas.width / 2;
-        let mouseY = canvas.height / 2;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 1.5 + 0.5;
-                this.color = ['#00d9ff', '#d946ef', '#39ff14', '#ff006e'][Math.floor(Math.random() * 4)];
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-
-                this.x = Math.max(0, Math.min(canvas.width, this.x));
-                this.y = Math.max(0, Math.min(canvas.height, this.y));
-
-                // Attraction to mouse
-                const dx = mouseX - this.x;
-                const dy = mouseY - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 200) {
-                    this.vx += (dx / distance) * 0.02;
-                    this.vy += (dy / distance) * 0.02;
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        // Initialize particles
-        for (let i = 0; i < 50; i++) {
-            particles.push(new Particle());
-        }
-
-        function drawConnections() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            drawConnections();
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-
-        // Mouse tracking
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        // Resize canvas on window resize
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href !== '#' && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
+// Neural Network Canvas Animation
+const canvas = document.getElementById('neural-canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const particles = [];
+const connections = [];
+let mouseX = canvas.width / 2;
+let mouseY = canvas.height / 2;
+class Particle {
+constructor() {
+this.x = Math.random() * canvas.width;
+this.y = Math.random() * canvas.height;
+this.vx = (Math.random() - 0.5) * 0.5;
+this.vy = (Math.random() - 0.5) * 0.5;
+this.radius = Math.random() * 1.5 + 0.5;
+this.color = ['#00d9ff', '#d946ef', '#39ff14', '#ff006e'][Math.floor(Math.random() * 4)];
+}
+update() {
+this.x += this.vx;
+this.y += this.vy;
+if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+this.x = Math.max(0, Math.min(canvas.width, this.x));
+this.y = Math.max(0, Math.min(canvas.height, this.y));
+// Attraction to mouse
+const dx = mouseX - this.x;
+const dy = mouseY - this.y;
+const distance = Math.sqrt(dx * dx + dy * dy);
+if (distance < 200) {
+this.vx += (dx / distance) * 0.02;
+this.vy += (dy / distance) * 0.02;
+}
+}
+draw() {
+ctx.fillStyle = this.color;
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+// Initialize particles
+for (let i = 0; i < 50; i++) {
+particles.push(new Particle());
+}
+function drawConnections() {
+for (let i = 0; i < particles.length; i++) {
+for (let j = i + 1; j < particles.length; j++) {
+const dx = particles[i].x - particles[j].x;
+const dy = particles[i].y - particles[j].y;
+const distance = Math.sqrt(dx * dx + dy * dy);
+if (distance < 150) {
+ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
+ctx.lineWidth = 0.5;
+ctx.beginPath();
+ctx.moveTo(particles[i].x, particles[i].y);
+ctx.lineTo(particles[j].x, particles[j].y);
+ctx.stroke();
+}
+}
+}
+}
+function animate() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+particles.forEach(particle => {
+particle.update();
+particle.draw();
+});
+drawConnections();
+requestAnimationFrame(animate);
+}
+animate();
+// Mouse tracking
+document.addEventListener('mousemove', (e) => {
+mouseX = e.clientX;
+mouseY = e.clientY;
+});
+// Resize canvas on window resize
+window.addEventListener('resize', () => {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+});
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function (e) {
+const href = this.getAttribute('href');
+if (href !== '#' && document.querySelector(href)) {
+e.preventDefault();
+document.querySelector(href).scrollIntoView({
+behavior: 'smooth',
+block: 'start'
+});
+// Close mobile menu on link click
+if (window.innerWidth <= 768) {
+mainNav.classList.remove('nav-active');
+mobileToggle.textContent = '☰';
+}
+}
+});
+});
+</script>
 </body>
 </html>
