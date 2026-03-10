@@ -238,7 +238,7 @@
             font-weight: 600; color: var(--primary);
         }
         
-        /* Music */
+        /* Music & Audio Player */
         .music-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
@@ -250,6 +250,100 @@
         }
         .music-icon {
             font-size: 2rem; margin-bottom: 1rem;
+        }
+        
+        /* Custom Audio Player */
+        .audio-player {
+            background: var(--gradient);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            color: white;
+        }
+        .audio-player-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .audio-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: none;
+            background: white;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .audio-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .audio-btn:active {
+            transform: scale(0.98);
+        }
+        .audio-progress {
+            flex: 1;
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .audio-progress-bar {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .audio-time {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            min-width: 80px;
+            text-align: right;
+        }
+        .audio-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 30px;
+            margin: 1rem 0;
+        }
+        .wave-bar {
+            width: 4px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 2px;
+            animation: wave 1s ease-in-out infinite;
+        }
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+        .wave-bar.playing {
+            background: white;
+            animation-play-state: running;
+        }
+        .wave-bar.paused {
+            animation-play-state: paused;
+        }
+        @keyframes wave {
+            0%, 100% { height: 8px; }
+            50% { height: 24px; }
         }
         
         /* Contact */
@@ -308,6 +402,14 @@
             padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
         }
         
+        /* Language variants */
+        [data-lang="en"] { display: none; }
+        body.lang-en [data-lang="ru"] { display: none; }
+        body.lang-en [data-lang="en"] { display: block; }
+        body.lang-en .hero-tags span:after {
+            content: attr(data-en);
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .header-content { flex-wrap: wrap; gap: 1rem; }
@@ -323,10 +425,11 @@
             .about-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
+            .audio-player { max-width: 100%; }
         }
     </style>
 </head>
-<body>
+<body class="lang-ru">
     <!-- Header -->
     <header>
         <div class="container header-content">
@@ -334,32 +437,36 @@
             <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">☰</button>
             <nav>
                 <ul>
-                    <li><a href="#about">Обо мне</a></li>
-                    <li><a href="#skills">Решения</a></li>
-                    <li><a href="#experience">Опыт</a></li>
-                    <li><a href="#projects">Кейсы</a></li>
-                    <li><a href="#education">Образование</a></li>
-                    <li><a href="#music">Аудио-брендинг</a></li>
-                    <li><a href="#contact">Контакты</a></li>
+                    <li><a href="#about" data-lang="ru">Обо мне</a><a href="#about" data-lang="en">About</a></li>
+                    <li><a href="#skills" data-lang="ru">Решения</a><a href="#skills" data-lang="en">Solutions</a></li>
+                    <li><a href="#experience" data-lang="ru">Опыт</a><a href="#experience" data-lang="en">Experience</a></li>
+                    <li><a href="#projects" data-lang="ru">Кейсы</a><a href="#projects" data-lang="en">Cases</a></li>
+                    <li><a href="#education" data-lang="ru">Образование</a><a href="#education" data-lang="en">Education</a></li>
+                    <li><a href="#music" data-lang="ru">Аудио-брендинг</a><a href="#music" data-lang="en">Audio Branding</a></li>
+                    <li><a href="#contact" data-lang="ru">Контакты</a><a href="#contact" data-lang="en">Contact</a></li>
                 </ul>
             </nav>
-            <button class="lang-switch">EN</button>
+            <button class="lang-switch" onclick="toggleLanguage()">EN</button>
         </div>
     </header>
 
     <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h1>ИИ ДЛЯ РОСТА БИЗНЕСА</h1>
+            <h1 data-lang="ru">ИИ ДЛЯ РОСТА БИЗНЕСА</h1>
+            <h1 data-lang="en">AI FOR BUSINESS GROWTH</h1>
             <div class="hero-tags">
-                <span>Автоматизация</span> • 
-                <span>Компьютерное зрение</span> • 
-                <span>ИИ-решения</span>
+                <span data-lang="ru">Автоматизация</span><span data-lang="en">Automation</span> • 
+                <span data-lang="ru">Компьютерное зрение</span><span data-lang="en">Computer Vision</span> • 
+                <span data-lang="ru">ИИ-решения</span><span data-lang="en">AI Solutions</span>
             </div>
-            <p>Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.</p>
+            <p data-lang="ru">Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.</p>
+            <p data-lang="en">Helping small and medium businesses save time and money through Artificial Intelligence implementation. From document automation to mobile computer vision.</p>
             <div>
-                <a href="#projects" class="btn">Смотреть кейсы</a>
-                <a href="#contact" class="btn btn-outline">Обсудить проект</a>
+                <a href="#projects" class="btn" data-lang="ru">Смотреть кейсы</a>
+                <a href="#projects" class="btn" data-lang="en">View Cases</a>
+                <a href="#contact" class="btn btn-outline" data-lang="ru">Обсудить проект</a>
+                <a href="#contact" class="btn btn-outline" data-lang="en">Discuss Project</a>
             </div>
         </div>
     </section>
@@ -368,32 +475,40 @@
     <section id="about">
         <div class="container">
             <div class="section-title">
-                <h2>Обо мне</h2>
-                <p>Ваш партнер в сфере ИИ</p>
+                <h2 data-lang="ru">Обо мне</h2>
+                <h2 data-lang="en">About Me</h2>
+                <p data-lang="ru">Ваш партнер в сфере ИИ</p>
+                <p data-lang="en">Your AI Partner</p>
             </div>
             <div class="about-grid">
                 <div>
-                    <p>Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешла в разработку ИИ-решений. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.</p>
+                    <p data-lang="ru">Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешла в разработку ИИ-решений. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.</p>
+                    <p data-lang="en">Starting as a tech support specialist at ConsultantPlus (2014-2020), I transitioned to AI solutions development. I understand business pain points and create solutions that work, not just code.</p>
                     <p style="margin-top: 1rem; color: var(--gray);">
-                        Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.
+                        <span data-lang="ru">Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.</span>
+                        <span data-lang="en">English Level: B2 | Focus on ROI and process optimization for entrepreneurs.</span>
                     </p>
                 </div>
                 <div class="about-stats">
                     <div class="stat-card">
                         <span class="number">10+</span>
-                        <span class="label">Бизнес-кейсов</span>
+                        <span class="label" data-lang="ru">Бизнес-кейсов</span>
+                        <span class="label" data-lang="en">Business Cases</span>
                     </div>
                     <div class="stat-card">
                         <span class="number">3+</span>
-                        <span class="label">Лет опыта</span>
+                        <span class="label" data-lang="ru">Лет опыта</span>
+                        <span class="label" data-lang="en">Years Experience</span>
                     </div>
                     <div class="stat-card">
                         <span class="number">95%</span>
-                        <span class="label">Точность моделей</span>
+                        <span class="label" data-lang="ru">Точность моделей</span>
+                        <span class="label" data-lang="en">Model Accuracy</span>
                     </div>
                     <div class="stat-card">
                         <span class="number">24/7</span>
-                        <span class="label">Автоматизация</span>
+                        <span class="label" data-lang="ru">Автоматизация</span>
+                        <span class="label" data-lang="en">Automation</span>
                     </div>
                 </div>
             </div>
@@ -404,48 +519,49 @@
     <section id="skills" style="background: var(--light);">
         <div class="container">
             <div class="section-title">
-                <h2>🚀 ИИ для Бизнеса</h2>
-                <p>Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.</p>
+                <h2>🚀 <span data-lang="ru">ИИ для Бизнеса</span><span data-lang="en">AI for Business</span></h2>
+                <p data-lang="ru">Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.</p>
+                <p data-lang="en">Combining technical expertise with business logic for measurable results.</p>
             </div>
             <div class="skills-grid">
                 <div class="skill-card">
-                    <h3>👁️ Компьютерное зрение</h3>
+                    <h3>👁️ <span data-lang="ru">Компьютерное зрение</span><span data-lang="en">Computer Vision</span></h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Детекция объектов</span>
-                        <span class="skill-tag">Сегментация</span>
-                        <span class="skill-tag">Мобильный ИИ</span>
-                        <span class="skill-tag">Контроль качества</span>
-                        <span class="skill-tag">Безопасность</span>
+                        <span class="skill-tag" data-lang="ru">Детекция объектов</span><span class="skill-tag" data-lang="en">Object Detection</span>
+                        <span class="skill-tag" data-lang="ru">Сегментация</span><span class="skill-tag" data-lang="en">Segmentation</span>
+                        <span class="skill-tag" data-lang="ru">Мобильный ИИ</span><span class="skill-tag" data-lang="en">Mobile AI</span>
+                        <span class="skill-tag" data-lang="ru">Контроль качества</span><span class="skill-tag" data-lang="en">Quality Control</span>
+                        <span class="skill-tag" data-lang="ru">Безопасность</span><span class="skill-tag" data-lang="en">Security</span>
                     </div>
                 </div>
                 <div class="skill-card">
-                    <h3>📝 Текст и Данные</h3>
+                    <h3>📝 <span data-lang="ru">Текст и Данные</span><span data-lang="en">Text & Data</span></h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Чат-боты</span>
-                        <span class="skill-tag">Анализ документов</span>
-                        <span class="skill-tag">Анализ тональности</span>
-                        <span class="skill-tag">База знаний</span>
-                        <span class="skill-tag">Автоматизация</span>
+                        <span class="skill-tag" data-lang="ru">Чат-боты</span><span class="skill-tag" data-lang="en">Chatbots</span>
+                        <span class="skill-tag" data-lang="ru">Анализ документов</span><span class="skill-tag" data-lang="en">Document Analysis</span>
+                        <span class="skill-tag" data-lang="ru">Анализ тональности</span><span class="skill-tag" data-lang="en">Sentiment Analysis</span>
+                        <span class="skill-tag" data-lang="ru">База знаний</span><span class="skill-tag" data-lang="en">Knowledge Base</span>
+                        <span class="skill-tag" data-lang="ru">Автоматизация</span><span class="skill-tag" data-lang="en">Automation</span>
                     </div>
                 </div>
                 <div class="skill-card">
-                    <h3>🤖 Машинное обучение</h3>
+                    <h3>🤖 <span data-lang="ru">Машинное обучение</span><span data-lang="en">Machine Learning</span></h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Прогнозирование</span>
-                        <span class="skill-tag">Классификация</span>
-                        <span class="skill-tag">Оптимизация</span>
+                        <span class="skill-tag" data-lang="ru">Прогнозирование</span><span class="skill-tag" data-lang="en">Prediction</span>
+                        <span class="skill-tag" data-lang="ru">Классификация</span><span class="skill-tag" data-lang="en">Classification</span>
+                        <span class="skill-tag" data-lang="ru">Оптимизация</span><span class="skill-tag" data-lang="en">Optimization</span>
                         <span class="skill-tag">TensorFlow</span>
                         <span class="skill-tag">PyTorch</span>
                     </div>
                 </div>
                 <div class="skill-card">
-                    <h3>🔧 Внедрение</h3>
+                    <h3>🔧 <span data-lang="ru">Внедрение</span><span data-lang="en">Deployment</span></h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Android (Kotlin)</span>
                         <span class="skill-tag">TF Lite</span>
                         <span class="skill-tag">Docker</span>
-                        <span class="skill-tag">Интеграция API</span>
-                        <span class="skill-tag">Облачные решения</span>
+                        <span class="skill-tag" data-lang="ru">Интеграция API</span><span class="skill-tag" data-lang="en">API Integration</span>
+                        <span class="skill-tag" data-lang="ru">Облачные решения</span><span class="skill-tag" data-lang="en">Cloud Solutions</span>
                     </div>
                 </div>
             </div>
@@ -456,38 +572,49 @@
     <section id="experience">
         <div class="container">
             <div class="section-title">
-                <h2>Опыт работы</h2>
+                <h2 data-lang="ru">Опыт работы</h2>
+                <h2 data-lang="en">Work Experience</h2>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-date">05.2025 – 07.2025</div>
-                    <div class="timeline-role">Специалист по данным</div>
-                    <div class="timeline-company">Московский Политех</div>
-                    <p>Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.</p>
+                    <div class="timeline-role" data-lang="ru">Специалист по данным</div>
+                    <div class="timeline-role" data-lang="en">Data Scientist</div>
+                    <div class="timeline-company">Московский Политех / Moscow Polytechnic</div>
+                    <p data-lang="ru">Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.</p>
+                    <p data-lang="en">Developed cascaded sentiment model for business analytics. Created web app for real-time data processing.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-date">12.2024</div>
-                    <div class="timeline-role">Инженер по компьютерному зрению</div>
-                    <div class="timeline-company">КьюДжейАй (Медицина)</div>
-                    <p>Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
+                    <div class="timeline-role" data-lang="ru">Инженер по компьютерному зрению</div>
+                    <div class="timeline-role" data-lang="en">Computer Vision Engineer</div>
+                    <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
+                    <p data-lang="ru">Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
+                    <p data-lang="en">Paneth cell detection for medical diagnostics. Implemented attention mechanisms for improved accuracy.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-date">11.2024</div>
-                    <div class="timeline-role">Разработчик ИИ-решений</div>
-                    <div class="timeline-company">КьюДжейАй (Медицина)</div>
-                    <p>Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
+                    <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div>
+                    <div class="timeline-role" data-lang="en">AI Solutions Developer</div>
+                    <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
+                    <p data-lang="ru">Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
+                    <p data-lang="en">Optimized models for fast inference. Implemented EfficientNet for medical image analysis.</p>
                 </div>
                 <div class="timeline-item"> 
                     <div class="timeline-date">04.2024 – 06.2024</div>
-                    <div class="timeline-role">Разработчик ИИ-решений</div>
-                    <div class="timeline-company">Волей Плей</div>
-                    <p>Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.</p>
+                    <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div>
+                    <div class="timeline-role" data-lang="en">AI Solutions Developer</div>
+                    <div class="timeline-company">Волей Плей / Volley Play</div>
+                    <p data-lang="ru">Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.</p>
+                    <p data-lang="en">Volleyball court segmentation for sports analytics. Integrated AI into Android application.</p>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-date">01.2024 – 03.2024</div>
-                    <div class="timeline-role">Специалист по данным</div>
-                    <div class="timeline-company">СГМУ (Разумовского)</div>
-                    <p>Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</p>
+                    <div class="timeline-role" data-lang="ru">Специалист по данным</div>
+                    <div class="timeline-role" data-lang="en">Data Scientist</div>
+                    <div class="timeline-company">СГМУ (Разумовского) / SGMU (Razumovskiy)</div>
+                    <p data-lang="ru">Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</p>
+                    <p data-lang="en">Created knowledge bases and tested chatbots on vector databases for support automation.</p>
                 </div>
             </div>
         </div>
@@ -497,80 +624,99 @@
     <section id="projects" style="background: var(--light);">
         <div class="container">
             <div class="section-title">
-                <h2>Кейсы для бизнеса</h2>
+                <h2 data-lang="ru">Кейсы для бизнеса</h2>
+                <h2 data-lang="en">Business Cases</h2>
             </div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>📄 ИИ-конструктор документов</h3>
-                        <p style="color: var(--gray);">Автоматизация права</p>
-                        <p>Сокращает время создания юридических документов на 70%. ИИ-консультант встроен прямо в редактор.</p>
+                        <h3>📄 <span data-lang="ru">ИИ-конструктор документов</span><span data-lang="en">AI Document Builder</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">Автоматизация права</p>
+                        <p style="color: var(--gray);" data-lang="en">Legal Automation</p>
+                        <p data-lang="ru">Сокращает время создания юридических документов на 70%. ИИ-консультант встроен прямо в редактор.</p>
+                        <p data-lang="en">Reduces legal document creation time by 70%. AI consultant built directly into the editor.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Экономия времени</span>
-                            <span class="project-tag">Юридическая обработка</span>
+                            <span class="project-tag" data-lang="ru">Экономия времени</span><span class="project-tag" data-lang="en">Time Saving</span>
+                            <span class="project-tag" data-lang="ru">Юридическая обработка</span><span class="project-tag" data-lang="en">Legal Tech</span>
                         </div>
-                        <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                        <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Протестировать</a>
+                        <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">Try Demo</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>🧠 ИИ для Психотерапии</h3>
-                        <p style="color: var(--gray);">Медицинские технологии</p>
-                        <p>ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
+                        <h3>🧠 <span data-lang="ru">ИИ для Психотерапии</span><span data-lang="en">AI for Psychotherapy</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">Медицинские технологии</p>
+                        <p style="color: var(--gray);" data-lang="en">Health Tech</p>
+                        <p data-lang="ru">ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
+                        <p data-lang="en">AI assistant for therapy sessions. Supports workflows and provides intelligent prompts.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Медицинские технологии</span>
-                            <span class="project-tag">Поддержка и забота</span>
+                            <span class="project-tag" data-lang="ru">Медицинские технологии</span><span class="project-tag" data-lang="en">Health Tech</span>
+                            <span class="project-tag" data-lang="ru">Поддержка и забота</span><span class="project-tag" data-lang="en">Support & Care</span>
                         </div>
-                        <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                        <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Протестировать</a>
+                        <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">Try Demo</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>📰 ИИ-Агрегатор новостей</h3>
-                        <p style="color: var(--gray);">Авто-контент</p>
-                        <p>Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.</p>
+                        <h3>📰 <span data-lang="ru">ИИ-Агрегатор новостей</span><span data-lang="en">AI News Aggregator</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">Авто-контент</p>
+                        <p style="color: var(--gray);" data-lang="en">Auto-Content</p>
+                        <p data-lang="ru">Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.</p>
+                        <p data-lang="en">Automatic delivery of AI and tech news. Smart summarization saves reading time.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Обработка естественного языка</span>
-                            <span class="project-tag">Автоматизация</span>
+                            <span class="project-tag" data-lang="ru">Обработка естественного языка</span><span class="project-tag" data-lang="en">Natural Language Processing</span>
+                            <span class="project-tag" data-lang="ru">Автоматизация</span><span class="project-tag" data-lang="en">Automation</span>
                         </div>
-                        <a href="https://gclnk.com/XEGqVnxo" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                        <a href="https://gclnk.com/XEGqVnxo" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Протестировать</a>
+                        <a href="https://gclnk.com/XEGqVnxo" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">Try Demo</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>💬 Анализ отзывов клиентов</h3>
-                        <p style="color: var(--gray);">Аналитика отзывов клиентов</p>
-                        <p>Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте свою репутацию в реальном времени.</p>
+                        <h3>💬 <span data-lang="ru">Анализ отзывов клиентов</span><span data-lang="en">Customer Feedback Analysis</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">Аналитика отзывов клиентов</p>
+                        <p style="color: var(--gray);" data-lang="en">Customer Review Analytics</p>
+                        <p data-lang="ru">Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте свою репутацию в реальном времени.</p>
+                        <p data-lang="en">Cascaded model (XGBoost + BERT) for automatic review analysis. Track your reputation in real-time.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Точность: 95%</span>
-                            <span class="project-tag">Обработка естественного языка</span>
+                            <span class="project-tag" data-lang="ru">Точность: 95%</span><span class="project-tag" data-lang="en">Accuracy: 95%</span>
+                            <span class="project-tag" data-lang="ru">Обработка естественного языка</span><span class="project-tag" data-lang="en">NLP</span>
                         </div>
-                        <a href="https://gratati.github.io/docs/анализ тональности.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/анализ тональности.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/анализ тональности.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">View Case</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>📱 Детекция на мобильном</h3>
-                        <p style="color: var(--gray);">ИИ для Андроид</p>
-                        <p>Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
+                        <h3>📱 <span data-lang="ru">Детекция на мобильном</span><span data-lang="en">Mobile Object Detection</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">ИИ для Андроид</p>
+                        <p style="color: var(--gray);" data-lang="en">AI for Android</p>
+                        <p data-lang="ru">Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
+                        <p data-lang="en">TensorFlow Lite model for Android app. Real-time object detection without internet. Perfect for field work.</p>
                         <div class="project-tags">
-                            <span class="project-tag">TF Lite модель</span>
-                            <span class="project-tag">Офлайн-режим</span>
+                            <span class="project-tag">TF Lite</span>
+                            <span class="project-tag" data-lang="ru">Офлайн-режим</span><span class="project-tag" data-lang="en">Offline Mode</span>
                         </div>
-                        <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">View Case</a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-content">
-                        <h3>⚽ Сегментация игрового поля</h3>
-                        <p style="color: var(--gray);">Спортивная аналитика</p>
-                        <p>Автоматическая сегментация игровых полей и игроков для спортивной аналитики. Две ИИ-модели (SAM / U-Net) работают в реальном времени для автоматической разметки спортивных датасетов.</p>
+                        <h3>⚽ <span data-lang="ru">Сегментация игрового поля</span><span data-lang="en">Sports Field Segmentation</span></h3>
+                        <p style="color: var(--gray);" data-lang="ru">Спортивная аналитика</p>
+                        <p style="color: var(--gray);" data-lang="en">Sports Analytics</p>
+                        <p data-lang="ru">Автоматическая сегментация игровых полей и игроков для спортивной аналитики. Две ИИ-модели (SAM / U-Net) работают в реальном времени для автоматической разметки спортивных датасетов.</p>
+                        <p data-lang="en">Automatic segmentation of sports fields and players for analytics. Two AI models (SAM / U-Net) work in real-time for automatic sports dataset labeling.</p>
                         <div class="project-tags">
                             <span class="project-tag">SAM / U-Net</span>
-                            <span class="project-tag">В реальном времени</span>
-                            <span class="project-tag">Авто-разметка</span>
+                            <span class="project-tag" data-lang="ru">В реальном времени</span><span class="project-tag" data-lang="en">Real-time</span>
+                            <span class="project-tag" data-lang="ru">Авто-разметка</span><span class="project-tag" data-lang="en">Auto-labeling</span>
                         </div>
-                        <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="ru">Изучить кейс</a>
+                        <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;" data-lang="en">View Case</a>
                     </div>
                 </div>
             </div>
@@ -581,54 +727,90 @@
     <section id="education">
         <div class="container">
             <div class="section-title">
-                <h2>Квалификация</h2>
+                <h2 data-lang="ru">Квалификация</h2>
+                <h2 data-lang="en">Qualifications</h2>
             </div>
             <div class="education-grid">
                 <div class="education-item">
                     <div class="education-year">2024</div>
-                    <strong>Разработчик Android</strong> — Урбан Университет(Urbanuniversity.ru)
-                    <p style="margin-top: 0.5rem; color: var(--gray);">Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.</p>
+                    <strong><span data-lang="ru">Разработчик Android</span><span data-lang="en">Android Developer</span></strong> — Urbanuniversity.ru
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="ru">Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="en">Mobile development with Kotlin. Ability to deploy AI models directly into client applications.</p>
                 </div>
                 <div class="education-item">
                     <div class="education-year">2023</div>
-                    <strong>Наука о данных и машинное обучение</strong> — Университет искусственного интеллекта(neural-university.ru)
-                    <p style="margin-top: 0.5rem; color: var(--gray);">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</p>
+                    <strong><span data-lang="ru">Наука о данных и машинное обучение</span><span data-lang="en">Data Science & Machine Learning</span></strong> — neural-university.ru
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="ru">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="en">Neural networks, deep learning and optimization techniques for business tasks.</p>
                 </div>
                 <div class="education-item">
                     <div class="education-year">1997</div>
-                    <strong>Технический бэкграунд</strong> — Национальная Академия (Симферополь)
-                    <p style="margin-top: 0.5rem; color: var(--gray);">Основы аналитического мышления и технических дисциплин.</p>
+                    <strong><span data-lang="ru">Технический бэкграунд</span><span data-lang="en">Technical Background</span></strong> — Национальная Академия (Симферополь)
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="ru">Основы аналитического мышления и технических дисциплин.</p>
+                    <p style="margin-top: 0.5rem; color: var(--gray);" data-lang="en">Fundamentals of analytical thinking and technical disciplines.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Music -->
+    <!-- Music & Audio Player -->
     <section id="music" style="background: var(--light);">
         <div class="container">
             <div class="section-title">
-                <h2>🎵 ИИ Аудио-брендинг</h2>
+                <h2>🎵 <span data-lang="ru">ИИ Аудио-брендинг</span><span data-lang="en">AI Audio Branding</span></h2>
             </div>
             <div class="music-grid">
                 <div class="music-card">
                     <div class="music-icon">🎼</div>
-                    <h3>Уникальный звук бренда</h3>
-                    <p style="color: var(--gray); margin: 1rem 0;">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
+                    <h3 data-lang="ru">Уникальный звук бренда</h3>
+                    <h3 data-lang="en">Unique Brand Sound</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="ru">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="en">No copyright issues. Music generated specifically for your ads, hold music, or content.</p>
                 </div>
                 <div class="music-card">
                     <div class="music-icon">🎧</div>
-                    <h3>Создатель атмосферы</h3>
-                    <p style="color: var(--gray); margin: 1rem 0;">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
+                    <h3 data-lang="ru">Создатель атмосферы</h3>
+                    <h3 data-lang="en">Atmosphere Creator</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="ru">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="en">Set the right mood for your customers. Dynamic patterns that engage and retain attention.</p>
                 </div>
                 <div class="music-card">
                     <div class="music-icon">⚡</div>
-                    <h3>Технологии и Эмоции</h3>
-                    <p style="color: var(--gray); margin: 1rem 0;">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
+                    <h3 data-lang="ru">Технологии и Эмоции</h3>
+                    <h3 data-lang="en">Tech & Emotions</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="ru">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
+                    <p style="color: var(--gray); margin: 1rem 0;" data-lang="en">Combination of technology and human emotions. Perfect for tech startups and innovation presentations.</p>
                 </div>
             </div>
+            
+            <!-- Custom Audio Player -->
+            <div class="audio-player">
+                <div class="audio-player-title">🎵 <span data-lang="ru">Демо-трек Гратати</span><span data-lang="en">Gratati Demo Track</span></div>
+                <div class="audio-wave">
+                    <div class="wave-bar paused" id="wave1"></div>
+                    <div class="wave-bar paused" id="wave2"></div>
+                    <div class="wave-bar paused" id="wave3"></div>
+                    <div class="wave-bar paused" id="wave4"></div>
+                    <div class="wave-bar paused" id="wave5"></div>
+                </div>
+                <div class="audio-controls">
+                    <button class="audio-btn" id="playPauseBtn" onclick="togglePlay()">▶</button>
+                    <div class="audio-progress" id="progressBar" onclick="seekAudio(event)">
+                        <div class="audio-progress-bar" id="progressFill"></div>
+                    </div>
+                    <div class="audio-time"><span id="currentTime">0:00</span> / <span id="duration">0:00</span></div>
+                </div>
+                <audio id="audioElement" preload="metadata">
+                    <source src="https://www.producer.ai/gratati/demo.mp3" type="audio/mpeg">
+                    <span data-lang="ru">Ваш браузер не поддерживает аудио-элемент.</span>
+                    <span data-lang="en">Your browser does not support the audio element.</span>
+                </audio>
+            </div>
+            
             <div style="text-align: center; margin-top: 2rem;">
-                <p style="margin-bottom: 1rem;"><strong>Закажите уникальный трек для вашего бизнеса</strong></p>
-                <a href="https://www.producer.ai/gratati" class="btn">Посетить Producer.ai</a>
+                <p style="margin-bottom: 1rem;"><strong data-lang="ru">Закажите уникальный трек для вашего бизнеса</strong><strong data-lang="en">Order a unique track for your business</strong></p>
+                <a href="https://www.producer.ai/gratati" class="btn" data-lang="ru">Посетить Producer.ai</a>
+                <a href="https://www.producer.ai/gratati" class="btn" data-lang="en">Visit Producer.ai</a>
             </div>
         </div>
     </section>
@@ -637,7 +819,8 @@
     <section id="contact">
         <div class="container">
             <div class="section-title">
-                <h2>Автоматизирую ваш бизнес</h2>
+                <h2 data-lang="ru">Автоматизирую ваш бизнес</h2>
+                <h2 data-lang="en">Automate Your Business</h2>
             </div>
             <div class="contact-grid">
                 <div class="contact-links">
@@ -656,22 +839,29 @@
                 </div>
                 <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
                     <div class="form-group">
-                        <label>Ваше имя</label>
+                        <label data-lang="ru">Ваше имя</label>
+                        <label data-lang="en">Your Name</label>
                         <input type="text" required>
                     </div>
                     <div class="form-group">
-                        <label>Ваш е-мэйл</label>
+                        <label data-lang="ru">Ваш е-мэйл</label>
+                        <label data-lang="en">Your Email</label>
                         <input type="email" required>
                     </div>
                     <div class="form-group">
-                        <label>Задача бизнеса</label>
-                        <input type="text" placeholder="Например: автоматизация документов">
+                        <label data-lang="ru">Задача бизнеса</label>
+                        <label data-lang="en">Business Task</label>
+                        <input type="text" placeholder="Например: автоматизация документов" data-lang="ru">
+                        <input type="text" placeholder="e.g., document automation" data-lang="en">
                     </div>
                     <div class="form-group">
-                        <label>Чем могу помочь?</label>
-                        <textarea placeholder="Опишите вашу задачу..."></textarea>
+                        <label data-lang="ru">Чем могу помочь?</label>
+                        <label data-lang="en">How can I help?</label>
+                        <textarea placeholder="Опишите вашу задачу..." data-lang="ru"></textarea>
+                        <textarea placeholder="Describe your task..." data-lang="en"></textarea>
                     </div>
-                    <button type="submit" class="btn" style="width: 100%;">Получить консультацию</button>
+                    <button type="submit" class="btn" style="width: 100%;" data-lang="ru">Получить консультацию</button>
+                    <button type="submit" class="btn" style="width: 100%;" data-lang="en">Get Consultation</button>
                 </form>
             </div>
         </div>
@@ -681,12 +871,79 @@
     <footer>
         <div class="container">
             <div class="footer-brand">Гратати</div>
-            <div class="footer-desc">ИИ-решения для предпринимателей</div>
-            <div class="footer-copy">© 2026 Все права защищены.</div>
+            <div class="footer-desc" data-lang="ru">ИИ-решения для предпринимателей</div>
+            <div class="footer-desc" data-lang="en">AI Solutions for Entrepreneurs</div>
+            <div class="footer-copy">© 2026 <span data-lang="ru">Все права защищены.</span><span data-lang="en">All rights reserved.</span></div>
         </div>
     </footer>
 
     <script>
+        // Language toggle
+        let currentLang = 'ru';
+        function toggleLanguage() {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            document.body.className = 'lang-' + currentLang;
+            document.querySelector('.lang-switch').textContent = currentLang === 'ru' ? 'EN' : 'RU';
+        }
+
+        // Audio Player Functionality
+        const audio = document.getElementById('audioElement');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const progressFill = document.getElementById('progressFill');
+        const progressBar = document.getElementById('progressBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationEl = document.getElementById('duration');
+        const waveBars = document.querySelectorAll('.wave-bar');
+
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸';
+                waveBars.forEach(bar => {
+                    bar.classList.remove('paused');
+                    bar.classList.add('playing');
+                });
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶';
+                waveBars.forEach(bar => {
+                    bar.classList.remove('playing');
+                    bar.classList.add('paused');
+                });
+            }
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            const percent = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = percent + '%';
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('ended', () => {
+            playPauseBtn.textContent = '▶';
+            progressFill.style.width = '0%';
+            waveBars.forEach(bar => {
+                bar.classList.remove('playing');
+                bar.classList.add('paused');
+            });
+        });
+
+        function seekAudio(e) {
+            const rect = progressBar.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        }
+
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -694,7 +951,6 @@
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    // Close mobile menu if open
                     document.querySelector('nav ul')?.classList.remove('active');
                 }
             });
