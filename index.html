@@ -271,97 +271,62 @@
         .education-item p { color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem; }
 
         /* ── MUSIC ── */
-        .music-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+        .music-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
         .music-card {
             background: var(--card); border: 1px solid var(--border);
-            border-radius: 12px; padding: 2rem; text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-        .music-card:hover { transform: translateY(-4px); border-color: rgba(56,189,248,0.3); }
-        .music-icon { font-size: 2.2rem; margin-bottom: 1rem; }
-        .music-card h3 { color: var(--text); font-weight: 700; margin-bottom: 0.75rem; }
-        .music-card p { color: var(--muted); font-size: 0.9rem; }
-
-        /* ── AUDIO PLAYER ── */
-        .audio-player {
-            background: linear-gradient(145deg, #071526, #0c1f38);
-            border: 1px solid rgba(56,189,248,0.2);
-            border-radius: 20px; padding: 1.75rem;
-            max-width: 580px; margin: 0 auto;
-            box-shadow: 0 0 50px rgba(14,165,233,0.07), 0 0 100px rgba(124,58,237,0.05);
+            border-radius: 12px; padding: 1.75rem;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
             position: relative; overflow: hidden;
         }
-        .audio-player::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(56,189,248,0.6), transparent);
+        .music-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--gradient); opacity: 0; transition: opacity 0.3s;
         }
-        .audio-player-title {
-            display: flex; align-items: center; gap: 0.6rem;
-            font-weight: 700; font-size: 0.92rem; color: var(--text); margin-bottom: 1.25rem;
-        }
-        .audio-player-title .highlight { color: var(--primary); }
+        .music-card:hover { transform: translateY(-4px); border-color: rgba(255,0,110,0.35); box-shadow: 0 8px 30px rgba(255,0,110,0.1); }
+        .music-card:hover::before { opacity: 1; }
 
-        /* Track List */
-        .track-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
-        .track-item {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 0.65rem 0.9rem; border-radius: 10px;
-            background: rgba(255,255,255,0.025);
-            border: 1px solid rgba(56,189,248,0.07);
-            cursor: pointer; transition: all 0.2s;
+        .music-title {
+            font-size: 1rem; font-weight: 700; color: var(--text);
+            margin-bottom: 1rem; letter-spacing: 0.02em;
         }
-        .track-item:hover { background: rgba(56,189,248,0.07); border-color: rgba(56,189,248,0.2); }
-        .track-item.active { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.35); box-shadow: 0 0 12px rgba(56,189,248,0.1); }
-        .track-num { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); min-width: 18px; text-align: center; }
-        .track-item.active .track-num { color: var(--primary); }
-        .track-info { flex: 1; min-width: 0; }
-        .track-name { font-weight: 600; font-size: 0.88rem; color: var(--text); }
-        .track-item.active .track-name { color: var(--primary); }
-        .track-desc { font-size: 0.72rem; color: var(--muted); }
-        .track-duration { font-family: 'JetBrains Mono', monospace; font-size: 0.73rem; color: var(--muted); }
-
-        /* Wave */
-        .audio-wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 26px; margin: 0 0 1.25rem; }
-        .wave-bar { width: 4px; border-radius: 2px; background: rgba(56,189,248,0.35); animation: wave 1.1s ease-in-out infinite; height: 5px; }
-        .wave-bar:nth-child(1){animation-delay:0.00s} .wave-bar:nth-child(2){animation-delay:0.12s}
-        .wave-bar:nth-child(3){animation-delay:0.24s} .wave-bar:nth-child(4){animation-delay:0.36s}
-        .wave-bar:nth-child(5){animation-delay:0.48s} .wave-bar:nth-child(6){animation-delay:0.36s}
-        .wave-bar:nth-child(7){animation-delay:0.24s} .wave-bar:nth-child(8){animation-delay:0.12s}
-        .wave-bar.playing { background: var(--primary); animation-play-state: running; }
-        .wave-bar.paused  { animation-play-state: paused; }
-        @keyframes wave { 0%,100%{height:5px} 50%{height:22px} }
-
-        /* Controls */
-        .audio-controls { display: flex; align-items: center; gap: 0.75rem; }
-        .audio-btn-prev, .audio-btn-next {
-            width: 34px; height: 34px; border-radius: 50%;
-            border: 1px solid rgba(56,189,248,0.28);
-            background: rgba(56,189,248,0.05); color: var(--primary); font-size: 0.75rem;
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.2s; flex-shrink: 0;
+        .music-controls {
+            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
         }
-        .audio-btn-prev:hover, .audio-btn-next:hover { background: rgba(56,189,248,0.15); border-color: var(--primary); }
-        .audio-btn {
-            width: 48px; height: 48px; border-radius: 50%; border: none;
+        .music-play-btn {
+            width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0;
             background: linear-gradient(135deg, var(--primary2), var(--accent2));
-            color: white; font-size: 1.1rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-            box-shadow: 0 0 18px rgba(14,165,233,0.4);
+            color: white; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 14px rgba(14,165,233,0.4);
             transition: transform 0.2s, box-shadow 0.2s;
         }
-        .audio-btn:hover { transform: scale(1.08); box-shadow: 0 0 28px rgba(14,165,233,0.6); }
-        .audio-btn:active { transform: scale(0.95); }
-        .audio-progress {
-            flex: 1; height: 5px; background: rgba(255,255,255,0.07);
-            border-radius: 3px; cursor: pointer; transition: height 0.2s;
+        .music-play-btn:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(14,165,233,0.6); }
+        .music-play-btn:active { transform: scale(0.95); }
+        .music-play-btn.playing {
+            background: linear-gradient(135deg, var(--accent2), #ff006e);
+            box-shadow: 0 0 14px rgba(255,0,110,0.5);
         }
-        .audio-progress:hover { height: 7px; }
-        .audio-progress-bar {
-            height: 100%; background: linear-gradient(90deg, var(--primary2), var(--accent));
-            border-radius: 3px; width: 0%; transition: width 0.1s linear;
+        .music-progress {
+            flex: 1; height: 5px; background: rgba(255,255,255,0.07);
+            border-radius: 3px; overflow: hidden; cursor: pointer;
+        }
+        .music-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary2), var(--accent));
+            border-radius: 3px; width: 0%;
+            transition: width 0.1s linear;
             box-shadow: 0 0 6px rgba(56,189,248,0.5);
         }
-        .audio-time { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); min-width: 74px; text-align: right; }
+        .music-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
+        .music-link {
+            display: inline-block; margin-top: 0.5rem;
+            padding: 0.7rem 2rem; background: var(--gradient);
+            color: white; border-radius: 8px; text-decoration: none;
+            font-weight: 700; font-size: 0.95rem;
+            box-shadow: 0 4px 20px rgba(14,165,233,0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .music-link:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,0.4); }
 
         /* ── CONTACT ── */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
@@ -736,90 +701,34 @@
         </div>
         <div class="music-grid">
             <div class="music-card">
-                <div class="music-icon">🎼</div>
-                <h3 data-lang="ru">Уникальный звук бренда</h3><h3 data-lang="en">Unique Brand Sound</h3>
-                <p data-lang="ru">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
-                <p data-lang="en">No copyright issues. Music generated specifically for your ads, hold music, or content.</p>
+                <div class="music-title" data-en="Unique Brand Sound" data-ru="Уникальный звук бренда">Уникальный звук бренда</div>
+                <div class="music-controls">
+                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Яблоко в руке.mp3">▶</button>
+                    <div class="music-progress"><div class="music-progress-bar"></div></div>
+                </div>
+                <p data-en="No copyright strikes. Custom generated music for your commercials, hold lines, or content." data-ru="Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
             </div>
             <div class="music-card">
-                <div class="music-icon">🎧</div>
-                <h3 data-lang="ru">Создатель атмосферы</h3><h3 data-lang="en">Atmosphere Creator</h3>
-                <p data-lang="ru">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
-                <p data-lang="en">Set the right mood for your customers. Dynamic patterns that engage and retain attention.</p>
+                <div class="music-title" data-en="Atmosphere Creator" data-ru="Создатель атмосферы">Создатель атмосферы</div>
+                <div class="music-controls">
+                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Carnival Drift.mp3">▶</button>
+                    <div class="music-progress"><div class="music-progress-bar"></div></div>
+                </div>
+                <p data-en="Set the right mood for your customers. Dynamic patterns that engage and retain attention." data-ru="Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
             </div>
             <div class="music-card">
-                <div class="music-icon">⚡</div>
-                <h3 data-lang="ru">Технологии и Эмоции</h3><h3 data-lang="en">Tech & Emotions</h3>
-                <p data-lang="ru">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
-                <p data-lang="en">Combination of technology and human emotions. Perfect for tech startups and innovation presentations.</p>
-            </div>
-        </div>
-
-        <!-- AUDIO PLAYER — 3 tracks -->
-        <div class="audio-player">
-            <div class="audio-player-title">
-                🎵 <span class="highlight" data-lang="ru">Демо-треки Гратати</span><span class="highlight" data-lang="en">Gratati Demo Tracks</span>
-            </div>
-
-            <div class="track-list">
-                <div class="track-item active" onclick="selectTrack(0,this)">
-                    <span class="track-num" id="tnum-0">▶</span>
-                    <div class="track-info">
-                        <div class="track-name" data-lang="ru">Технологии будущего</div>
-                        <div class="track-name" data-lang="en">Future Technologies</div>
-                        <div class="track-desc" data-lang="ru">Атмосферный — для презентаций и стартапов</div>
-                        <div class="track-desc" data-lang="en">Atmospheric — for presentations & startups</div>
-                    </div>
-                    <span class="track-duration" id="tdur-0">—</span>
+                <div class="music-title" data-en="Tech & Emotion" data-ru="Технологии и Эмоции">Технологии и Эмоции</div>
+                <div class="music-controls">
+                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Code of Desire.mp3">▶</button>
+                    <div class="music-progress"><div class="music-progress-bar"></div></div>
                 </div>
-                <div class="track-item" onclick="selectTrack(1,this)">
-                    <span class="track-num" id="tnum-1">2</span>
-                    <div class="track-info">
-                        <div class="track-name" data-lang="ru">Корпоративный поток</div>
-                        <div class="track-name" data-lang="en">Corporate Flow</div>
-                        <div class="track-desc" data-lang="ru">Деловой — для удержания на линии и офиса</div>
-                        <div class="track-desc" data-lang="en">Business — for hold music & office atmosphere</div>
-                    </div>
-                    <span class="track-duration" id="tdur-1">—</span>
-                </div>
-                <div class="track-item" onclick="selectTrack(2,this)">
-                    <span class="track-num" id="tnum-2">3</span>
-                    <div class="track-info">
-                        <div class="track-name" data-lang="ru">Энергия бренда</div>
-                        <div class="track-name" data-lang="en">Brand Energy</div>
-                        <div class="track-desc" data-lang="ru">Динамичный — для рекламы и промо</div>
-                        <div class="track-desc" data-lang="en">Dynamic — for ads & promo content</div>
-                    </div>
-                    <span class="track-duration" id="tdur-2">—</span>
-                </div>
+                <p data-en="Blend technology with human emotion. Perfect for tech startups and innovation showcases." data-ru="Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
             </div>
-
-            <div class="audio-wave">
-                <div class="wave-bar paused"></div><div class="wave-bar paused"></div>
-                <div class="wave-bar paused"></div><div class="wave-bar paused"></div>
-                <div class="wave-bar paused"></div><div class="wave-bar paused"></div>
-                <div class="wave-bar paused"></div><div class="wave-bar paused"></div>
-            </div>
-
-            <div class="audio-controls">
-                <button class="audio-btn-prev" onclick="prevTrack()">◀◀</button>
-                <button class="audio-btn" id="playPauseBtn" onclick="togglePlay()">▶</button>
-                <button class="audio-btn-next" onclick="nextTrack()">▶▶</button>
-                <div class="audio-progress" id="progressBar" onclick="seekAudio(event)">
-                    <div class="audio-progress-bar" id="progressFill"></div>
-                </div>
-                <div class="audio-time"><span id="currentTime">0:00</span> / <span id="duration">0:00</span></div>
-            </div>
-            <audio id="audioElement" preload="metadata"></audio>
         </div>
 
         <div style="text-align:center; margin-top:2rem;">
-            <p style="margin-bottom:1rem;">
-                <strong data-lang="ru">Закажите уникальный трек для вашего бизнеса</strong>
-                <strong data-lang="en">Order a unique track for your business</strong>
-            </p>
-            <a href="https://www.producer.ai/gratati" class="btn btn-primary" data-lang="ru">Посетить Producer.ai</a>
-            <a href="https://www.producer.ai/gratati" class="btn btn-primary" data-lang="en">Visit Producer.ai</a>
+            <p style="color:var(--muted); margin-bottom:1rem;" data-en="Order a unique track for your business" data-ru="Закажите уникальный трек для вашего бизнеса">Закажите уникальный трек для вашего бизнеса</p>
+            <a href="https://www.producer.ai/gratati" class="music-link" target="_blank" data-en="Visit Producer.ai" data-ru="Посетить Producer.ai">Посетить Producer.ai</a>
         </div>
     </div>
 </section>
@@ -832,7 +741,7 @@
         </div>
         <div class="contact-grid">
             <div class="contact-links">
-                <a href="mailto:gratati49@gmail.com" class="contact-link"><span>✉️</span> gratati49@gmail.com</a>
+                <a href="/cdn-cgi/l/email-protection#630411021702170a575a23040e020a0f4d000c0e" class="contact-link"><span>✉️</span> <span class="__cf_email__" data-cfemail="e087928194819489d4d9a0878d81898cce838f8d">[email&#160;protected]</span></a>
                 <a href="https://t.me/mentvork" class="contact-link" target="_blank"><span>📱</span> Telegram</a>
                 <a href="https://github.com/gratati" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
                 <a href="https://www.producer.ai/gratati" class="contact-link" target="_blank"><span>🎵</span> Producer.ai</a>
@@ -873,7 +782,7 @@
     </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── LANGUAGE ────────────────────────────────────────────────────
 let currentLang = 'ru';
 function toggleLanguage() {
@@ -902,103 +811,58 @@ function handleSubmit(e) {
     alert(currentLang === 'ru' ? 'Спасибо! Я свяжусь с вами в ближайшее время.' : 'Thank you! I will contact you shortly.');
 }
 
-// ── AUDIO PLAYER ────────────────────────────────────────────────
-// 🔧 Замените src на реальные URL ваших треков с Producer.ai
-const TRACKS = [
-    { src: 'https://www.producer.ai/gratati/demo.mp3'  },
-    { src: 'https://www.producer.ai/gratati/demo2.mp3' },
-    { src: 'https://www.producer.ai/gratati/demo3.mp3' }
-];
 
-let currentTrack = 0;
-let isPlaying = false;
+// ── MUSIC PLAYER (рабочий код из оригинала) ─────────────────────
+const musicButtons = document.querySelectorAll('.music-play-btn');
+let currentAudio = null;
+let currentBtn = null;
 
-const audio        = document.getElementById('audioElement');
-const playBtn      = document.getElementById('playPauseBtn');
-const progressFill = document.getElementById('progressFill');
-const progressBar  = document.getElementById('progressBar');
-const currentTimeEl= document.getElementById('currentTime');
-const durationEl   = document.getElementById('duration');
-const waveBars     = document.querySelectorAll('.wave-bar');
-const trackItems   = document.querySelectorAll('.track-item');
+musicButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const src = btn.getAttribute('data-src');
+        const progressBar = btn.parentElement.querySelector('.music-progress-bar');
 
-function fmt(s) {
-    if (!isFinite(s) || isNaN(s)) return '0:00';
-    return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-}
+        if (currentBtn === btn && currentAudio && !currentAudio.paused) {
+            currentAudio.pause();
+            btn.textContent = '▶';
+            btn.classList.remove('playing');
+            return;
+        }
+        if (currentBtn === btn && currentAudio && currentAudio.paused) {
+            currentAudio.play();
+            btn.textContent = '⏸';
+            btn.classList.add('playing');
+            return;
+        }
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio.currentTime = 0;
+            if (currentBtn) {
+                currentBtn.textContent = '▶';
+                currentBtn.classList.remove('playing');
+                currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
+            }
+        }
+        currentAudio = new Audio(src);
+        currentBtn = btn;
+        currentAudio.play();
+        btn.textContent = '⏸';
+        btn.classList.add('playing');
 
-function setWave(playing) {
-    waveBars.forEach(b => { b.classList.toggle('playing', playing); b.classList.toggle('paused', !playing); });
-}
-
-function updateTrackUI() {
-    trackItems.forEach((el, i) => {
-        el.classList.toggle('active', i === currentTrack);
-        const num = document.getElementById('tnum-' + i);
-        if (i === currentTrack) num.textContent = isPlaying ? '▶' : '⏸';
-        else num.textContent = i + 1;
+        currentAudio.addEventListener('timeupdate', () => {
+            if (currentAudio.duration) {
+                progressBar.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
+            }
+        });
+        currentAudio.addEventListener('ended', () => {
+            btn.textContent = '▶';
+            btn.classList.remove('playing');
+            progressBar.style.width = '0%';
+            currentAudio = null;
+            currentBtn = null;
+        });
     });
-}
-
-function loadTrack(idx, autoplay) {
-    currentTrack = idx;
-    isPlaying = false;
-    audio.src = TRACKS[idx].src;
-    audio.load();
-    progressFill.style.width = '0%';
-    currentTimeEl.textContent = '0:00';
-    durationEl.textContent = '0:00';
-    playBtn.textContent = '▶';
-    setWave(false);
-    updateTrackUI();
-
-    if (autoplay) {
-        audio.play().then(() => {
-            isPlaying = true;
-            playBtn.textContent = '⏸';
-            setWave(true);
-            updateTrackUI();
-        }).catch(() => {});
-    }
-}
-
-function selectTrack(idx) {
-    if (idx === currentTrack) { togglePlay(); return; }
-    loadTrack(idx, true);
-}
-
-function togglePlay() {
-    if (audio.paused) {
-        audio.play().then(() => {
-            isPlaying = true; playBtn.textContent = '⏸'; setWave(true); updateTrackUI();
-        }).catch(() => {});
-    } else {
-        audio.pause();
-        isPlaying = false; playBtn.textContent = '▶'; setWave(false); updateTrackUI();
-    }
-}
-
-function prevTrack() { loadTrack((currentTrack - 1 + TRACKS.length) % TRACKS.length, isPlaying); }
-function nextTrack() { loadTrack((currentTrack + 1) % TRACKS.length, isPlaying); }
-
-function seekAudio(e) {
-    if (!audio.duration) return;
-    const r = progressBar.getBoundingClientRect();
-    audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
-}
-
-audio.addEventListener('timeupdate', () => {
-    if (audio.duration) progressFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
-    currentTimeEl.textContent = fmt(audio.currentTime);
 });
-audio.addEventListener('loadedmetadata', () => {
-    durationEl.textContent = fmt(audio.duration);
-    document.getElementById('tdur-' + currentTrack).textContent = fmt(audio.duration);
-});
-audio.addEventListener('ended', () => { nextTrack(); });
-
-// Init
-loadTrack(0, false);
 </script>
 </body>
 </html>
