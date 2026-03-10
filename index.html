@@ -1,1422 +1,716 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Gratati - AI-решения для бизнеса. Автоматизация процессов, компьютерное зрение и нейросети для малого и среднего бизнеса.">
-<meta name="keywords" content="AI для бизнеса, автоматизация, Computer Vision, NLP, Python, TensorFlow, внедрение AI">
-<meta name="author" content="Gratati">
-<meta property="og:title" content="Gratati - AI-решения для вашего бизнеса">
-<meta property="og:description" content="Внедряю искусственный интеллект для автоматизации задач и роста прибыли.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://gratati.github.io">
-<title>Gratati - AI-решения для бизнеса | Автоматизация</title>
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-}
-:root {
---bg-dark: #0a0e27;
---bg-darker: #050810;
---card-bg: #1a1f3a;
---text-primary: #e0e6ff;
---text-secondary: #a0a8d8;
---neon-purple: #d946ef;
---neon-cyan: #00d9ff;
---neon-lime: #39ff14;
---neon-pink: #ff006e;
---border-color: #2d3561;
---accent-cv: #00d9ff;
---accent-nlp: #d946ef;
---accent-ml: #39ff14;
---accent-music: #ff006e;
-}
-html {
-scroll-behavior: smooth;
-}
-body {
-font-family: 'Inter', sans-serif;
-background-color: var(--bg-dark);
-color: var(--text-primary);
-line-height: 1.6;
-overflow-x: hidden;
-}
-/* Canvas Background Animation */
-#neural-canvas {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-z-index: 0;
-opacity: 0.15;
-}
-/* Main Content */
-main {
-position: relative;
-z-index: 1;
-}
-/* Header & Navigation */
-header {
-position: fixed;
-top: 0;
-left: 0;
-right: 0;
-background: rgba(10, 14, 39, 0.95);
-backdrop-filter: blur(10px);
-border-bottom: 1px solid var(--border-color);
-z-index: 100;
-padding: 1rem 2rem;
-}
-.header-content {
-max-width: 1200px;
-margin: 0 auto;
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-.logo {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.5rem;
-font-weight: 900;
-background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-letter-spacing: 2px;
-}
-nav {
-display: flex;
-gap: 2rem;
-align-items: center;
-}
-nav a {
-color: var(--text-secondary);
-text-decoration: none;
-font-size: 0.9rem;
-transition: all 0.3s ease;
-position: relative;
-}
-nav a:hover {
-color: var(--neon-cyan);
-}
-nav a::after {
-content: '';
-position: absolute;
-bottom: -5px;
-left: 0;
-width: 0;
-height: 2px;
-background: var(--neon-cyan);
-transition: width 0.3s ease;
-}
-nav a:hover::after {
-width: 100%;
-}
-.lang-toggle {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-color: var(--text-primary);
-padding: 0.5rem 1rem;
-border-radius: 4px;
-cursor: pointer;
-font-size: 0.85rem;
-transition: all 0.3s ease;
-}
-.lang-toggle:hover {
-border-color: var(--neon-cyan);
-color: var(--neon-cyan);
-}
-/* Mobile Menu Toggle */
-.mobile-toggle {
-display: none;
-background: transparent;
-border: 1px solid var(--neon-cyan);
-color: var(--neon-cyan);
-font-size: 1.5rem;
-padding: 0.5rem;
-cursor: pointer;
-border-radius: 4px;
-}
-.mobile-toggle:hover {
-background: rgba(0, 217, 255, 0.1);
-}
-/* Sections */
-section {
-padding: 6rem 2rem;
-max-width: 1200px;
-margin: 0 auto;
-margin-top: 4rem;
-}
-section:first-of-type {
-margin-top: 8rem;
-}
-.section-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 2.5rem;
-font-weight: 900;
-margin-bottom: 3rem;
-text-transform: uppercase;
-letter-spacing: 2px;
-position: relative;
-display: inline-block;
-}
-.section-title::before {
-content: '';
-position: absolute;
-bottom: -10px;
-left: 0;
-width: 100%;
-height: 3px;
-background: linear-gradient(90deg, var(--neon-cyan), transparent);
-}
-/* Hero Section */
-.hero {
-padding: 8rem 2rem 6rem;
-text-align: center;
-margin-top: 6rem;
-}
-.hero h1 {
-font-family: 'Orbitron', sans-serif;
-font-size: 3.5rem;
-font-weight: 900;
-margin-bottom: 1rem;
-background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple), var(--neon-lime));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-letter-spacing: 3px;
-text-transform: uppercase;
-}
-.hero .role {
-font-family: 'Space Mono', monospace;
-font-size: 1.3rem;
-color: var(--neon-cyan);
-margin-bottom: 2rem;
-letter-spacing: 1px;
-}
-.hero p {
-font-size: 1.1rem;
-color: var(--text-secondary);
-max-width: 700px;
-margin: 0 auto 2rem;
-line-height: 1.8;
-}
-.cta-buttons {
-display: flex;
-gap: 1rem;
-justify-content: center;
-flex-wrap: wrap;
-}
-.btn {
-padding: 0.8rem 2rem;
-border: 2px solid;
-background: transparent;
-color: var(--text-primary);
-cursor: pointer;
-font-size: 0.95rem;
-font-family: 'Space Mono', monospace;
-transition: all 0.3s ease;
-text-decoration: none;
-display: inline-block;
-border-radius: 4px;
-}
-.btn-primary {
-border-color: var(--neon-cyan);
-color: var(--neon-cyan);
-}
-.btn-primary:hover {
-background: var(--neon-cyan);
-color: var(--bg-dark);
-box-shadow: 0 0 20px var(--neon-cyan);
-}
-.btn-secondary {
-border-color: var(--neon-purple);
-color: var(--neon-purple);
-}
-.btn-secondary:hover {
-background: var(--neon-purple);
-color: var(--bg-dark);
-box-shadow: 0 0 20px var(--neon-purple);
-}
-/* About Section */
-.about-content {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 3rem;
-align-items: center;
-}
-.about-text h3 {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.8rem;
-margin-bottom: 1.5rem;
-color: var(--neon-cyan);
-}
-.about-text p {
-margin-bottom: 1.5rem;
-line-height: 1.8;
-color: var(--text-secondary);
-}
-.about-stats {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 1.5rem;
-margin-top: 2rem;
-}
-.stat-box {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-padding: 1.5rem;
-border-radius: 8px;
-text-align: center;
-transition: all 0.3s ease;
-}
-.stat-box:hover {
-border-color: var(--neon-cyan);
-box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
-}
-.stat-number {
-font-family: 'Orbitron', sans-serif;
-font-size: 2rem;
-color: var(--neon-cyan);
-margin-bottom: 0.5rem;
-}
-.stat-label {
-font-size: 0.9rem;
-color: var(--text-secondary);
-}
-/* Skills Section */
-.skills-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-gap: 2rem;
-}
-.skill-category {
-background: var(--card-bg);
-border: 2px solid var(--border-color);
-padding: 2rem;
-border-radius: 8px;
-transition: all 0.3s ease;
-}
-.skill-category:hover {
-border-color: var(--neon-cyan);
-box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
-}
-.skill-category.cv {
-border-top-color: var(--accent-cv);
-}
-.skill-category.nlp {
-border-top-color: var(--accent-nlp);
-}
-.skill-category.ml {
-border-top-color: var(--accent-ml);
-}
-.skill-category.tools {
-border-top-color: var(--accent-music);
-}
-.skill-category h3 {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.3rem;
-margin-bottom: 1.5rem;
-text-transform: uppercase;
-letter-spacing: 1px;
-}
-.skill-category.cv h3 { color: var(--accent-cv); }
-.skill-category.nlp h3 { color: var(--accent-nlp); }
-.skill-category.ml h3 { color: var(--accent-ml); }
-.skill-category.tools h3 { color: var(--accent-music); }
-.skill-list {
-display: flex;
-flex-wrap: wrap;
-gap: 0.8rem;
-}
-.skill-tag {
-background: rgba(0, 217, 255, 0.1);
-border: 1px solid rgba(0, 217, 255, 0.3);
-color: var(--neon-cyan);
-padding: 0.5rem 1rem;
-border-radius: 20px;
-font-size: 0.85rem;
-font-family: 'Space Mono', monospace;
-transition: all 0.3s ease;
-}
-.skill-tag:hover {
-background: rgba(0, 217, 255, 0.2);
-border-color: var(--neon-cyan);
-}
-.skill-category.nlp .skill-tag {
-background: rgba(217, 70, 239, 0.1);
-border-color: rgba(217, 70, 239, 0.3);
-color: var(--neon-purple);
-}
-.skill-category.nlp .skill-tag:hover {
-background: rgba(217, 70, 239, 0.2);
-border-color: var(--neon-purple);
-}
-.skill-category.ml .skill-tag {
-background: rgba(57, 255, 20, 0.1);
-border-color: rgba(57, 255, 20, 0.3);
-color: var(--neon-lime);
-}
-.skill-category.ml .skill-tag:hover {
-background: rgba(57, 255, 20, 0.2);
-border-color: var(--neon-lime);
-}
-.skill-category.tools .skill-tag {
-background: rgba(255, 0, 110, 0.1);
-border-color: rgba(255, 0, 110, 0.3);
-color: var(--neon-pink);
-}
-.skill-category.tools .skill-tag:hover {
-background: rgba(255, 0, 110, 0.2);
-border-color: var(--neon-pink);
-}
-/* Timeline Section */
-.timeline {
-position: relative;
-padding: 2rem 0;
-}
-.timeline::before {
-content: '';
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
-width: 2px;
-height: 100%;
-background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple), transparent);
-}
-.timeline-item {
-margin-bottom: 3rem;
-width: 48%;
-}
-.timeline-item:nth-child(odd) {
-margin-left: 0;
-text-align: right;
-padding-right: 4%;
-}
-.timeline-item:nth-child(even) {
-margin-left: 52%;
-text-align: left;
-padding-left: 4%;
-}
-.timeline-dot {
-position: absolute;
-left: 50%;
-transform: translateX(-50%);
-width: 12px;
-height: 12px;
-background: var(--neon-cyan);
-border: 3px solid var(--bg-dark);
-border-radius: 50%;
-top: 0;
-z-index: 2;
-box-shadow: 0 0 20px var(--neon-cyan);
-}
-.timeline-content {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-padding: 1.5rem;
-border-radius: 8px;
-transition: all 0.3s ease;
-}
-.timeline-content:hover {
-border-color: var(--neon-cyan);
-box-shadow: 0 0 30px rgba(0, 217, 255, 0.15);
-}
-.timeline-date {
-font-family: 'Space Mono', monospace;
-color: var(--neon-cyan);
-font-size: 0.9rem;
-margin-bottom: 0.5rem;
-}
-.timeline-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.2rem;
-margin-bottom: 0.5rem;
-color: var(--text-primary);
-}
-.timeline-org {
-color: var(--neon-purple);
-font-size: 0.95rem;
-margin-bottom: 0.8rem;
-}
-.timeline-desc {
-color: var(--text-secondary);
-font-size: 0.9rem;
-line-height: 1.6;
-}
-@media (max-width: 768px) {
-.timeline::before {
-left: 20px;
-}
-.timeline-item {
-width: 100%;
-margin-left: 0 !important;
-padding-left: 60px !important;
-padding-right: 0 !important;
-text-align: left !important;
-}
-.timeline-dot {
-left: 20px;
-}
-}
-/* Projects Section */
-.projects-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-gap: 2rem;
-}
-.project-card {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-border-radius: 8px;
-overflow: hidden;
-transition: all 0.3s ease;
-display: flex;
-flex-direction: column;
-}
-.project-card:hover {
-border-color: var(--neon-cyan);
-box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
-transform: translateY(-5px);
-}
-.project-header {
-padding: 1.5rem;
-border-bottom: 1px solid var(--border-color);
-}
-.project-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.2rem;
-margin-bottom: 0.5rem;
-color: var(--text-primary);
-}
-.project-category {
-font-size: 0.8rem;
-color: var(--neon-cyan);
-font-family: 'Space Mono', monospace;
-text-transform: uppercase;
-}
-.project-body {
-padding: 1.5rem;
-flex-grow: 1;
-}
-.project-desc {
-color: var(--text-secondary);
-font-size: 0.95rem;
-line-height: 1.6;
-margin-bottom: 1.5rem;
-}
-.project-metrics {
-display: flex;
-gap: 1rem;
-flex-wrap: wrap;
-margin-bottom: 1.5rem;
-}
-.metric {
-background: rgba(0, 217, 255, 0.1);
-border: 1px solid rgba(0, 217, 255, 0.2);
-color: var(--neon-cyan);
-padding: 0.4rem 0.8rem;
-border-radius: 4px;
-font-size: 0.8rem;
-font-family: 'Space Mono', monospace;
-}
-.project-links {
-display: flex;
-gap: 1rem;
-margin-top: 1rem;
-}
-.project-link {
-color: var(--neon-cyan);
-text-decoration: none;
-font-size: 0.9rem;
-font-family: 'Space Mono', monospace;
-border-bottom: 1px solid var(--neon-cyan);
-transition: all 0.3s ease;
-}
-.project-link:hover {
-color: var(--neon-purple);
-border-color: var(--neon-purple);
-}
-/* Education Section */
-.education-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 2rem;
-}
-.education-card {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-padding: 2rem;
-border-radius: 8px;
-transition: all 0.3s ease;
-text-align: center;
-}
-.education-card:hover {
-border-color: var(--neon-purple);
-box-shadow: 0 0 30px rgba(217, 70, 239, 0.15);
-}
-.education-year {
-font-family: 'Space Mono', monospace;
-color: var(--neon-purple);
-font-size: 0.9rem;
-margin-bottom: 1rem;
-}
-.education-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.2rem;
-margin-bottom: 0.5rem;
-color: var(--text-primary);
-}
-.education-org {
-color: var(--text-secondary);
-font-size: 0.95rem;
-margin-bottom: 1rem;
-}
-.education-desc {
-color: var(--text-secondary);
-font-size: 0.9rem;
-line-height: 1.6;
-}
-/* Music Section */
-.music-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-gap: 2rem;
-}
-.music-card {
-background: var(--card-bg);
-border: 2px solid var(--border-color);
-border-left-color: var(--neon-pink);
-padding: 2rem;
-border-radius: 8px;
-transition: all 0.3s ease;
-position: relative;
-}
-.music-card:hover {
-border-color: var(--neon-pink);
-box-shadow: 0 0 30px rgba(255, 0, 110, 0.2);
-}
-.music-title {
-font-family: 'Orbitron', sans-serif;
-font-size: 1.2rem;
-margin-bottom: 1rem;
-color: var(--neon-pink);
-}
-/* Custom Music Controls */
-.music-controls {
-display: flex;
-align-items: center;
-gap: 1rem;
-margin-bottom: 1.5rem;
-}
-.music-play-btn {
-background: transparent;
-border: 2px solid var(--neon-pink);
-color: var(--neon-pink);
-width: 50px;
-height: 50px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.2rem;
-cursor: pointer;
-transition: all 0.3s ease;
-flex-shrink: 0;
-}
-.music-play-btn:hover {
-background: var(--neon-pink);
-color: var(--bg-dark);
-box-shadow: 0 0 15px var(--neon-pink);
-}
-.music-play-btn.playing {
-background: var(--neon-pink);
-color: var(--bg-dark);
-}
-.music-progress {
-flex-grow: 1;
-height: 4px;
-background: rgba(255, 0, 110, 0.3);
-border-radius: 2px;
-position: relative;
-overflow: hidden;
-}
-.music-progress-bar {
-height: 100%;
-background: var(--neon-pink);
-width: 0%;
-transition: width 0.1s linear;
-}
-.music-link {
-display: inline-block;
-color: var(--neon-pink);
-text-decoration: none;
-font-family: 'Space Mono', monospace;
-font-size: 0.9rem;
-border-bottom: 1px solid var(--neon-pink);
-transition: all 0.3s ease;
-}
-.music-link:hover {
-color: var(--neon-cyan);
-border-color: var(--neon-cyan);
-}
-/* Contact Section */
-.contact-container {
-max-width: 600px;
-margin: 0 auto;
-}
-.contact-info {
-background: var(--card-bg);
-border: 1px solid var(--border-color);
-padding: 2rem;
-border-radius: 8px;
-margin-bottom: 2rem;
-text-align: center;
-}
-.contact-email {
-font-family: 'Space Mono', monospace;
-font-size: 1.3rem;
-color: var(--neon-cyan);
-margin-bottom: 1rem;
-word-break: break-all;
-}
-.contact-email a {
-color: var(--neon-cyan);
-text-decoration: none;
-transition: all 0.3s ease;
-}
-.contact-email a:hover {
-color: var(--neon-purple);
-}
-.contact-links {
-display: flex;
-gap: 1.5rem;
-justify-content: center;
-flex-wrap: wrap;
-margin-top: 1.5rem;
-}
-.contact-link {
-color: var(--text-secondary);
-text-decoration: none;
-font-size: 0.95rem;
-transition: all 0.3s ease;
-border-bottom: 2px solid transparent;
-}
-.contact-link:hover {
-color: var(--neon-cyan);
-border-bottom-color: var(--neon-cyan);
-}
-.form-group {
-margin-bottom: 1.5rem;
-}
-.form-group label {
-display: block;
-margin-bottom: 0.5rem;
-color: var(--text-primary);
-font-size: 0.95rem;
-}
-.form-group input,
-.form-group textarea {
-width: 100%;
-background: var(--bg-darker);
-border: 1px solid var(--border-color);
-color: var(--text-primary);
-padding: 0.8rem;
-border-radius: 4px;
-font-family: 'Inter', sans-serif;
-transition: all 0.3s ease;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-outline: none;
-border-color: var(--neon-cyan);
-box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
-}
-.form-group textarea {
-resize: vertical;
-min-height: 120px;
-}
-.submit-btn {
-width: 100%;
-padding: 1rem;
-background: transparent;
-border: 2px solid var(--neon-cyan);
-color: var(--neon-cyan);
-font-family: 'Space Mono', monospace;
-font-size: 1rem;
-cursor: pointer;
-border-radius: 4px;
-transition: all 0.3s ease;
-}
-.submit-btn:hover {
-background: var(--neon-cyan);
-color: var(--bg-dark);
-box-shadow: 0 0 20px var(--neon-cyan);
-}
-/* Footer */
-footer {
-background: var(--bg-darker);
-border-top: 1px solid var(--border-color);
-padding: 2rem;
-text-align: center;
-color: var(--text-secondary);
-margin-top: 4rem;
-}
-.footer-content {
-max-width: 1200px;
-margin: 0 auto;
-}
-.footer-name {
-font-family: 'Orbitron', sans-serif;
-font-size: 0.9rem;
-color: var(--neon-cyan);
-margin-bottom: 0.5rem;
-}
-.footer-text {
-font-size: 0.85rem;
-color: var(--text-secondary);
-}
-/* Responsive */
-@media (max-width: 768px) {
-header {
-padding: 1rem;
-}
-.header-content {
-flex-direction: row; /* Keep row for logo and toggle */
-gap: 1rem;
-}
-.mobile-toggle {
-display: block;
-margin-left: auto;
-}
-nav {
-display: none;
-position: absolute;
-top: 100%;
-left: 0;
-width: 100%;
-background: rgba(10, 14, 39, 0.98);
-flex-direction: column;
-gap: 1rem;
-padding: 1rem 2rem;
-border-bottom: 1px solid var(--border-color);
-}
-nav.nav-active {
-display: flex;
-}
-.hero h1 {
-font-size: 2rem;
-}
-.hero .role {
-font-size: 1rem;
-}
-.section-title {
-font-size: 1.8rem;
-}
-.about-content {
-grid-template-columns: 1fr;
-}
-.cta-buttons {
-flex-direction: column;
-}
-.btn {
-width: 100%;
-}
-}
-/* Animations */
-@keyframes glow {
-0%, 100% {
-box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-}
-50% {
-box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
-}
-}
-@keyframes float {
-0%, 100% {
-transform: translateY(0px);
-}
-50% {
-transform: translateY(-10px);
-}
-}
-.glow-animation {
-animation: glow 3s ease-in-out infinite;
-}
-.float-animation {
-animation: float 3s ease-in-out infinite;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гратати - ИИ-решения для бизнеса | Автоматизация</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            scroll-behavior: smooth;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        /* Header */
+        header {
+            position: fixed; top: 0; width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+        .header-content {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo {
+            font-size: 1.5rem; font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+        }
+        .nav-toggle {
+            font-size: 1.5rem; background: none; border: none;
+            cursor: pointer; color: var(--dark);
+        }
+        nav ul {
+            display: flex; gap: 1.5rem; list-style: none;
+        }
+        nav a {
+            text-decoration: none; color: var(--dark);
+            font-weight: 500; transition: color 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        .lang-switch {
+            padding: 0.5rem 1rem; border: 2px solid var(--primary);
+            border-radius: 20px; background: none;
+            color: var(--primary); font-weight: 600;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .lang-switch:hover {
+            background: var(--primary); color: white;
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 8rem 0 4rem;
+            background: var(--gradient);
+            color: white;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem; margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        .hero p {
+            font-size: 1.25rem; margin-bottom: 2rem;
+            opacity: 0.9; max-width: 700px; margin-inline: auto;
+        }
+        .hero-tags {
+            display: flex; gap: 0.5rem; justify-content: center;
+            flex-wrap: wrap; margin-bottom: 2rem;
+            font-size: 0.9rem; opacity: 0.9;
+        }
+        .btn {
+            display: inline-block; padding: 0.75rem 2rem;
+            background: white; color: var(--primary);
+            border-radius: 30px; text-decoration: none;
+            font-weight: 600; margin: 0.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .btn-outline {
+            background: transparent; border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background: white; color: var(--primary);
+        }
+        
+        /* Sections */
+        section { padding: 5rem 0; }
+        .section-title {
+            text-align: center; margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-size: 2rem; margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        .section-title p {
+            color: var(--gray); max-width: 600px; margin-inline: auto;
+        }
+        
+        /* About */
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 3rem; align-items: center;
+        }
+        .about-stats {
+            display: grid; grid-template-columns: repeat(2,1fr);
+            gap: 1rem; margin-top: 2rem;
+        }
+        .stat-card {
+            background: white; padding: 1.5rem;
+            border-radius: 12px; text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .stat-card .number {
+            font-size: 2rem; font-weight: 700;
+            color: var(--primary); display: block;
+        }
+        .stat-card .label {
+            color: var(--gray); font-size: 0.9rem;
+        }
+        
+        /* Skills */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .skill-card {
+            background: white; padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .skill-card:hover { transform: translateY(-5px); }
+        .skill-card h3 {
+            margin-bottom: 1rem; color: var(--dark);
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .skill-tags {
+            display: flex; flex-wrap: wrap; gap: 0.5rem;
+        }
+        .skill-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--light);
+            border-radius: 20px;
+            font-size: 0.85rem; color: var(--gray);
+        }
+        
+        /* Experience */
+        .timeline {
+            position: relative; max-width: 800px; margin-inline: auto;
+        }
+        .timeline::before {
+            content: ''; position: absolute;
+            left: 20px; top: 0; bottom: 0;
+            width: 2px; background: var(--primary);
+        }
+        .timeline-item {
+            position: relative; padding-left: 60px;
+            margin-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute;
+            left: 13px; top: 8px;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .timeline-date {
+            font-weight: 600; color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        .timeline-role {
+            font-weight: 600; margin-bottom: 0.25rem;
+        }
+        .timeline-company {
+            color: var(--gray); margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        /* Projects */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .project-card {
+            background: white; border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .project-card:hover { transform: translateY(-5px); }
+        .project-content { padding: 1.5rem; }
+        .project-tags {
+            display: flex; gap: 0.5rem; margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        .project-tag {
+            padding: 0.25rem 0.75rem;
+            background: var(--light);
+            border-radius: 20px;
+            font-size: 0.8rem; color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* Education */
+        .education-grid {
+            display: grid; gap: 1.5rem;
+            max-width: 800px; margin-inline: auto;
+        }
+        .education-item {
+            background: white; padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        .education-year {
+            font-weight: 600; color: var(--primary);
+        }
+        
+        /* Music */
+        .music-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .music-card {
+            text-align: center; padding: 2rem;
+            background: white; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .music-icon {
+            font-size: 2rem; margin-bottom: 1rem;
+        }
+        
+        /* Contact */
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 3rem; align-items: start;
+        }
+        .contact-links {
+            display: flex; flex-direction: column; gap: 1rem;
+        }
+        .contact-link {
+            display: flex; align-items: center; gap: 0.75rem;
+            padding: 1rem; background: white;
+            border-radius: 12px; text-decoration: none;
+            color: var(--dark); transition: transform 0.3s;
+        }
+        .contact-link:hover { transform: translateX(5px); }
+        .contact-form {
+            background: white; padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label {
+            display: block; margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%; padding: 0.75rem;
+            border: 2px solid var(--light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none; border-color: var(--primary);
+        }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        
+        /* Footer */
+        footer {
+            background: var(--dark); color: white;
+            padding: 3rem 0 1rem; text-align: center;
+        }
+        .footer-brand {
+            font-size: 1.25rem; font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .footer-desc {
+            color: var(--gray); margin-bottom: 1rem;
+        }
+        .footer-copy {
+            color: var(--gray); font-size: 0.9rem;
+            padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content { flex-wrap: wrap; gap: 1rem; }
+            nav ul {
+                flex-direction: column; width: 100%;
+                display: none; gap: 0.5rem;
+            }
+            nav ul.active { display: flex; }
+            .hero h1 { font-size: 2rem; }
+            .about-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
-<!-- Neural Network Canvas Background -->
-<canvas id="neural-canvas"></canvas>
-<!-- Header -->
-<header>
-<div class="header-content">
-<a href="https://tatyana-cv-b4y4sevr.manus.space/" class="logo" style="color: inherit; text-decoration: none;">GRATATI</a>
-<button class="mobile-toggle" id="mobile-toggle">☰</button>
-<nav id="main-nav">
-<a href="#about" data-en="About" data-ru="Обо мне">Обо мне</a>
-<a href="#skills" data-en="Solutions" data-ru="Решения">Решения</a>
-<a href="#experience" data-en="Experience" data-ru="Опыт">Опыт</a>
-<a href="#projects" data-en="Cases" data-ru="Кейсы">Кейсы</a>
-<a href="#education" data-en="Education" data-ru="Образование">Образование</a>
-<a href="#music" data-en="Audio Branding" data-ru="Аудио-брендинг">Аудио-брендинг</a>
-<a href="#contact" data-en="Contact" data-ru="Контакты">Контакты</a>
-<button class="lang-toggle" id="lang-toggle">EN</button>
-</nav>
-</div>
-</header>
-<!-- Main Content -->
-<main>
-<!-- Hero Section -->
-<section class="hero">
-<h1 data-en="AI FOR BUSINESS GROWTH" data-ru="AI ДЛЯ РОСТА БИЗНЕСА">AI ДЛЯ РОСТА БИЗНЕСА</h1>
-<div class="role" data-en="Automation | Computer Vision | Neural Solutions" data-ru="Автоматизация | Computer Vision | Нейро-решения">Автоматизация | Computer Vision | Нейро-решения</div>
-<p data-en="I help small and medium businesses save time and money by implementing Artificial Intelligence. From document automation to mobile computer vision." data-ru="Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.">Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.</p>
-<div class="cta-buttons">
-<a href="#projects" class="btn btn-primary" data-en="View Cases" data-ru="Смотреть кейсы">Смотреть кейсы</a>
-<a href="#contact" class="btn btn-secondary" data-en="Discuss Project" data-ru="Обсудить проект">Обсудить проект</a>
-</div>
-</section>
-<!-- About Section -->
-<section id="about">
-<h2 class="section-title" data-en="About Me" data-ru="Обо мне">Обо мне</h2>
-<div class="about-content">
-<div class="about-text">
-<h3 data-en="Your Partner in AI" data-ru="Ваш партнер в AI">Ваш партнер в AI</h3>
-<p data-en="Starting as a Tech Support specialist at ConsultantPlus (2014-2020), I transitioned into AI development. I understand business pain points and create solutions that work, not just code that runs." data-ru="Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешла в AI-разработку. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.">Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешла в AI-разработку. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.</p>
-<p data-en="English Level: B2 | Focused on ROI and process optimization for entrepreneurs." data-ru="Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.">Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.</p>
-<div class="about-stats">
-<div class="stat-box">
-<div class="stat-number">10+</div>
-<div class="stat-label" data-en="Business Cases" data-ru="Бизнес-кейсов">Бизнес-кейсов</div>
-</div>
-<div class="stat-box">
-<div class="stat-number">5+</div>
-<div class="stat-label" data-en="Years Experience" data-ru="Лет опыта">Лет опыта</div>
-</div>
-<div class="stat-box">
-<div class="stat-number">94%</div>
-<div class="stat-label" data-en="Model Accuracy" data-ru="Точность моделей">Точность моделей</div>
-</div>
-<div class="stat-box">
-<div class="stat-number">24/7</div>
-<div class="stat-label" data-en="Automation" data-ru="Автоматизация">Автоматизация</div>
-</div>
-</div>
-</div>
-<div style="background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 2rem; text-align: center;">
-<div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
-<p style="color: var(--text-secondary); margin-bottom: 1.5rem;" data-en="Business-Oriented AI" data-ru="AI для Бизнеса">AI для Бизнеса</p>
-<p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;" data-en="I combine technical expertise with business logic to deliver tangible results." data-ru="Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.">Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.</p>
-</div>
-</div>
-</section>
-<!-- Skills Section -->
-<section id="skills">
-<h2 class="section-title" data-en="Solutions Stack" data-ru="Стек решений">Стек решений</h2>
-<div class="skills-grid">
-<div class="skill-category cv">
-<h3 data-en="Computer Vision" data-ru="Компьютерное зрение">Компьютерное зрение</h3>
-<div class="skill-list">
-<span class="skill-tag">Object Detection</span>
-<span class="skill-tag">Segmentation</span>
-<span class="skill-tag">Mobile AI</span>
-<span class="skill-tag">Quality Control</span>
-<span class="skill-tag">Security</span>
-</div>
-</div>
-<div class="skill-category nlp">
-<h3 data-en="Text & Data" data-ru="Текст и Данные">Текст и Данные</h3>
-<div class="skill-list">
-<span class="skill-tag">Chatbots</span>
-<span class="skill-tag">Doc Analysis</span>
-<span class="skill-tag">Sentiment</span>
-<span class="skill-tag">Knowledge Base</span>
-<span class="skill-tag">Automation</span>
-</div>
-</div>
-<div class="skill-category ml">
-<h3 data-en="Machine Learning" data-ru="Machine Learning">Machine Learning</h3>
-<div class="skill-list">
-<span class="skill-tag">Prediction</span>
-<span class="skill-tag">Classification</span>
-<span class="skill-tag">Optimization</span>
-<span class="skill-tag">TensorFlow</span>
-<span class="skill-tag">PyTorch</span>
-</div>
-</div>
-<div class="skill-category tools">
-<h3 data-en="Deployment" data-ru="Внедрение">Внедрение</h3>
-<div class="skill-list">
-<span class="skill-tag">Android (Kotlin)</span>
-<span class="skill-tag">TF Lite</span>
-<span class="skill-tag">Docker</span>
-<span class="skill-tag">API Integration</span>
-<span class="skill-tag">Cloud</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Experience Timeline -->
-<section id="experience">
-<h2 class="section-title" data-en="Track Record" data-ru="Опыт работы">Опыт работы</h2>
-<div class="timeline">
-<div class="timeline-item">
-<div class="timeline-dot"></div>
-<div class="timeline-content">
-<div class="timeline-date">05.2025 – 07.2025</div>
-<div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
-<div class="timeline-org">Московский Политех</div>
-<div class="timeline-desc" data-en="Developed cascade sentiment model for business analytics. Created Streamlit app for real-time data processing." data-ru="Разработала каскадную модель тональности для бизнес-аналитики. Создала Streamlit приложение для обработки данных в реальном времени.">Разработала каскадную модель тональности для бизнес-аналитики. Создала Streamlit приложение для обработки данных в реальном времени.</div>
-</div>
-</div>
-<div class="timeline-item">
-<div class="timeline-dot"></div>
-<div class="timeline-content">
-<div class="timeline-date">12.2024</div>
-<div class="timeline-title" data-en="CV Engineer" data-ru="CV Engineer">CV Engineer</div>
-<div class="timeline-org">QGI (Medical)</div>
-<div class="timeline-desc" data-en="Paneth cell detection for medical diagnostics. Implemented attention mechanisms to improve accuracy." data-ru="Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.">Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</div>
-</div>
-</div>
-<div class="timeline-item">
-<div class="timeline-dot"></div>
-<div class="timeline-content">
-<div class="timeline-date">11.2024</div>
-<div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
-<div class="timeline-org">QGI (Medical)</div>
-<div class="timeline-desc" data-en="Optimized models for faster inference. Implemented EfficientNet for medical imaging analysis." data-ru="Оптимизировала модели для быстрого вывода. Внедрила EfficientNet для анализа медицинских снимков.">Оптимизировала модели для быстрого вывода. Внедрила EfficientNet для анализа медицинских снимков.</div>
-</div>
-</div>
-<div class="timeline-item">
-<div class="timeline-dot"></div>
-<div class="timeline-content">
-<div class="timeline-date">04.2024 – 06.2024</div>
-<div class="timeline-title" data-en="AI Developer" data-ru="AI Developer">AI Developer</div>
-<div class="timeline-org">Volley Play</div>
-<div class="timeline-desc" data-en="Volleyball court segmentation for sports analytics. Integrated AI into Android application." data-ru="Сегментация волейбольной площадки для спортивной аналитики. Интегрировала AI в Android приложение.">Сегментация волейбольной площадки для спортивной аналитики. Интегрировала AI в Android приложение.</div>
-</div>
-</div>
-<div class="timeline-item">
-<div class="timeline-dot"></div>
-<div class="timeline-content">
-<div class="timeline-date">01.2024 – 03.2024</div>
-<div class="timeline-title" data-en="Data Scientist" data-ru="Data Scientist">Data Scientist</div>
-<div class="timeline-org">SGMU (Razumovskiy)</div>
-<div class="timeline-desc" data-en="Created knowledge bases and tested vector database chatbots for customer support automation." data-ru="Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.">Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Projects Section -->
-<section id="projects">
-<h2 class="section-title" data-en="Business Cases" data-ru="Кейсы для бизнеса">Кейсы для бизнеса</h2>
-<div class="projects-grid">
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="AI Document Assistant" data-ru="AI Ассистент документов">AI Ассистент документов</div>
-<div class="project-category" data-en="Legal Tech Automation" data-ru="Автоматизация права">Автоматизация права</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="Reduces legal document creation time by 70%. AI consultant integrated directly into the editor." data-ru="Сокращает время создания юридических документов на 70%. AI-консультант встроен прямо в редактор.">Сокращает время создания юридических документов на 70%. AI-консультант встроен прямо в редактор.</p>
-<div class="project-metrics">
-<span class="metric">Time Saving</span>
-<span class="metric">Legal Tech</span>
-</div>
-<div class="project-links">
-<a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="project-link" data-en="Test App" data-ru="Протестировать">Протестировать</a>
-</div>
-</div>
-</div>
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="Therapy Support AI" data-ru="AI для Терапии">AI для Психотерапии</div>
-<div class="project-category" data-en="Health Tech" data-ru="Health Tech">Health Tech</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="AI-driven session facilitator for therapists. Supports workflows and provides intelligent guidance." data-ru="AI-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.">AI-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
-<div class="project-metrics">
-<span class="metric">Health Tech</span>
-<span class="skill-tag">Support</span>
-</div>
-<div class="project-links">
-<a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="project-link" data-en="Test App" data-ru="Протестировать">Протестировать</a>
-</div>
-</div>
-</div>
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="AI News Aggregator" data-ru="AI Агрегатор новостей">AI Агрегатор новостей</div>
-<div class="project-category" data-en="Content Automation" data-ru="Авто-контент">Авто-контент</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="Automated delivery of latest AI and tech news. Intelligent summarization saves reading time." data-ru="Автоматическая доставка новостей об AI и технологиях. Умное суммирование экономит время на чтение.">Автоматическая доставка новостей об AI и технологиях. Умное суммирование экономит время на чтение.</p>
-<div class="project-metrics">
-<span class="metric">NLP</span>
-<span class="metric">Automation</span>
-</div>
-<div class="project-links">
-<a href="https://gclnk.com/XEGqVnxo" class="project-link" data-en="Test App" data-ru="Протестировать">Протестировать</a>
-</div>
-</div>
-</div>
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="Client Sentiment Analysis" data-ru="Анализ отзывов клиентов">Анализ отзывов клиентов</div>
-<div class="project-category" data-en="Customer Insight" data-ru="Аналитика отзывов клиентов">Аналитика отзывов клиентов</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="Cascade model (XGBoost + BERT) to analyze customer feedback automatically. Know your reputation in real-time." data-ru="Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Знайте свою репутацию в реальном времени.">Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Знайте свою репутацию в реальном времени.</p>
-<div class="project-metrics">
-<span class="metric">Accuracy: 94%</span>
-<span class="metric">NLP</span>
-</div>
-<div class="project-links">
-<a href="https://gratati.github.io/docs/анализ тональности.pdf" class="project-link" data-en="View Case Study" data-ru="Изучить кейс">Изучить кейс</a>
-</div>
-</div>
-</div>
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="Mobile Object Detection" data-ru="Детекция на мобильном">Детекция на мобильном</div>
-<div class="project-category" data-en="Android AI" data-ru="Android AI">Android AI</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="TensorFlow Lite model for Android application. Real-time object detection without internet connection. Perfect for field work." data-ru="Модель TensorFlow Lite для Android приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.">Модель TensorFlow Lite для Android приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
-<div class="project-metrics">
-<span class="metric">TF Lite</span>
-<span class="metric">Offline</span>
-</div>
-<div class="project-links">
-<a href="https://gratati.github.io/docs/object-detection.pdf" class="project-link" data-en="View Case Study" data-ru="Изучить кейс">Изучить кейс</a>
-</div>
-</div>
-</div>
-<div class="project-card">
-<div class="project-header">
-<div class="project-title" data-en="Sports Field Segmentation" data-ru="Сегментация игрового поля">Сегментация игрового поля</div>
-<div class="project-category" data-en="Sports Analytics" data-ru="Спортивная аналитика">Спортивная аналитика</div>
-</div>
-<div class="project-body">
-<p class="project-desc" data-en="Automated segmentation of sports fields and players for analytics. Two AI models (SAM + U-Net) working in real-time to label sports datasets automatically." data-ru="Автоматическая сегментация игровых полей и игроков для спортивной аналитики. Две AI-модели (SAM + U-Net) работают в реальном времени для автоматической разметки спортивных датасетов.">Автоматическая сегментация игровых полей и игроков для спортивной аналитики. Две AI-модели (SAM + U-Net) работают в реальном времени для автоматической разметки спортивных датасетов.</p>
-<div class="project-metrics">
-<span class="metric">SAM + U-Net</span>
-<span class="metric">Real-time</span>
-<span class="metric">Auto-labeling</span>
-</div>
-<div class="project-links">
-<a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="project-link" data-en="View Case Study" data-ru="Изучить кейс">Изучить кейс</a>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Education Section -->
-<section id="education">
-<h2 class="section-title" data-en="Qualification" data-ru="Квалификация">Квалификация</h2>
-<div class="education-grid">
-<div class="education-card">
-<div class="education-year">2024</div>
-<div class="education-title" data-en="Android Developer" data-ru="Android разработчик">Android разработчик</div>
-<div class="education-org">Urbanuniversity.ru</div>
-<div class="education-desc" data-en="Mobile development with Kotlin. Ability to integrate AI models directly into customer-facing apps." data-ru="Мобильная разработка на Kotlin. Возможность внедрять AI модели прямо в клиентские приложения.">Мобильная разработка на Kotlin. Возможность внедрять AI модели прямо в клиентские приложения.</div>
-</div>
-<div class="education-card">
-<div class="education-year">2023</div>
-<div class="education-title" data-en="Data Science & ML" data-ru="Data Science & ML">Data Science & ML</div>
-<div class="education-org">Университет искусственного интеллекта</div>
-<div class="education-desc" data-en="Neural networks, deep learning, and optimization techniques for business tasks." data-ru="Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</div>
-</div>
-<div class="education-card">
-<div class="education-year">1997</div>
-<div class="education-title" data-en="Technical Background" data-ru="Технический бэкграунд">Технический бэкграунд</div>
-<div class="education-org">Национальная Академия (Симферополь)</div>
-<div class="education-desc" data-en="Foundation in analytical thinking and technical disciplines." data-ru="Основы аналитического мышления и технических дисциплин.">Основы аналитического мышления и технических дисциплин.</div>
-</div>
-</div>
-</section>
-<!-- Music Section -->
-<section id="music">
-<h2 class="section-title" data-en="AI Audio Branding" data-ru="AI Аудио-брендинг">AI Аудио-брендинг</h2>
-<div class="music-grid">
-<div class="music-card">
-<div class="music-title" data-en="Unique Brand Sound" data-ru="Уникальный звук бренда">Уникальный звук бренда</div>
-<div class="music-controls">
-<button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Яблоко в руке.mp3">▶</button>
-<div class="music-progress"><div class="music-progress-bar"></div></div>
-</div>
-<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="No copyright strikes. Custom generated music for your commercials, hold lines, or content." data-ru="Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
-</div>
-<div class="music-card">
-<div class="music-title" data-en="Atmosphere Creator" data-ru="Создатель атмосферы">Создатель атмосферы</div>
-<div class="music-controls">
-<button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Carnival Drift.mp3">▶</button>
-<div class="music-progress"><div class="music-progress-bar"></div></div>
-</div>
-<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Set the right mood for your customers. Dynamic patterns that engage and retain attention." data-ru="Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
-</div>
-<div class="music-card">
-<div class="music-title" data-en="Tech & Emotion" data-ru="Технологии и Эмоции">Технологии и Эмоции</div>
-<div class="music-controls">
-<button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Code of Desire.mp3">▶</button>
-<div class="music-progress"><div class="music-progress-bar"></div></div>
-</div>
-<p style="color: var(--text-secondary); font-size: 0.9rem;" data-en="Blend technology with human emotion. Perfect for tech startups and innovation showcases." data-ru="Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
-</div>
-</div>
-<div style="text-align: center; margin-top: 3rem;">
-<p style="color: var(--text-secondary); margin-bottom: 1rem;" data-en="Order a unique track for your business" data-ru="Закажите уникальный трек для вашего бизнеса">Закажите уникальный трек для вашего бизнеса</p>
-<a href="https://www.producer.ai/gratati" class="music-link" target="_blank" data-en="Visit Producer.ai" data-ru="Посетить Producer.ai">Посетить Producer.ai</a>
-</div>
-</section>
-<!-- Contact Section -->
-<section id="contact">
-<h2 class="section-title" data-en="Let's Automate Your Business" data-ru="Автоматизируем ваш бизнес">Автоматизируем ваш бизнес</h2>
-<div class="contact-container">
-<div class="contact-info">
-<div class="contact-email">
-<a href="mailto:gratati49@gmail.com">gratati49@gmail.com</a>
-</div>
-<div class="contact-links">
-<a href="https://t.me/mentvork" class="contact-link" target="_blank" data-en="Telegram" data-ru="Telegram">Telegram</a>
-<a href="https://github.com/gratati" class="contact-link" target="_blank" data-en="GitHub" data-ru="GitHub">GitHub</a>
-<a href="https://www.producer.ai/gratati" class="contact-link" target="_blank" data-en="Producer.ai" data-ru="Producer.ai">Producer.ai</a>
-</div>
-</div>
-<form id="contact-form" style="margin-top: 2rem;">
-<div class="form-group">
-<label for="name" data-en="Your Name" data-ru="Ваше имя">Ваше имя</label>
-<input type="text" id="name" name="name" required>
-</div>
-<div class="form-group">
-<label for="email" data-ru="Ваш email">Ваш email</label>
-<input type="email" id="email" name="email" required>
-</div>
-<div class="form-group">
-<label for="subject" data-en="Business Task" data-ru="Задача бизнеса">Задача бизнеса</label>
-<input type="text" id="subject" name="subject" required>
-</div>
-<div class="form-group">
-<label for="message" data-en="How can I help?" data-ru="Чем могу помочь?">Чем могу помочь?</label>
-<textarea id="message" name="message" required></textarea>
-</div>
-<button type="submit" class="submit-btn" data-en="Get Consultation" data-ru="Получить консультацию">Получить консультацию</button>
-</form>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer>
-<div class="footer-content">
-<div class="footer-name">Gratati</div>
-<div class="footer-text" data-en="AI Solutions for Entrepreneurs" data-ru="AI-решения для предпринимателей">AI-решения для предпринимателей</div>
-<div class="footer-text" style="margin-top: 1rem; font-size: 0.8rem;" data-en="© 2026 All rights reserved." data-ru="© 2026 Все права защищены.">© 2026 Все права защищены.</div>
-</div>
-</footer>
-<!-- JavaScript -->
-<script>
-// Language Toggle
-let currentLang = 'ru';
-const langToggle = document.getElementById('lang-toggle');
-function setLanguage(lang) {
-currentLang = lang;
-document.documentElement.lang = lang;
-document.querySelectorAll('[data-en][data-ru]').forEach(el => {
-el.textContent = el.getAttribute(`data-${lang}`);
-});
-langToggle.textContent = lang === 'ru' ? 'EN' : 'RU';
-localStorage.setItem('language', lang);
-}
-langToggle.addEventListener('click', () => {
-setLanguage(currentLang === 'ru' ? 'en' : 'ru');
-});
-// Load saved language
-const savedLang = localStorage.getItem('language') || 'ru';
-setLanguage(savedLang);
-// Mobile Menu Toggle
-const mobileToggle = document.getElementById('mobile-toggle');
-const mainNav = document.getElementById('main-nav');
-mobileToggle.addEventListener('click', () => {
-mainNav.classList.toggle('nav-active');
-mobileToggle.textContent = mainNav.classList.contains('nav-active') ? '✕' : '☰';
-});
-// Contact Form
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-e.preventDefault();
-const name = document.getElementById('name').value;
-const email = document.getElementById('email').value;
-const subject = document.getElementById('subject').value;
-const message = document.getElementById('message').value;
-const mailtoLink = `mailto:gratati49@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name} (${email})
-${message}`)}`;
-window.location.href = mailtoLink;
-this.reset();
-});
-// Music Player Script
-const musicButtons = document.querySelectorAll('.music-play-btn');
-let currentAudio = null;
-let currentBtn = null;
-musicButtons.forEach(btn => {
-btn.addEventListener('click', () => {
-const src = btn.getAttribute('data-src');
-const progressBar = btn.parentElement.querySelector('.music-progress-bar');
-// If clicking the same button that is currently playing → pause
-if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-currentAudio.pause();
-btn.textContent = '▶';
-btn.classList.remove('playing');
-return;
-}
-// If clicking the same button that is paused → resume from where it stopped
-if (currentBtn === btn && currentAudio && currentAudio.paused) {
-currentAudio.play();
-btn.textContent = '⏸';
-btn.classList.add('playing');
-return;
-}
-// If clicking a different button → stop previous and start new
-if (currentAudio) {
-currentAudio.pause();
-currentAudio.currentTime = 0; // reset only when switching tracks
-if (currentBtn) {
-currentBtn.textContent = '▶';
-currentBtn.classList.remove('playing');
-currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
-}
-}
-// Play new track
-currentAudio = new Audio(src);
-currentBtn = btn;
-currentAudio.play();
-btn.textContent = '⏸';
-btn.classList.add('playing');
-// Update progress bar
-currentAudio.addEventListener('timeupdate', () => {
-if (currentAudio.duration) {
-const percent = (currentAudio.currentTime / currentAudio.duration) * 100;
-progressBar.style.width = percent + '%';
-}
-});
-// Reset when track ends
-currentAudio.addEventListener('ended', () => {
-btn.textContent = '▶';
-btn.classList.remove('playing');
-progressBar.style.width = '0%';
-currentAudio = null;
-currentBtn = null;
-});
-});
-});
-// Neural Network Canvas Animation
-const canvas = document.getElementById('neural-canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const particles = [];
-const connections = [];
-let mouseX = canvas.width / 2;
-let mouseY = canvas.height / 2;
-class Particle {
-constructor() {
-this.x = Math.random() * canvas.width;
-this.y = Math.random() * canvas.height;
-this.vx = (Math.random() - 0.5) * 0.5;
-this.vy = (Math.random() - 0.5) * 0.5;
-this.radius = Math.random() * 1.5 + 0.5;
-this.color = ['#00d9ff', '#d946ef', '#39ff14', '#ff006e'][Math.floor(Math.random() * 4)];
-}
-update() {
-this.x += this.vx;
-this.y += this.vy;
-if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-this.x = Math.max(0, Math.min(canvas.width, this.x));
-this.y = Math.max(0, Math.min(canvas.height, this.y));
-// Attraction to mouse
-const dx = mouseX - this.x;
-const dy = mouseY - this.y;
-const distance = Math.sqrt(dx * dx + dy * dy);
-if (distance < 200) {
-this.vx += (dx / distance) * 0.02;
-this.vy += (dy / distance) * 0.02;
-}
-}
-draw() {
-ctx.fillStyle = this.color;
-ctx.beginPath();
-ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-ctx.fill();
-}
-}
-// Initialize particles
-for (let i = 0; i < 50; i++) {
-particles.push(new Particle());
-}
-function drawConnections() {
-for (let i = 0; i < particles.length; i++) {
-for (let j = i + 1; j < particles.length; j++) {
-const dx = particles[i].x - particles[j].x;
-const dy = particles[i].y - particles[j].y;
-const distance = Math.sqrt(dx * dx + dy * dy);
-if (distance < 150) {
-ctx.strokeStyle = `rgba(0, 217, 255, ${0.2 * (1 - distance / 150)})`;
-ctx.lineWidth = 0.5;
-ctx.beginPath();
-ctx.moveTo(particles[i].x, particles[i].y);
-ctx.lineTo(particles[j].x, particles[j].y);
-ctx.stroke();
-}
-}
-}
-}
-function animate() {
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-particles.forEach(particle => {
-particle.update();
-particle.draw();
-});
-drawConnections();
-requestAnimationFrame(animate);
-}
-animate();
-// Mouse tracking
-document.addEventListener('mousemove', (e) => {
-mouseX = e.clientX;
-mouseY = e.clientY;
-});
-// Resize canvas on window resize
-window.addEventListener('resize', () => {
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-});
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener('click', function (e) {
-const href = this.getAttribute('href');
-if (href !== '#' && document.querySelector(href)) {
-e.preventDefault();
-document.querySelector(href).scrollIntoView({
-behavior: 'smooth',
-block: 'start'
-});
-// Close mobile menu on link click
-if (window.innerWidth <= 768) {
-mainNav.classList.remove('nav-active');
-mobileToggle.textContent = '☰';
-}
-}
-});
-});
-</script>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Гратати</a>
+            <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">☰</button>
+            <nav>
+                <ul>
+                    <li><a href="#about">Обо мне</a></li>
+                    <li><a href="#skills">Решения</a></li>
+                    <li><a href="#experience">Опыт</a></li>
+                    <li><a href="#projects">Кейсы</a></li>
+                    <li><a href="#education">Образование</a></li>
+                    <li><a href="#music">Аудио-брендинг</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </nav>
+            <button class="lang-switch">EN</button>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <h1>ИИ ДЛЯ РОСТА БИЗНЕСА</h1>
+            <div class="hero-tags">
+                <span>Автоматизация</span> • 
+                <span>Компьютерное зрение</span> • 
+                <span>ИИ-решения</span>
+            </div>
+            <p>Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.</p>
+            <div>
+                <a href="#projects" class="btn">Смотреть кейсы</a>
+                <a href="#contact" class="btn btn-outline">Обсудить проект</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>Обо мне</h2>
+                <p>Ваш партнер в сфере ИИ</p>
+            </div>
+            <div class="about-grid">
+                <div>
+                    <p>Начав как специалист техподдержки в КонсультантПлюс (2014-2020), я перешла в разработку ИИ-решений. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.</p>
+                    <p style="margin-top: 1rem; color: var(--gray);">
+                        Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <span class="number">10+</span>
+                        <span class="label">Бизнес-кейсов</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">3+</span>
+                        <span class="label">Лет опыта</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">95%</span>
+                        <span class="label">Точность моделей</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="number">24/7</span>
+                        <span class="label">Автоматизация</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" style="background: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>🚀 ИИ для Бизнеса</h2>
+                <p>Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.</p>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>👁️ Компьютерное зрение</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Детекция объектов</span>
+                        <span class="skill-tag">Сегментация</span>
+                        <span class="skill-tag">Мобильный ИИ</span>
+                        <span class="skill-tag">Контроль качества</span>
+                        <span class="skill-tag">Безопасность</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>📝 Текст и Данные</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Чат-боты</span>
+                        <span class="skill-tag">Анализ документов</span>
+                        <span class="skill-tag">Анализ тональности</span>
+                        <span class="skill-tag">База знаний</span>
+                        <span class="skill-tag">Автоматизация</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>🤖 Машинное обучение</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Прогнозирование</span>
+                        <span class="skill-tag">Классификация</span>
+                        <span class="skill-tag">Оптимизация</span>
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">PyTorch</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>🔧 Внедрение</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Android (Kotlin)</span>
+                        <span class="skill-tag">TF Lite</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Интеграция API</span>
+                        <span class="skill-tag">Облачные решения</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="container">
+            <div class="section-title">
+                <h2>Опыт работы</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">05.2025 – 07.2025</div>
+                    <div class="timeline-role">Специалист по данным</div>
+                    <div class="timeline-company">Московский Политех</div>
+                    <p>Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">12.2024</div>
+                    <div class="timeline-role">Инженер по компьютерному зрению</div>
+                    <div class="timeline-company">КьюДжейАй (Медицина)</div>
+                    <p>Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">11.2024</div>
+                    <div class="timeline-role">Разработчик ИИ-решений</div>
+                    <div class="timeline-company">КьюДжейАй (Медицина)</div>
+                    <p>Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
+                </div>
+                <div class="timeline-item"> 
+                    <div class="timeline-date">04.2024 – 06.2024</div>
+                    <div class="timeline-role">Разработчик ИИ-решений</div>
+                    <div class="timeline-company">Волей Плей</div>
+                    <p>Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">01.2024 – 03.2024</div>
+                    <div class="timeline-role">Специалист по данным</div>
+                    <div class="timeline-company">СГМУ (Разумовского)</div>
+                    <p>Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" style="background: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>Кейсы для бизнеса</h2>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>📄 ИИ-конструктор документов</h3>
+                        <p style="color: var(--gray);">Автоматизация права</p>
+                        <p>Сокращает время создания юридических документов на 70%. ИИ-консультант встроен прямо в редактор.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Экономия времени</span>
+                            <span class="project-tag">Юридическая обработка</span>
+                        </div>
+                        <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>🧠 ИИ для Психотерапии</h3>
+                        <p style="color: var(--gray);">Медицинские технологии</p>
+                        <p>ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Медицинские технологии</span>
+                            <span class="project-tag">Поддержка и забота</span>
+                        </div>
+                        <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>📰 ИИ-Агрегатор новостей</h3>
+                        <p style="color: var(--gray);">Авто-контент</p>
+                        <p>Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Обработка естественного языка</span>
+                            <span class="project-tag">Автоматизация</span>
+                        </div>
+                        <a href="https://gclnk.com/XEGqVnxo" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Протестировать</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>💬 Анализ отзывов клиентов</h3>
+                        <p style="color: var(--gray);">Аналитика отзывов клиентов</p>
+                        <p>Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте свою репутацию в реальном времени.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Точность: 95%</span>
+                            <span class="project-tag">Обработка естественного языка</span>
+                        </div>
+                        <a href="https://gratati.github.io/docs/анализ тональности.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>📱 Детекция на мобильном</h3>
+                        <p style="color: var(--gray);">ИИ для Андроид</p>
+                        <p>Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">TF Lite модель</span>
+                            <span class="project-tag">Офлайн-режим</span>
+                        </div>
+                        <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>⚽ Сегментация игрового поля</h3>
+                        <p style="color: var(--gray);">Спортивная аналитика</p>
+                        <p>Автоматическая сегментация игровых полей и игроков для спортивной аналитики. Две ИИ-модели (SAM / U-Net) работают в реальном времени для автоматической разметки спортивных датасетов.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">SAM / U-Net</span>
+                            <span class="project-tag">В реальном времени</span>
+                            <span class="project-tag">Авто-разметка</span>
+                        </div>
+                        <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn" style="padding: 0.5rem 1.5rem; font-size: 0.9rem;">Изучить кейс</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education">
+        <div class="container">
+            <div class="section-title">
+                <h2>Квалификация</h2>
+            </div>
+            <div class="education-grid">
+                <div class="education-item">
+                    <div class="education-year">2024</div>
+                    <strong>Разработчик Android</strong> — Урбан Университет(Urbanuniversity.ru)
+                    <p style="margin-top: 0.5rem; color: var(--gray);">Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.</p>
+                </div>
+                <div class="education-item">
+                    <div class="education-year">2023</div>
+                    <strong>Наука о данных и машинное обучение</strong> — Университет искусственного интеллекта(neural-university.ru)
+                    <p style="margin-top: 0.5rem; color: var(--gray);">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</p>
+                </div>
+                <div class="education-item">
+                    <div class="education-year">1997</div>
+                    <strong>Технический бэкграунд</strong> — Национальная Академия (Симферополь)
+                    <p style="margin-top: 0.5rem; color: var(--gray);">Основы аналитического мышления и технических дисциплин.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Music -->
+    <section id="music" style="background: var(--light);">
+        <div class="container">
+            <div class="section-title">
+                <h2>🎵 ИИ Аудио-брендинг</h2>
+            </div>
+            <div class="music-grid">
+                <div class="music-card">
+                    <div class="music-icon">🎼</div>
+                    <h3>Уникальный звук бренда</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-icon">🎧</div>
+                    <h3>Создатель атмосферы</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
+                </div>
+                <div class="music-card">
+                    <div class="music-icon">⚡</div>
+                    <h3>Технологии и Эмоции</h3>
+                    <p style="color: var(--gray); margin: 1rem 0;">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 2rem;">
+                <p style="margin-bottom: 1rem;"><strong>Закажите уникальный трек для вашего бизнеса</strong></p>
+                <a href="https://www.producer.ai/gratati" class="btn">Посетить Producer.ai</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Автоматизирую ваш бизнес</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-links">
+                    <a href="mailto:gratati49@gmail.com" class="contact-link">
+                        <span>✉️</span> gratati49@gmail.com
+                    </a>
+                    <a href="https://t.me/mentvork" class="contact-link" target="_blank">
+                        <span>📱</span> Telegram
+                    </a>
+                    <a href="https://github.com/gratati" class="contact-link" target="_blank">
+                        <span>💻</span> GitHub
+                    </a>
+                    <a href="https://www.producer.ai/gratati" class="contact-link" target="_blank">
+                        <span>🎵</span> Producer.ai
+                    </a>
+                </div>
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Спасибо! Я свяжусь с вами в ближайшее время.');">
+                    <div class="form-group">
+                        <label>Ваше имя</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Ваш е-мэйл</label>
+                        <input type="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Задача бизнеса</label>
+                        <input type="text" placeholder="Например: автоматизация документов">
+                    </div>
+                    <div class="form-group">
+                        <label>Чем могу помочь?</label>
+                        <textarea placeholder="Опишите вашу задачу..."></textarea>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Получить консультацию</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-brand">Гратати</div>
+            <div class="footer-desc">ИИ-решения для предпринимателей</div>
+            <div class="footer-copy">© 2026 Все права защищены.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Close mobile menu if open
+                    document.querySelector('nav ul')?.classList.remove('active');
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 4px 30px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
 </body>
 </html>
