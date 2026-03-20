@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Гратати — ИИ-решения для бизнеса</title>
+    <title>Гратати — Создаю умные IT-системы</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <style>
@@ -28,347 +28,151 @@
         }
         *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
         html { scroll-behavior: smooth; }
-        body {
-            font-family: 'Exo 2', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        body { font-family: 'Exo 2', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-        /* GRID BG */
-        body::before {
-            content: '';
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background-image:
-                linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px);
-            background-size: 48px 48px;
-        }
-        /* AMBIENT ORBS */
-        body::after {
-            content: '';
-            position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background:
-                radial-gradient(ellipse 60% 40% at 15% 20%, rgba(14,165,233,0.08) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 35% at 85% 70%, rgba(124,58,237,0.08) 0%, transparent 60%);
-        }
+        body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px); background-size: 48px 48px; }
+        body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 60% 40% at 15% 20%, rgba(14,165,233,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 35% at 85% 70%, rgba(124,58,237,0.08) 0%, transparent 60%); }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
 
-        /* ── HEADER ── */
-        header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            padding: 1rem 0;
-            background: rgba(5,10,18,0.88);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--border);
-            transition: padding 0.3s;
-        }
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1rem 0; background: rgba(5,10,18,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: padding 0.3s; }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo {
-            font-size: 1.5rem; font-weight: 900; letter-spacing: 0.05em;
-            background: var(--gradient2);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-decoration: none;
-            filter: drop-shadow(0 0 12px rgba(56,189,248,0.5));
-        }
+        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 0.05em; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; filter: drop-shadow(0 0 12px rgba(56,189,248,0.5)); }
         .nav-toggle { display: none; font-size: 1.4rem; background: none; border: none; cursor: pointer; color: var(--primary); }
         nav ul { display: flex; gap: 1.5rem; list-style: none; }
-        nav a {
-            text-decoration: none; color: var(--muted);
-            font-weight: 500; font-size: 0.88rem; letter-spacing: 0.03em;
-            transition: color 0.3s, text-shadow 0.3s;
-        }
+        nav a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.88rem; letter-spacing: 0.03em; transition: color 0.3s, text-shadow 0.3s; }
         nav a:hover { color: var(--primary); text-shadow: 0 0 12px var(--glow); }
-        .lang-switch {
-            padding: 0.4rem 1rem;
-            border: 1px solid var(--primary); border-radius: 20px;
-            background: none; color: var(--primary);
-            font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-            cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 0 8px rgba(56,189,248,0.2);
-        }
+        .lang-switch { padding: 0.4rem 1rem; border: 1px solid var(--primary); border-radius: 20px; background: none; color: var(--primary); font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 8px rgba(56,189,248,0.2); }
         .lang-switch:hover { background: var(--primary); color: var(--bg); box-shadow: 0 0 20px var(--glow); }
 
-        /* ── HERO ── */
-        .hero {
-            padding: 9rem 0 5.5rem; text-align: center;
-            position: relative; overflow: hidden;
-        }
-        .hero-glow {
-            position: absolute; inset: 0; pointer-events: none;
-            background:
-                radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.13) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 50% 100%, rgba(124,58,237,0.1) 0%, transparent 60%);
-        }
-        .hero-label {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem; letter-spacing: 0.18em; color: var(--primary);
-            border: 1px solid rgba(56,189,248,0.3); padding: 0.35rem 1rem; border-radius: 20px;
-            margin-bottom: 1.5rem; background: rgba(56,189,248,0.06);
-            animation: fadeUp 0.6s ease both;
-        }
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1;
-            letter-spacing: -0.02em; margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #e2eaf4 0%, #38bdf8 50%, #a78bfa 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: fadeUp 0.6s 0.1s ease both;
-        }
-        .hero p {
-            font-size: 1.1rem; color: var(--muted); max-width: 680px; margin: 0 auto 2rem;
-            animation: fadeUp 0.6s 0.2s ease both;
-        }
-        .hero-tags {
-            display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
-            margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.3s ease both;
-        }
-        .hero-tag {
-            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
-            color: var(--muted); padding: 0.28rem 0.85rem;
-            border: 1px solid rgba(107,138,171,0.22); border-radius: 20px;
-            background: rgba(255,255,255,0.02);
-        }
-        .hero-btns {
-            animation: fadeUp 0.6s 0.4s ease both;
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
-        }
+        .hero { padding: 9rem 0 5.5rem; text-align: center; position: relative; overflow: hidden; }
+        .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.13) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 50% 100%, rgba(124,58,237,0.1) 0%, transparent 60%); }
+        .hero-label { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--primary); border: 1px solid rgba(56,189,248,0.3); padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; background: rgba(56,189,248,0.06); animation: fadeUp 0.6s ease both; }
+        .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; background: linear-gradient(135deg, #e2eaf4 0%, #38bdf8 50%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 0.6s 0.1s ease both; }
+        .hero p { font-size: 1.1rem; color: var(--muted); max-width: 780px; margin: 0 auto 2rem; animation: fadeUp 0.6s 0.2s ease both; }
+        .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.3s ease both; }
+        .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); padding: 0.28rem 0.85rem; border: 1px solid rgba(107,138,171,0.22); border-radius: 20px; background: rgba(255,255,255,0.02); }
+        .hero-btns { animation: fadeUp 0.6s 0.4s ease both; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
         .hero-btns .btn { margin: 0; }
 
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(24px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ── BUTTONS ── */
-        .btn {
-            display: inline-block; padding: 0.75rem 2rem;
-            border-radius: 8px; text-decoration: none;
-            font-weight: 700; margin: 0.4rem;
-            font-family: 'Exo 2', sans-serif; font-size: 0.95rem; letter-spacing: 0.03em;
-            transition: transform 0.25s, box-shadow 0.25s;
-            cursor: pointer; border: none;
-        }
+        .btn { display: inline-block; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; margin: 0.4rem; font-family: 'Exo 2', sans-serif; font-size: 0.95rem; letter-spacing: 0.03em; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; border: none; }
         .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 24px rgba(14,165,233,0.28); }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(14,165,233,0.5); }
         .btn-outline { background: transparent; border: 1px solid rgba(56,189,248,0.4); color: var(--primary); }
         .btn-outline:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 0 20px rgba(56,189,248,0.2); background: rgba(56,189,248,0.06); }
-        .btn-sm {
-            display: inline-block; padding: 0.42rem 1.2rem;
-            background: var(--gradient); color: white; border-radius: 6px;
-            text-decoration: none; font-size: 0.83rem; font-weight: 700;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+        .btn-sm { display: inline-block; padding: 0.42rem 1.2rem; background: var(--gradient); color: white; border-radius: 6px; text-decoration: none; font-size: 0.83rem; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
         .btn-sm:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.38); }
-        .btn-full {
-            width: 100%; padding: 0.85rem;
-            background: var(--gradient); color: white; border: none; border-radius: 8px;
-            font-size: 1rem; font-weight: 700; font-family: 'Exo 2', sans-serif;
-            cursor: pointer; transition: all 0.3s;
-            box-shadow: 0 4px 20px rgba(14,165,233,0.22);
-        }
+        .btn-full { width: 100%; padding: 0.85rem; background: var(--gradient); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; font-family: 'Exo 2', sans-serif; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(14,165,233,0.22); }
         .btn-full:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,0.4); }
 
-        /* ── SECTIONS ── */
-        section { padding: 5rem 0; position: relative; z-index: 1; }
+        section { padding: 5rem 0; position: relative; z-index: 1; overflow: hidden; }
         .section-dark { background: var(--bg2); }
         .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 {
-            font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem;
-            background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .section-title p { color: var(--muted); max-width: 600px; margin-inline: auto; }
 
-        /* ── ABOUT ── */
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
         .about-text p { color: var(--muted); margin-bottom: 1rem; }
         .about-text p:first-child { color: var(--text); }
         .about-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
-        .stat-card {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 1.5rem; border-radius: 12px; text-align: center;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
+        .stat-card { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; text-align: center; transition: border-color 0.3s, box-shadow 0.3s; }
         .stat-card:hover { border-color: rgba(56,189,248,0.4); box-shadow: 0 0 20px rgba(56,189,248,0.1); }
-        .stat-card .number {
-            font-size: 2.2rem; font-weight: 900; font-family: 'JetBrains Mono', monospace;
-            background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            display: block;
-        }
+        .stat-card .number { font-size: 2.2rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
         .stat-card .label { color: var(--muted); font-size: 0.85rem; }
 
-        /* ── SKILLS ── */
+        /* Vibe Coding / Flowcharts CSS */
+        .vibe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .vibe-step { background: rgba(56,189,248,0.03); border: 1px solid var(--border); padding: 1.75rem; border-radius: 12px; text-align: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
+        .vibe-step:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(14,165,233,0.15); border-color: rgba(56,189,248,0.4); }
+        .vibe-step::after { content: '→'; position: absolute; right: -1.2rem; top: 50%; transform: translateY(-50%); font-size: 2rem; color: var(--primary); opacity: 0.5; font-family: 'JetBrains Mono', monospace; }
+        @media (max-width: 900px) { .vibe-step::after { display: none; } }
+        .vibe-step:last-child::after { content: none; }
+        .vibe-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .vibe-title { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+        .vibe-desc { color: var(--muted); font-size: 0.9rem; }
+
+        .flowchart { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 1rem 0; padding: 1rem 0.5rem; background: rgba(13,27,46,0.6); border-radius: 8px; border: 1px dashed rgba(56,189,248,0.3); flex-wrap: wrap; transition: transform 0.3s; }
+        .project-card:hover .flowchart { transform: scale(1.02); border-color: rgba(167,139,250,0.5); }
+        .flow-step { flex: 1; text-align: center; padding: 0.5rem; background: var(--card2); border: 1px solid rgba(56,189,248,0.2); border-radius: 6px; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--text); min-width: 80px; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .flow-arrow { color: var(--primary); font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
+
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.5rem; }
-        .skill-card {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 1.75rem; border-radius: 12px;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            position: relative; overflow: hidden;
-        }
-        .skill-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: var(--gradient); opacity: 0; transition: opacity 0.3s;
-        }
+        .skill-card { background: var(--card); border: 1px solid var(--border); padding: 1.75rem; border-radius: 12px; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+        .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); opacity: 0; transition: opacity 0.3s; }
         .skill-card:hover { transform: translateY(-6px); border-color: rgba(56,189,248,0.35); box-shadow: 0 12px 40px rgba(14,165,233,0.1); }
         .skill-card:hover::before { opacity: 1; }
-        .skill-card h3 { margin-bottom: 1rem; color: var(--text); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; }
+        .skill-card h3 { margin-bottom: 1rem; color: var(--text); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
         .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .skill-tag {
-            padding: 0.25rem 0.75rem;
-            background: rgba(56,189,248,0.07); border: 1px solid rgba(56,189,248,0.15);
-            border-radius: 20px; font-size: 0.78rem; color: var(--muted);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .skill-tag { padding: 0.25rem 0.75rem; background: rgba(56,189,248,0.07); border: 1px solid rgba(56,189,248,0.15); border-radius: 20px; font-size: 0.78rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
 
-        /* ── TIMELINE ── */
-        .timeline { position: relative; max-width: 800px; margin-inline: auto; }
-        .timeline::before {
-            content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px;
-            background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
-        }
-        .timeline-item { position: relative; padding-left: 60px; margin-bottom: 2.5rem; }
-        .timeline-item::before {
-            content: ''; position: absolute; left: 13px; top: 8px;
-            width: 16px; height: 16px; border-radius: 50%;
-            background: var(--bg); border: 2px solid var(--primary);
-            box-shadow: 0 0 10px var(--glow);
-        }
-        .timeline-date { font-family: 'JetBrains Mono', monospace; font-size: 0.78rem; color: var(--primary); margin-bottom: 0.3rem; }
-        .timeline-role { font-weight: 700; margin-bottom: 0.2rem; color: var(--text); }
-        .timeline-company { color: var(--muted); margin-bottom: 0.5rem; font-size: 0.9rem; }
-        .timeline-item p { color: var(--muted); font-size: 0.93rem; }
-
-        /* ── PROJECTS ── */
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 1.5rem; }
-        .project-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 12px; overflow: hidden;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-        }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 1.5rem; }
+        .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
         .project-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.4); box-shadow: 0 12px 40px rgba(124,58,237,0.14); }
         .project-top { height: 3px; background: var(--gradient); }
-        .project-content { padding: 1.5rem; }
-        .project-content h3 { color: var(--text); font-weight: 700; margin-bottom: 0.35rem; }
+        .project-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .project-content h3 { color: var(--text); font-weight: 700; margin-bottom: 0.35rem; transition: color 0.3s; }
+        .project-card:hover .project-content h3 { color: var(--primary); }
         .project-sub { color: var(--primary); font-size: 0.77rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.75rem; }
-        .project-content p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+        .project-content p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; flex: 1; }
         .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .project-tag {
-            padding: 0.2rem 0.7rem;
-            background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2);
-            border-radius: 20px; font-size: 0.73rem; color: var(--accent);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .project-tag { padding: 0.2rem 0.7rem; background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2); border-radius: 20px; font-size: 0.73rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
 
-        /* ── EDUCATION ── */
         .education-grid { display: grid; gap: 1.25rem; max-width: 800px; margin-inline: auto; }
-        .education-item {
-            background: var(--card); border: 1px solid var(--border);
-            border-left: 3px solid var(--primary);
-            padding: 1.5rem; border-radius: 12px;
-            transition: border-left-color 0.3s, box-shadow 0.3s;
-        }
+        .education-item { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--primary); padding: 1.5rem; border-radius: 12px; transition: border-left-color 0.3s, box-shadow 0.3s; }
         .education-item:hover { border-left-color: var(--accent); box-shadow: 0 0 20px rgba(167,139,250,0.1); }
         .education-year { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--primary); font-size: 0.83rem; }
         .education-item strong { color: var(--text); }
         .education-item p { color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem; }
 
-        /* ── MUSIC ── */
+        /* Animation Classes */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+
+        /* MUSIC SECTION */
         .music-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
-        .music-card {
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 12px; padding: 1.75rem;
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            position: relative; overflow: hidden;
-        }
-        .music-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-            background: var(--gradient); opacity: 0; transition: opacity 0.3s;
-        }
+        .music-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
+        .music-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); opacity: 0; transition: opacity 0.3s; }
         .music-card:hover { transform: translateY(-4px); border-color: rgba(255,0,110,0.35); box-shadow: 0 8px 30px rgba(255,0,110,0.1); }
         .music-card:hover::before { opacity: 1; }
-
-        .music-title {
-            font-size: 1rem; font-weight: 700; color: var(--text);
-            margin-bottom: 1rem; letter-spacing: 0.02em;
-        }
-        .music-controls {
-            display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
-        }
-        .music-play-btn {
-            width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0;
-            background: linear-gradient(135deg, var(--primary2), var(--accent2));
-            color: white; font-size: 1rem; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            box-shadow: 0 0 14px rgba(14,165,233,0.4);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+        .music-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; letter-spacing: 0.02em; }
+        .music-controls { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .music-play-btn { width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0; background: linear-gradient(135deg, var(--primary2), var(--accent2)); color: white; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 14px rgba(14,165,233,0.4); transition: transform 0.2s, box-shadow 0.2s; }
         .music-play-btn:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(14,165,233,0.6); }
         .music-play-btn:active { transform: scale(0.95); }
-        .music-play-btn.playing {
-            background: linear-gradient(135deg, var(--accent2), #ff006e);
-            box-shadow: 0 0 14px rgba(255,0,110,0.5);
-        }
-        .music-progress {
-            flex: 1; height: 5px; background: rgba(255,255,255,0.07);
-            border-radius: 3px; overflow: hidden; cursor: pointer;
-        }
-        .music-progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary2), var(--accent));
-            border-radius: 3px; width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 6px rgba(56,189,248,0.5);
-        }
+        .music-play-btn.playing { background: linear-gradient(135deg, var(--accent2), #ff006e); box-shadow: 0 0 14px rgba(255,0,110,0.5); }
+        .music-progress { flex: 1; height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; cursor: pointer; }
+        .music-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary2), var(--accent)); border-radius: 3px; width: 0%; transition: width 0.1s linear; box-shadow: 0 0 6px rgba(56,189,248,0.5); }
         .music-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-        .music-link {
-            display: inline-block; margin-top: 0.5rem;
-            padding: 0.7rem 2rem; background: var(--gradient);
-            color: white; border-radius: 8px; text-decoration: none;
-            font-weight: 700; font-size: 0.95rem;
-            box-shadow: 0 4px 20px rgba(14,165,233,0.25);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .music-link:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,0.4); }
 
-        /* ── CONTACT ── */
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
         .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-link {
-            display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem;
-            background: var(--card); border: 1px solid var(--border);
-            border-radius: 12px; text-decoration: none; color: var(--text);
-            transition: all 0.3s;
-        }
+        .contact-link { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.3s; }
         .contact-link:hover { border-color: rgba(56,189,248,0.4); transform: translateX(6px); box-shadow: 0 0 16px rgba(56,189,248,0.08); }
         .contact-form { background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 12px; }
         .form-group { margin-bottom: 1rem; }
         .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 0.75rem 1rem;
-            background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.14);
-            border-radius: 8px; font-size: 0.95rem; color: var(--text);
-            font-family: 'Exo 2', sans-serif; transition: border-color 0.3s, box-shadow 0.3s;
-        }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.14); border-radius: 8px; font-size: 0.95rem; color: var(--text); font-family: 'Exo 2', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; }
         .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
         .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(107,138,171,0.4); }
         .form-group textarea { min-height: 120px; resize: vertical; }
 
-        /* ── FOOTER ── */
         footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 3rem 0 1.5rem; text-align: center; position: relative; z-index: 1; }
         .footer-brand { font-size: 1.4rem; font-weight: 900; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
         .footer-desc { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
         .footer-copy { color: rgba(107,138,171,0.45); font-size: 0.78rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; }
 
-        /* ── LANGUAGE ── */
         [data-lang="en"] { display: none; }
         body.lang-en [data-lang="ru"] { display: none; }
         body.lang-en [data-lang="en"] { display: revert; }
 
         span[data-lang], a[data-lang], strong[data-lang], div[data-lang] { display: initial; }
-        span[data-lang="en"], a[data-lang="en"], strong[data-lang="en"] { display: none; }
-        body.lang-en span[data-lang="ru"], body.lang-en a[data-lang="ru"], body.lang-en strong[data-lang="ru"] { display: none; }
+        span[data-lang="en"], a[data-lang="en"], strong[data-lang="en"], div[data-lang="en"] { display: none; }
+        body.lang-en span[data-lang="ru"], body.lang-en a[data-lang="ru"], body.lang-en strong[data-lang="ru"], body.lang-en div[data-lang="ru"] { display: none; }
         body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en strong[data-lang="en"] { display: initial; }
 
         .skill-tag[data-lang="en"]  { display: none; }
@@ -381,19 +185,10 @@
         body.lang-en .project-tag[data-lang="en"] { display: inline-block; }
         .project-tag:not([data-lang]) { display: inline-block !important; }
 
-        .track-desc[data-lang="en"]  { display: none; }
-        body.lang-en .track-desc[data-lang="ru"] { display: none; }
-        body.lang-en .track-desc[data-lang="en"] { display: block; }
-
         .hero-tag[data-lang="en"]  { display: none; }
         body.lang-en .hero-tag[data-lang="ru"] { display: none; }
         body.lang-en .hero-tag[data-lang="en"] { display: inline-block; }
 
-        .track-name[data-lang="en"] { display: none; }
-        body.lang-en .track-name[data-lang="ru"] { display: none; }
-        body.lang-en .track-name[data-lang="en"] { display: block; }
-
-        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .nav-toggle { display: block; }
             nav ul { display: none; flex-direction: column; width: 100%; gap: 0.5rem; padding: 0.5rem 0; }
@@ -402,22 +197,23 @@
             .hero h1 { font-size: 2.2rem; }
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
             .about-stats { grid-template-columns: repeat(2,1fr); }
-            .audio-player { max-width: 100%; }
+            .flowchart { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); margin: 0.2rem 0; }
         }
     </style>
 </head>
 <body class="lang-ru">
 
-<!-- HEADER -->
 <header>
     <div class="container header-content">
         <a href="#" class="logo">Гратати</a>
         <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">☰</button>
         <nav><ul>
             <li><a href="#about"      data-lang="ru">Обо мне</a>       <a href="#about"      data-lang="en">About</a></li>
-            <li><a href="#skills"     data-lang="ru">Решения</a>        <a href="#skills"     data-lang="en">Solutions</a></li>
-            <li><a href="#experience" data-lang="ru">Опыт</a>           <a href="#experience" data-lang="en">Experience</a></li>
+            <li><a href="#vibe-coding" data-lang="ru">Вайб-кодинг</a>   <a href="#vibe-coding" data-lang="en">Vibe-coding</a></li>
+            <li><a href="#solutions"  data-lang="ru">Услуги</a>         <a href="#solutions"  data-lang="en">Services</a></li>
             <li><a href="#projects"   data-lang="ru">Кейсы</a>          <a href="#projects"   data-lang="en">Cases</a></li>
+            <li><a href="#experience" data-lang="ru">Опыт</a>           <a href="#experience" data-lang="en">Experience</a></li>
             <li><a href="#education"  data-lang="ru">Образование</a>    <a href="#education"  data-lang="en">Education</a></li>
             <li><a href="#music"      data-lang="ru">Аудио-брендинг</a> <a href="#music"      data-lang="en">Audio Branding</a></li>
             <li><a href="#contact"    data-lang="ru">Контакты</a>       <a href="#contact"    data-lang="en">Contact</a></li>
@@ -426,103 +222,117 @@
     </div>
 </header>
 
-<!-- HERO -->
 <section class="hero">
     <div class="hero-glow"></div>
     <div class="container">
         <div class="hero-label">
-            <span data-lang="ru">ИИ-решения · Автоматизация · Компьютерное зрение</span>
-            <span data-lang="en">AI Solutions · Automation · Computer Vision</span>
+            <span data-lang="ru">Аудит процессов · Вайб-кодинг · Автоматизация</span>
+            <span data-lang="en">Process Audit · Vibe-coding · Automation</span>
         </div>
-        <h1 data-lang="ru">ИИ ДЛЯ РОСТА<br>БИЗНЕСА</h1>
-        <h1 data-lang="en">AI FOR BUSINESS<br>GROWTH</h1>
-        <p data-lang="ru">Помогаю малому и среднему бизнесу экономить время и деньги через внедрение Искусственного Интеллекта. От автоматизации документов до мобильного компьютерного зрения.</p>
-        <p data-lang="en">Helping small and medium businesses save time and money through Artificial Intelligence implementation. From document automation to mobile computer vision.</p>
+        <h1 data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</h1>
+        <h1 data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</h1>
+        <p data-lang="ru">Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой.</p>
+        <p data-lang="en">Freeing you from routine using modern tools. I assemble ready IT-solutions for your tasks so you can focus on business growth rather than operations.</p>
         <div class="hero-tags">
-            <span class="hero-tag" data-lang="ru">Автоматизация</span><span class="hero-tag" data-lang="en">Automation</span>
-            <span class="hero-tag" data-lang="ru">Компьютерное зрение</span><span class="hero-tag" data-lang="en">Computer Vision</span>
-            <span class="hero-tag" data-lang="ru">ИИ-решения</span><span class="hero-tag" data-lang="en">AI Solutions</span>
-            <span class="hero-tag" data-lang="ru">Машинное обучение</span><span class="hero-tag" data-lang="en">Machine Learning</span>
+            <span class="hero-tag" data-lang="ru">Вайб-кодинг</span><span class="hero-tag" data-lang="en">Vibe-coding</span>
+            <span class="hero-tag" data-lang="ru">Готовые решения</span><span class="hero-tag" data-lang="en">Ready Solutions</span>
+            <span class="hero-tag" data-lang="ru">Бизнес-автоматизация</span><span class="hero-tag" data-lang="en">Business Automation</span>
         </div>
         <div class="hero-btns">
-            <a href="#projects" class="btn btn-primary" data-lang="ru">Смотреть кейсы</a>
-            <a href="#projects" class="btn btn-primary" data-lang="en">View Cases</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="ru">Обсудить проект</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="en">Discuss Project</a>
+            <a href="#projects" class="btn btn-primary" data-lang="ru">Смотреть как это работает</a>
+            <a href="#projects" class="btn btn-primary" data-lang="en">See How It Works</a>
+            <a href="#contact"  class="btn btn-outline" data-lang="ru">Заказать аудит</a>
+            <a href="#contact"  class="btn btn-outline" data-lang="en">Order Audit</a>
         </div>
     </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="section-dark">
+<!-- От идеи до MVP — 72 часа -->
+<section id="vibe-coding" class="section-dark">
     <div class="container">
-        <div class="section-title">
+        <div class="section-title reveal">
+            <h2>⚡ <span data-lang="ru">Вайб-кодинг: Запуск за 72 часа</span><span data-lang="en">Vibe-coding: Launch in 72 hours</span></h2>
+            <p data-lang="ru">Мы не пишем код годами. Мы собираем проект из готовых блоков и нейросетей — это быстрее, надежнее и дешевле.</p>
+            <p data-lang="en">We don't write code for years. We assemble the project from ready blocks and neural networks — it's faster, more reliable, and cheaper.</p>
+        </div>
+        <div class="vibe-grid">
+            <div class="vibe-step reveal delay-100">
+                <div class="vibe-icon">🧠</div>
+                <div class="vibe-title" data-lang="ru">1. Разбор задач</div><div class="vibe-title" data-lang="en">1. Task Analysis</div>
+                <div class="vibe-desc" data-lang="ru">Изучаем ваши процессы и подбираем готовые решения, чтобы настроить работу без лишних затрат.</div><div class="vibe-desc" data-lang="en">We audit your processes and select ready solutions to automate work without extra costs.</div>
+            </div>
+            <div class="vibe-step reveal delay-200">
+                <div class="vibe-icon">⚙️</div>
+                <div class="vibe-title" data-lang="ru">2. Сборка из блоков</div><div class="vibe-title" data-lang="en">2. Block Assembly</div>
+                <div class="vibe-desc" data-lang="ru">Скрепляем лучшие сервисы и AI-агентов в единый механизм без долгого и дорогого программирования.</div><div class="vibe-desc" data-lang="en">We connect the best services and AI agents into a single mechanism without long, expensive coding.</div>
+            </div>
+            <div class="vibe-step reveal delay-300">
+                <div class="vibe-icon">🚀</div>
+                <div class="vibe-title" data-lang="ru">3. Быстрый старт</div><div class="vibe-title" data-lang="en">3. Quick Start</div>
+                <div class="vibe-desc" data-lang="ru">Вы получаете систему, которая работает сама и не требует сложной технической поддержки.</div><div class="vibe-desc" data-lang="en">You get a system that works on its own and does not require complex technical support.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <div class="section-title reveal">
             <h2 data-lang="ru">Обо мне</h2><h2 data-lang="en">About Me</h2>
-            <p data-lang="ru">Ваш партнёр в сфере ИИ</p><p data-lang="en">Your AI Partner</p>
+            <p data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы</p><p data-lang="en">Helping you earn more by automating processes</p>
         </div>
         <div class="about-grid">
-            <div class="about-text">
-                <p data-lang="ru">Начав как специалист техподдержки в КонсультантПлюс (2014–2020), я перешла в разработку ИИ-решений. Я понимаю боли бизнеса и создаю решения, которые работают, а не просто код.</p>
-                <p data-lang="en">Starting as a tech support specialist at ConsultantPlus (2014–2020), I transitioned to AI solutions development. I understand business pain points and create solutions that work, not just code.</p>
-                <p data-lang="ru">Уровень английского: B2 | Фокус на ROI и оптимизации процессов для предпринимателей.</p>
-                <p data-lang="en">English Level: B2 | Focus on ROI and process optimization for entrepreneurs.</p>
+            <div class="about-text reveal delay-100">
+                <p data-lang="ru">Я собираю умные системы для среднего бизнеса. Мой подход — минимизировать рутинное написание кода там, где можно использовать готовые "Вайб-кодинг" решения. Это снижает затраты и ускоряет внедрение.</p>
+                <p data-lang="en">I build smart systems for SMEs. My approach is to minimize routine coding where ready "Vibe-coding" solutions can be used. This reduces costs and accelerates deployment.</p>
+                <p data-lang="ru">Разбираю бардак в бизнесе, собираю надежные связки между сервисами и фокусируюсь на вашей прибыли.</p>
+                <p data-lang="en">I sort out business chaos, build reliable connections between your services, and focus on your profit.</p>
             </div>
-            <div class="about-stats">
-                <div class="stat-card"><span class="number">10+</span><span class="label" data-lang="ru">Бизнес-кейсов</span><span class="label" data-lang="en">Business Cases</span></div>
-                <div class="stat-card"><span class="number">3+</span><span class="label" data-lang="ru">Лет опыта</span><span class="label" data-lang="en">Years Experience</span></div>
-                <div class="stat-card"><span class="number">95%</span><span class="label" data-lang="ru">Точность моделей</span><span class="label" data-lang="en">Model Accuracy</span></div>
-                <div class="stat-card"><span class="number">24/7</span><span class="label" data-lang="ru">Автоматизация</span><span class="label" data-lang="en">Automation</span></div>
+            <div class="about-stats reveal delay-200">
+                <div class="stat-card"><span class="number">72ч</span><span class="label" data-lang="ru">До запуска системы</span><span class="label" data-lang="en">To System Launch</span></div>
+                <div class="stat-card"><span class="number">10+</span><span class="label" data-lang="ru">Готовых кейсов</span><span class="label" data-lang="en">Ready Cases</span></div>
+                <div class="stat-card"><span class="number">2x</span><span class="label" data-lang="ru">Ускорение работы</span><span class="label" data-lang="en">Work Acceleration</span></div>
+                <div class="stat-card"><span class="number">24/7</span><span class="label" data-lang="ru">Работа без людей</span><span class="label" data-lang="en">Staff-free Flow</span></div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- SKILLS -->
-<section id="skills">
+<section id="solutions" class="section-dark">
     <div class="container">
-        <div class="section-title">
-            <h2>🚀 <span data-lang="ru">ИИ для Бизнеса</span><span data-lang="en">AI for Business</span></h2>
-            <p data-lang="ru">Объединяю техническую экспертизу с бизнес-логикой для получения измеримого результата.</p>
-            <p data-lang="en">Combining technical expertise with business logic for measurable results.</p>
+        <div class="section-title reveal">
+            <h2>🧩 <span data-lang="ru">Что я умею делать</span><span data-lang="en">What I Can Do</span></h2>
+            <p data-lang="ru">Вместо сложных программ — фокус на прозрачных результатах для вашего бизнеса.</p>
+            <p data-lang="en">Instead of complex software — focus on transparent results for your business.</p>
         </div>
         <div class="skills-grid">
-            <div class="skill-card">
-                <h3>👁️ <span data-lang="ru">Компьютерное зрение</span><span data-lang="en">Computer Vision</span></h3>
+            <div class="skill-card reveal delay-100">
+                <h3>🏛️ <span data-lang="ru">Аудит процессов</span><span data-lang="en">Process Audit</span></h3>
                 <div class="skill-tags">
-                    <span class="skill-tag" data-lang="ru">Детекция объектов</span><span class="skill-tag" data-lang="en">Object Detection</span>
-                    <span class="skill-tag" data-lang="ru">Сегментация</span><span class="skill-tag" data-lang="en">Segmentation</span>
-                    <span class="skill-tag" data-lang="ru">Мобильный ИИ</span><span class="skill-tag" data-lang="en">Mobile AI</span>
-                    <span class="skill-tag" data-lang="ru">Контроль качества</span><span class="skill-tag" data-lang="en">Quality Control</span>
-                    <span class="skill-tag" data-lang="ru">Безопасность</span><span class="skill-tag" data-lang="en">Security</span>
+                    <span class="skill-tag" data-lang="ru">Поиск узких мест</span><span class="skill-tag" data-lang="en">Bottleneck Search</span>
+                    <span class="skill-tag" data-lang="ru">Оценка затрат</span><span class="skill-tag" data-lang="en">Cost Evaluation</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>📝 <span data-lang="ru">Текст и Данные</span><span data-lang="en">Text & Data</span></h3>
+            <div class="skill-card reveal delay-200">
+                <h3>⚡ <span data-lang="ru">Вайб-кодинг (Сборка)</span><span data-lang="en">Vibe-coding Assembly</span></h3>
                 <div class="skill-tags">
-                    <span class="skill-tag" data-lang="ru">Чат-боты</span><span class="skill-tag" data-lang="en">Chatbots</span>
-                    <span class="skill-tag" data-lang="ru">Анализ документов</span><span class="skill-tag" data-lang="en">Document Analysis</span>
-                    <span class="skill-tag" data-lang="ru">Анализ тональности</span><span class="skill-tag" data-lang="en">Sentiment Analysis</span>
-                    <span class="skill-tag" data-lang="ru">База знаний</span><span class="skill-tag" data-lang="en">Knowledge Base</span>
-                    <span class="skill-tag" data-lang="ru">Автоматизация</span><span class="skill-tag" data-lang="en">Automation</span>
+                    <span class="skill-tag">Google AI Studio</span>
+                    <span class="skill-tag">Antigravity / Cursor</span>
+                    <span class="skill-tag" data-lang="ru">Без программистов</span><span class="skill-tag" data-lang="en">No Programmers</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>🤖 <span data-lang="ru">Машинное обучение</span><span data-lang="en">Machine Learning</span></h3>
+            <div class="skill-card reveal delay-300">
+                <h3>🔗 <span data-lang="ru">Связка сервисов</span><span data-lang="en">Service Linking</span></h3>
                 <div class="skill-tags">
-                    <span class="skill-tag" data-lang="ru">Прогнозирование</span><span class="skill-tag" data-lang="en">Prediction</span>
-                    <span class="skill-tag" data-lang="ru">Классификация</span><span class="skill-tag" data-lang="en">Classification</span>
-                    <span class="skill-tag" data-lang="ru">Оптимизация</span><span class="skill-tag" data-lang="en">Optimization</span>
-                    <span class="skill-tag">TensorFlow</span><span class="skill-tag">PyTorch</span>
+                    <span class="skill-tag">Telegram</span><span class="skill-tag">CRM</span>
+                    <span class="skill-tag" data-lang="ru">Обмен данными</span><span class="skill-tag" data-lang="en">Data Exchange</span>
                 </div>
             </div>
-            <div class="skill-card">
-                <h3>🔧 <span data-lang="ru">Внедрение</span><span data-lang="en">Deployment</span></h3>
+            <div class="skill-card reveal delay-400">
+                <h3>🤖 <span data-lang="ru">Умные помощники</span><span data-lang="en">Smart Assistants</span></h3>
                 <div class="skill-tags">
-                    <span class="skill-tag">Android (Kotlin)</span>
-                    <span class="skill-tag">TF Lite</span>
-                    <span class="skill-tag">Docker</span>
-                    <span class="skill-tag" data-lang="ru">Интеграция API</span><span class="skill-tag" data-lang="en">API Integration</span>
-                    <span class="skill-tag" data-lang="ru">Облачные решения</span><span class="skill-tag" data-lang="en">Cloud Solutions</span>
+                    <span class="skill-tag">AI Чат-боты</span>
+                    <span class="skill-tag" data-lang="ru">Бот-менеджеры</span><span class="skill-tag" data-lang="en">Bot Managers</span>
                 </div>
             </div>
         </div>
@@ -546,14 +356,14 @@
             <div class="timeline-item">
                 <div class="timeline-date">12.2024</div>
                 <div class="timeline-role" data-lang="ru">Инженер по компьютерному зрению</div><div class="timeline-role" data-lang="en">Computer Vision Engineer</div>
-                <div class="timeline-company">КьюДжиАй (Медицина) / QGI (Medical)</div>
+                <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
                 <p data-lang="ru">Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
                 <p data-lang="en">Paneth cell detection for medical diagnostics. Implemented attention mechanisms for improved accuracy.</p>
             </div>
             <div class="timeline-item">
                 <div class="timeline-date">11.2024</div>
                 <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div><div class="timeline-role" data-lang="en">AI Solutions Developer</div>
-                <div class="timeline-company">КьюДжиАй (Медицина) / QGI (Medical)</div>
+                <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
                 <p data-lang="ru">Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
                 <p data-lang="en">Optimized models for fast inference. Implemented EfficientNet for medical image analysis.</p>
             </div>
@@ -695,107 +505,92 @@
     </div>
 </section>
 
-<!-- MUSIC / AUDIO BRANDING -->
-<section id="music">
+
+<!-- MUSIC SECTION RESTORED -->
+<section id="music" class="section-dark">
     <div class="container">
-        <div class="section-title">
+        <div class="section-title reveal">
             <h2>🎵 <span data-lang="ru">ИИ Аудио-брендинг</span><span data-lang="en">AI Audio Branding</span></h2>
-            <p data-lang="ru">Уникальная музыка для вашего бизнеса — без авторских прав</p>
-            <p data-lang="en">Unique music for your business — copyright-free</p>
+            <p data-lang="ru">Уникальное музыкальное сопровождение для вашего бизнеса (без авторских прав).</p>
+            <p data-lang="en">Unique musical accompaniment for your business (copyright-free).</p>
         </div>
         <div class="music-grid">
-            <div class="music-card">
+            <div class="music-card reveal delay-100">
                 <div class="music-title"><span data-lang="ru">Уникальный звук бренда</span><span data-lang="en">Unique Brand Sound</span></div>
                 <div class="music-controls">
                     <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Яблоко в руке.mp3">▶</button>
                     <div class="music-progress"><div class="music-progress-bar"></div></div>
                 </div>
-                <p data-lang="ru">Никаких авторских прав. Музыка, сгенерированная специально для вашей рекламы, удержания на линии или контента.</p>
-                <p data-lang="en">No copyright strikes. Custom generated music for your commercials, hold lines, or content.</p>
+                <p data-lang="ru">Музыка, сгенерированная специально для вашей рекламы или удержания клиентов на линии.</p>
+                <p data-lang="en">Music generated specifically for your advertising or keeping customers on hold.</p>
             </div>
-            <div class="music-card">
+            <div class="music-card reveal delay-200">
                 <div class="music-title"><span data-lang="ru">Создатель атмосферы</span><span data-lang="en">Atmosphere Creator</span></div>
                 <div class="music-controls">
                     <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Carnival Drift.mp3">▶</button>
                     <div class="music-progress"><div class="music-progress-bar"></div></div>
                 </div>
-                <p data-lang="ru">Задайте правильное настроение клиентам. Динамичные паттерны, которые вовлекают и удерживают внимание.</p>
-                <p data-lang="en">Set the right mood for your customers. Dynamic patterns that engage and retain attention.</p>
+                <p data-lang="ru">Задайте правильное настроение вашим клиентам с помощью динамичных битов.</p>
+                <p data-lang="en">Set the right mood for your clients with dynamic beats.</p>
             </div>
-            <div class="music-card">
+            <div class="music-card reveal delay-300">
                 <div class="music-title"><span data-lang="ru">Технологии и Эмоции</span><span data-lang="en">Tech & Emotion</span></div>
                 <div class="music-controls">
                     <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Code of Desire.mp3">▶</button>
                     <div class="music-progress"><div class="music-progress-bar"></div></div>
                 </div>
-                <p data-lang="ru">Сочетание технологий и человеческих эмоций. Идеально для техно-стартапов и презентаций инноваций.</p>
-                <p data-lang="en">Blend technology with human emotion. Perfect for tech startups and innovation showcases.</p>
+                <p data-lang="ru">Сочетание технологий и человеческих эмоций для смелых проектов.</p>
+                <p data-lang="en">A blend of technologies and human emotions for daring projects.</p>
             </div>
-        </div>
-
-        <div style="text-align:center; margin-top:2rem;">
-            <p style="color:var(--muted); margin-bottom:1rem;">
-                <span data-lang="ru">Закажите уникальный трек для вашего бизнеса</span>
-                <span data-lang="en">Order a unique track for your business</span>
-            </p>
-            <a href="https://www.producer.ai/gratati" class="music-link" target="_blank">
-                <span data-lang="ru">Посетить Producer.ai</span><span data-lang="en">Visit Producer.ai</span>
-            </a>
         </div>
     </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="section-dark">
+<section id="contact">
     <div class="container">
-        <div class="section-title">
-            <h2 data-lang="ru">Автоматизирую ваш бизнес</h2><h2 data-lang="en">Automate Your Business</h2>
+        <div class="section-title reveal">
+            <h2 data-lang="ru">Готовы к сборке системы?</h2><h2 data-lang="en">Ready to Assemble Your System?</h2>
+            <p data-lang="ru">Расскажите, что отнимает у вас время, и мы найдем способ это автоматизировать.</p>
+            <p data-lang="en">Tell us what's taking up your time and we'll find a way to automate it.</p>
         </div>
         <div class="contact-grid">
-            <div class="contact-links">
-                <a href="/cdn-cgi/l/email-protection#630411021702170a575a23040e020a0f4d000c0e" class="contact-link"><span>✉️</span> <span class="__cf_email__" data-cfemail="e087928194819489d4d9a0878d81898cce838f8d">[email&#160;protected]</span></a>
+            <div class="contact-links reveal delay-100">
+                <a href="mailto:gratati49@gmail.com" class="contact-link"><span>✉️</span> gratati49@gmail.com</a>
                 <a href="https://t.me/mentvork" class="contact-link" target="_blank"><span>📱</span> Telegram</a>
                 <a href="https://github.com/gratati" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
-                <a href="https://www.producer.ai/gratati" class="contact-link" target="_blank"><span>🎵</span> Producer.ai</a>
             </div>
-            <form class="contact-form" onsubmit="handleSubmit(event)">
+            <form class="contact-form reveal delay-200" onsubmit="handleSubmit(event)">
                 <div class="form-group">
-                    <label data-lang="ru">Ваше имя</label><label data-lang="en">Your Name</label>
+                    <label data-lang="ru">Ваше имя и Компания</label><label data-lang="en">Your Name & Company</label>
                     <input type="text" required placeholder="—">
                 </div>
                 <div class="form-group">
-                    <label data-lang="ru">Ваш e-mail</label><label data-lang="en">Your Email</label>
+                    <label data-lang="ru">Контакт для связи</label><label data-lang="en">Contact Details</label>
                     <input type="email" required placeholder="—">
                 </div>
                 <div class="form-group">
-                    <label data-lang="ru">Задача бизнеса</label><label data-lang="en">Business Task</label>
-                    <input type="text" data-lang="ru" placeholder="Например: автоматизация документов">
-                    <input type="text" data-lang="en" placeholder="e.g., document automation">
+                    <label data-lang="ru">Главная бизнес-боль / процесс</label><label data-lang="en">Main Business Pain / Process</label>
+                    <textarea data-lang="ru" placeholder="Что съедает время сотрудников и требует автоматизации?"></textarea>
+                    <textarea data-lang="en" placeholder="What consumes employees' time and requires automation?"></textarea>
                 </div>
-                <div class="form-group">
-                    <label data-lang="ru">Чем могу помочь?</label><label data-lang="en">How can I help?</label>
-                    <textarea data-lang="ru" placeholder="Опишите вашу задачу..."></textarea>
-                    <textarea data-lang="en" placeholder="Describe your task..."></textarea>
-                </div>
-                <button type="submit" class="btn-full" data-lang="ru">Получить консультацию</button>
-                <button type="submit" class="btn-full" data-lang="en">Get Consultation</button>
+                <button type="submit" class="btn-full" data-lang="ru">Написать мне</button>
+                <button type="submit" class="btn-full" data-lang="en">Contact Me</button>
             </form>
         </div>
     </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
     <div class="container">
         <div class="footer-brand">Гратати</div>
-        <div class="footer-desc" data-lang="ru">ИИ-решения для предпринимателей</div>
-        <div class="footer-desc" data-lang="en">AI Solutions for Entrepreneurs</div>
+        <div class="footer-desc" data-lang="ru">Архитектура. Интеграция. Системы.</div>
+        <div class="footer-desc" data-lang="en">Architecture. Integration. Systems.</div>
         <div class="footer-copy">© 2026 <span data-lang="ru">Все права защищены.</span><span data-lang="en">All rights reserved.</span></div>
     </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── LANGUAGE ────────────────────────────────────────────────────
+<script>
+// ЛОГИКА ЯЗЫКОВ
 let currentLang = 'ru';
 function toggleLanguage() {
     currentLang = currentLang === 'ru' ? 'en' : 'ru';
@@ -803,28 +598,41 @@ function toggleLanguage() {
     document.querySelector('.lang-switch').textContent = currentLang === 'ru' ? 'EN' : 'RU';
 }
 
-// ── SMOOTH SCROLL ───────────────────────────────────────────────
+// ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (href === '#' || href === '#email') return;
         e.preventDefault();
-        const t = document.querySelector(a.getAttribute('href'));
+        const t = document.querySelector(href);
         if (t) { t.scrollIntoView({ behavior:'smooth', block:'start' }); document.querySelector('nav ul')?.classList.remove('active'); }
     });
 });
 
-// ── HEADER SHRINK ───────────────────────────────────────────────
+// ХЕДЕР
 window.addEventListener('scroll', () => {
     document.querySelector('header').style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
 });
 
-// ── FORM ────────────────────────────────────────────────────────
+// ФОРМА
 function handleSubmit(e) {
     e.preventDefault();
-    alert(currentLang === 'ru' ? 'Спасибо! Я свяжусь с вами в ближайшее время.' : 'Thank you! I will contact you shortly.');
+    alert(currentLang === 'ru' ? 'Спасибо! Предварительный аудит начат. Свяжусь с вами в ближайшее время.' : 'Thank you! Preliminary audit started. I will contact you shortly.');
 }
 
+// АНИМАЦИИ ПРИ СКРОЛЛЕ
+const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target);
+        }
+    });
+}, observerOptions);
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// ── MUSIC PLAYER (рабочий код из оригинала) ─────────────────────
+// АУДИОПЛЕЕР
 const musicButtons = document.querySelectorAll('.music-play-btn');
 let currentAudio = null;
 let currentBtn = null;
