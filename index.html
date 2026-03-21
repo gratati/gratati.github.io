@@ -548,7 +548,7 @@
                 <span data-lang="ru">Ознакомьтесь с другими моими песнями:</span>
                 <span data-lang="en">Check out my other songs:</span>
             </p>
-            <a href="https://producer.ai" target="_blank" class="btn btn-primary">
+            <a href="https://producer.ai/gratati" target="_blank" class="btn btn-primary">
                 <span data-lang="ru">Посетить Producer.ai</span>
                 <span data-lang="en">Visit Producer.ai</span>
             </a>
@@ -569,19 +569,21 @@
                 <a href="https://t.me/mentvork" class="contact-link" target="_blank"><span>📱</span> Telegram</a>
                 <a href="https://github.com/gratati" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
             </div>
-            <form class="contact-form reveal delay-200" onsubmit="handleSubmit(event)">
+            <form class="contact-form reveal delay-200" action="https://formsubmit.co/ajax/gratati49@gmail.com" method="POST" onsubmit="handleSubmit(event)">
+                <input type="hidden" name="_subject" value="Новая заявка с сайта Гратати!">
+                <input type="hidden" name="_template" value="table">
                 <div class="form-group">
                     <label data-lang="ru">Ваше имя и Компания</label><label data-lang="en">Your Name & Company</label>
-                    <input type="text" required placeholder="—">
+                    <input type="text" name="Имя_и_Компания" required placeholder="—">
                 </div>
                 <div class="form-group">
                     <label data-lang="ru">Контакт для связи</label><label data-lang="en">Contact Details</label>
-                    <input type="email" required placeholder="—">
+                    <input type="email" name="Email" required placeholder="—">
                 </div>
                 <div class="form-group">
                     <label data-lang="ru">Главная бизнес-боль / процесс</label><label data-lang="en">Main Business Pain / Process</label>
-                    <textarea data-lang="ru" placeholder="Что съедает время сотрудников и требует автоматизации?"></textarea>
-                    <textarea data-lang="en" placeholder="What consumes employees' time and requires automation?"></textarea>
+                    <textarea name="Сообщение_RU" data-lang="ru" placeholder="Что съедает время сотрудников и требует автоматизации?"></textarea>
+                    <textarea name="Сообщение_EN" data-lang="en" placeholder="What consumes employees' time and requires automation?"></textarea>
                 </div>
                 <button type="submit" class="btn-full" data-lang="ru">Написать мне</button>
                 <button type="submit" class="btn-full" data-lang="en">Contact Me</button>
@@ -624,10 +626,51 @@ window.addEventListener('scroll', () => {
     document.querySelector('header').style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
 });
 
-// ФОРМА
-function handleSubmit(e) {
+// ФОРМА (Отправка на почту через FormSubmit)
+async function handleSubmit(e) {
     e.preventDefault();
-    alert(currentLang === 'ru' ? 'Спасибо! Предварительный аудит начат. Свяжусь с вами в ближайшее время.' : 'Thank you! Preliminary audit started. I will contact you shortly.');
+    const form = e.target;
+    const btnRu = form.querySelector('button[data-lang="ru"]');
+    const btnEn = form.querySelector('button[data-lang="en"]');
+    const originalTextRu = btnRu.textContent;
+    const originalTextEn = btnEn.textContent;
+    
+    // Блокируем кнопку
+    btnRu.textContent = 'Отправка...';
+    btnEn.textContent = 'Sending...';
+    
+    const formData = new FormData(form);
+    
+    // Удаляем ненужный язык из данных
+    if (currentLang === 'en') {
+        formData.set('Message', formData.get('Сообщение_EN'));
+    } else {
+        formData.set('Message', formData.get('Сообщение_RU'));
+    }
+    formData.delete('Сообщение_RU');
+    formData.delete('Сообщение_EN');
+
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+        
+        if (response.ok) {
+            alert(currentLang === 'ru' 
+                ? 'Успешно! Если это первая отправка, проверьте почту gratati49@gmail.com для активации формы.' 
+                : 'Success! If this is the first submission, check your email gratati49@gmail.com to activate.');
+            form.reset();
+        } else {
+            alert(currentLang === 'ru' ? 'Ошибка сервиса отправки.' : 'Service error.');
+        }
+    } catch (error) {
+        alert(currentLang === 'ru' ? 'Ошибка сети.' : 'Network error.');
+    } finally {
+        btnRu.textContent = originalTextRu;
+        btnEn.textContent = originalTextEn;
+    }
 }
 
 // АНИМАЦИИ ПРИ СКРОЛЛЕ
