@@ -40,244 +40,417 @@
 }
 </script>
 
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif;background:linear-gradient(135deg,#0b0f1a 0%,#1a1f3a 100%);color:#fff;line-height:1.6;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 20px}
+header{position:fixed;top:0;width:100%;background:rgba(11,15,26,0.95);backdrop-filter:blur(10px);z-index:1000;padding:15px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+.header-content{display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:24px;font-weight:700;color:#4da6ff;text-decoration:none}
+.nav-toggle{font-size:28px;background:none;border:none;color:#fff;cursor:pointer}
+nav{display:none;position:absolute;top:100%;left:0;width:100%;background:rgba(11,15,26,0.98);padding:20px}
+nav.active{display:block}
+nav ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+nav a{color:#fff;text-decoration:none;font-size:14px;padding:8px 0;display:block;transition:color 0.3s}
+nav a:hover{color:#4da6ff}
+.lang-switch{color:#4da6ff;font-size:14px;cursor:pointer}
+.hero{padding:140px 0 80px;text-align:center}
+.hero h1{font-size:clamp(28px,5vw,48px);margin-bottom:20px;line-height:1.2}
+.hero p{font-size:18px;max-width:700px;margin:0 auto 30px;opacity:0.9}
+.badges{display:flex;flex-wrap:wrap;justify-content:center;gap:15px;margin-bottom:30px}
+.badge{background:rgba(77,166,255,0.15);padding:8px 16px;border-radius:20px;font-size:14px;border:1px solid rgba(77,166,255,0.3)}
+.btn{display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#4da6ff,#6c5ce7);color:#fff;text-decoration:none;border-radius:30px;font-weight:600;transition:transform 0.3s,box-shadow 0.3s;margin:5px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(77,166,255,0.4)}
+.btn-outline{background:transparent;border:2px solid #4da6ff}
+.section{padding:80px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+.section-title{font-size:clamp(24px,4vw,36px);margin-bottom:40px;text-align:center}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:30px}
+.step{background:rgba(255,255,255,0.05);padding:30px;border-radius:20px;border:1px solid rgba(255,255,255,0.1);transition:transform 0.3s}
+.step:hover{transform:translateY(-5px)}
+.step-icon{font-size:32px;margin-bottom:15px}
+.step h3{margin-bottom:10px;color:#4da6ff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:30px}
+.stat{background:rgba(77,166,255,0.1);padding:20px;border-radius:15px;text-align:center}
+.stat-number{font-size:32px;font-weight:700;color:#4da6ff}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.service-card{background:rgba(255,255,255,0.05);padding:25px;border-radius:15px;border-left:3px solid #4da6ff}
+.service-card h4{color:#4da6ff;margin:10px 0}
+.experience-item{background:rgba(255,255,255,0.05);padding:25px;border-radius:15px;margin-bottom:20px;border-left:3px solid #6c5ce7}
+.experience-date{color:#4da6ff;font-weight:600;margin-bottom:5px}
+.cases-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px}
+.case-card{background:rgba(255,255,255,0.05);border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,0.1);transition:transform 0.3s}
+.case-card:hover{transform:translateY(-5px);border-color:#4da6ff}
+.case-header{padding:25px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.case-header h3{font-size:20px;margin-bottom:5px}
+.case-header .subtitle{color:#4da6ff;font-size:14px}
+.case-body{padding:25px}
+.case-body p{margin-bottom:15px;opacity:0.9}
+.case-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.case-tag{background:rgba(77,166,255,0.2);padding:4px 12px;border-radius:12px;font-size:12px}
+.qualifications-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
+.qualification-card{background:rgba(255,255,255,0.05);padding:25px;border-radius:15px}
+.qualification-card h4{color:#4da6ff;margin-bottom:10px}
+.audio-section{background:linear-gradient(135deg,rgba(108,92,231,0.1),rgba(77,166,255,0.1));border-radius:20px;padding:40px;text-align:center}
+.audio-item{margin:20px 0;padding:15px;background:rgba(255,255,255,0.05);border-radius:10px;cursor:pointer;transition:background 0.3s}
+.audio-item:hover{background:rgba(77,166,255,0.2)}
+.audio-item span{color:#4da6ff;margin-left:10px}
+.contact-form{max-width:600px;margin:0 auto;background:rgba(255,255,255,0.05);padding:40px;border-radius:20px}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;margin-bottom:8px;font-size:14px;opacity:0.9}
+.form-group input,.form-group textarea{width:100%;padding:12px 15px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:10px;color:#fff;font-size:14px}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:#4da6ff}
+.contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:20px;margin-top:30px}
+.contact-links a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;transition:color 0.3s}
+.contact-links a:hover{color:#4da6ff}
+footer{text-align:center;padding:40px 0;opacity:0.7;font-size:14px}
+@media(max-width:768px){
+  .about-grid{grid-template-columns:1fr}
+  nav ul{grid-template-columns:1fr}
+  .hero{padding:120px 0 60px}
+}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.animate{animation:fadeInUp 0.6s ease forwards}
+</style>
 </head>
 <body>
 
-Гратати — Создаю умные IT-системы
-[Гратати](#)
-☰
-[Обо мне](#about)[About](#about)
-[Вайб-кодинг](#vibe-coding)[Vibe-coding](#vibe-coding)
-[Услуги](#solutions)[Services](#solutions)
-[Кейсы](#projects)[Cases](#projects)
-[Опыт](#experience)[Experience](#experience)
-[Образование](#education)[Education](#education)
-[Аудио-брендинг](#music)[Audio Branding](#music)
-[Контакты](#contact)[Contact](#contact)
-EN
-Аудит процессов · Вайб-кодинг · Автоматизация • Россия, Казахстан, Беларусь
-Process Audit · Vibe-coding · Automation • Russia, Kazakhstan, Belarus
+<header>
+<div class="container header-content">
+<a href="#" class="logo">Гратати</a>
+<button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('active')">☰</button>
+<nav>
+<ul>
+<li><a href="#about">Обо мне</a><a href="#about">About</a></li>
+<li><a href="#vibe-coding">Вайб-кодинг</a><a href="#vibe-coding">Vibe-coding</a></li>
+<li><a href="#solutions">Услуги</a><a href="#solutions">Services</a></li>
+<li><a href="#projects">Кейсы</a><a href="#projects">Cases</a></li>
+<li><a href="#experience">Опыт</a><a href="#experience">Experience</a></li>
+<li><a href="#education">Образование</a><a href="#education">Education</a></li>
+<li><a href="#music">Аудио-брендинг</a><a href="#music">Audio Branding</a></li>
+<li><a href="#contact">Контакты</a><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+<span class="lang-switch">EN</span>
+</div>
+</header>
 
-АВТОМАТИЗАЦИЯ БИЗНЕСА И УМНЫЕ СИСТЕМЫ | РОССИЯ • КАЗАХСТАН • БЕЛАРУСЬ
-BUSINESS AUTOMATION & SMART SYSTEMS | RU • KZ • BY
+<section class="hero">
+<div class="container">
+<div class="badges">
+<span class="badge">Аудит процессов</span>
+<span class="badge">Вайб-кодинг</span>
+<span class="badge">Автоматизация</span>
+<span class="badge">🇷🇺🇰🇿🇧🇾</span>
+</div>
+<h1>АВТОМАТИЗАЦИЯ БИЗНЕСА И УМНЫЕ СИСТЕМЫ</h1>
+<p>Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой. Работаю с компаниями из России, Казахстана и Беларуси.</p>
+<div class="badges">
+<span class="badge">⚡ Вайб-кодинг</span>
+<span class="badge">🧩 Готовые решения</span>
+<span class="badge">🚀 Бизнес-автоматизация</span>
+</div>
+<a href="#projects" class="btn">Смотреть как это работает</a>
+<a href="#contact" class="btn btn-outline">Заказать аудит</a>
+</div>
+</section>
 
-Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой. Работаю с компаниями из России, Казахстана и Беларуси.
-Freeing you from routine using modern tools. I assemble ready IT-solutions for your tasks so you can focus on business growth rather than operations. Serving businesses across Russia, Kazakhstan, and Belarus.
+<section class="section" id="vibe-coding">
+<div class="container">
+<h2 class="section-title">⚡ Вайб-кодинг: Запуск за 72 часа</h2>
+<p style="text-align:center;max-width:700px;margin:0 auto 40px;opacity:0.9">Мы не пишем код годами. Мы собираем проект из готовых блоков и нейросетей — это быстрее, надежнее и дешевле.</p>
+<div class="steps">
+<div class="step animate">
+<div class="step-icon">🧠</div>
+<h3>1. Разбор задач</h3>
+<p>Изучаем ваши процессы и подбираем готовые решения, чтобы настроить работу без лишних затрат.</p>
+</div>
+<div class="step animate">
+<div class="step-icon">⚙️</div>
+<h3>2. Сборка из блоков</h3>
+<p>Скрепляем лучшие сервисы и AI-агентов в единый механизм без долгого и дорогого программирования.</p>
+</div>
+<div class="step animate">
+<div class="step-icon">🚀</div>
+<h3>3. Быстрый старт</h3>
+<p>Вы получаете систему, которая работает сама и не требует сложной технической поддержки.</p>
+</div>
+</div>
+</div>
+</section>
 
-Вайб-кодинг | Быстро. Надежно. Для СНГ
-Vibe-coding | Fast. Reliable. For CIS
-Готовые решения | Без долгой разработки
-Ready Solutions | No Long Development
-Бизнес-автоматизация | РФ • КЗ • РБ
-Business Automation | RU • KZ • BY
+<section class="section" id="about">
+<div class="container">
+<h2 class="section-title">Обо мне</h2>
+<div class="about-grid">
+<div>
+<h3>Помогаю зарабатывать больше, автоматизируя процессы</h3>
+<p style="margin:20px 0;opacity:0.9">Я собираю умные системы для среднего бизнеса. Мой подход — минимизировать рутинное написание кода там, где можно использовать готовые "Вайб-кодинг" решения. Это снижает затраты и ускоряет внедрение.</p>
+<p style="opacity:0.9">Разбираю бардак в бизнесе, собираю надежные связки между сервисами и фокусируюсь на вашей прибыли.</p>
+</div>
+<div class="stats">
+<div class="stat"><div class="stat-number">72ч</div><div>До запуска системы</div></div>
+<div class="stat"><div class="stat-number">10+</div><div>Готовых кейсов</div></div>
+<div class="stat"><div class="stat-number">2x</div><div>Ускорение работы</div></div>
+<div class="stat"><div class="stat-number">24/7</div><div>Работа без людей</div></div>
+</div>
+</div>
+</div>
+</section>
 
-[Смотреть как это работает](#projects)
-[See How It Works](#projects)
-[Заказать аудит](#contact)
-[Order Audit](#contact)
+<section class="section" id="solutions">
+<div class="container">
+<h2 class="section-title">🧩 Что я умею делать</h2>
+<p style="text-align:center;max-width:600px;margin:0 auto 40px;opacity:0.9">Вместо сложных программ — фокус на прозрачных результатах для вашего бизнеса.</p>
+<div class="services-grid">
+<div class="service-card">
+<div style="font-size:28px">🏛️</div>
+<h4>Аудит процессов</h4>
+<p style="font-size:14px;opacity:0.9">Поиск узких мест • Оценка затрат</p>
+</div>
+<div class="service-card">
+<div style="font-size:28px">⚡</div>
+<h4>Вайб-кодинг (Сборка)</h4>
+<p style="font-size:14px;opacity:0.9">Google AI Studio • Antigravity / Cursor • Без программистов</p>
+</div>
+<div class="service-card">
+<div style="font-size:28px">🔗</div>
+<h4>Связка сервисов</h4>
+<p style="font-size:14px;opacity:0.9">Telegram • CRM • Обмен данными</p>
+</div>
+<div class="service-card">
+<div style="font-size:28px">🤖</div>
+<h4>Умные помощники</h4>
+<p style="font-size:14px;opacity:0.9">AI Чат-боты • Бот-менеджеры</p>
+</div>
+</div>
+</div>
+</section>
 
-⚡ Вайб-кодинг: Запуск за 72 часа | Россия, Казахстан, Беларусь
-Vibe-coding: Launch in 72 hours | RU • KZ • BY
+<section class="section" id="experience">
+<div class="container">
+<h2 class="section-title">Опыт работы</h2>
+<div class="experience-item">
+<div class="experience-date">05.2025 – 07.2025</div>
+<h4>Специалист по данным</h4>
+<p style="color:#4da6ff;margin:5px 0">Московский Политех / Moscow Polytechnic</p>
+<p style="opacity:0.9;margin-top:10px">Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.</p>
+</div>
+<div class="experience-item">
+<div class="experience-date">12.2024</div>
+<h4>Инженер по компьютерному зрению</h4>
+<p style="color:#4da6ff;margin:5px 0">КьюДжейАй (Медицина) / QGI (Medical)</p>
+<p style="opacity:0.9;margin-top:10px">Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
+</div>
+<div class="experience-item">
+<div class="experience-date">11.2024</div>
+<h4>Разработчик ИИ-решений</h4>
+<p style="color:#4da6ff;margin:5px 0">КьюДжейАй (Медицина) / QGI (Medical)</p>
+<p style="opacity:0.9;margin-top:10px">Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
+</div>
+<div class="experience-item">
+<div class="experience-date">04.2024 – 06.2024</div>
+<h4>Разработчик ИИ-решений</h4>
+<p style="color:#4da6ff;margin:5px 0">Волей Плей / Volley Play</p>
+<p style="opacity:0.9;margin-top:10px">Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.</p>
+</div>
+<div class="experience-item">
+<div class="experience-date">01.2024 – 03.2024</div>
+<h4>Специалист по данным</h4>
+<p style="color:#4da6ff;margin:5px 0">СГМУ (Разумовского) / SGMU (Razumovskiy)</p>
+<p style="opacity:0.9;margin-top:10px">Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</p>
+</div>
+</div>
+</section>
 
-Мы не пишем код годами. Мы собираем проект из готовых блоков и нейросетей — это быстрее, надежнее и дешевле.
-We don't write code for years. We assemble the project from ready blocks and neural networks — it's faster, more reliable, and cheaper.
+<section class="section" id="projects">
+<div class="container">
+<h2 class="section-title">Кейсы для бизнеса</h2>
+<div class="cases-grid">
 
-🧠1. Разбор задач | Аудит процессов
-1. Task Analysis | Process Audit
-Изучаем ваши процессы и подбираем готовые решения, чтобы настроить работу без лишних затрат. Оптимизация под бизнес-реалии РФ, КЗ, РБ.
-We audit your processes and select ready solutions to automate work without extra costs. Optimized for business realities of RU, KZ, BY.
-
-⚙️2. Сборка из блоков | Интеграция сервисов
-2. Block Assembly | Service Integration
-Скрепляем лучшие сервисы и AI-агентов в единый механизм без долгого и дорогого программирования. Поддержка локальных платформ.
-We connect the best services and AI agents into a single mechanism without long, expensive coding. Support for local platforms.
-
-🚀3. Быстрый старт | Результат за 72 часа
-3. Quick Start | Results in 72 Hours
-Вы получаете систему, которая работает сама и не требует сложной технической поддержки. Запуск в вашем регионе.
-You get a system that works on its own and does not require complex technical support. Launch in your region.
-
-Обо мне
-About Me
-Помогаю зарабатывать больше, автоматизируя процессы | РФ • КЗ • РБ
-Helping you earn more by automating processes | RU • KZ • BY
-
-Я собираю умные системы для среднего бизнеса. Мой подход — минимизировать рутинное написание кода там, где можно использовать готовые "Вайб-кодинг" решения. Это снижает затраты и ускоряет внедрение в России, Казахстане и Беларуси.
-I build smart systems for SMEs. My approach is to minimize routine coding where ready "Vibe-coding" solutions can be used. This reduces costs and accelerates deployment across Russia, Kazakhstan, and Belarus.
-
-Разбираю бардак в бизнесе, собираю надежные связки между сервисами и фокусируюсь на вашей прибыли.
-I sort out business chaos, build reliable connections between your services, and focus on your profit.
-
-72ч | До запуска системы в вашем регионе
-To System Launch | In Your Region
-10+ | Готовых кейсов для бизнеса СНГ
-Ready Cases | For CIS Businesses
-2x | Ускорение работы после автоматизации
-Work Acceleration | Post-Automation
-24/7 | Работа без людей • Поддержка 24/7
-Staff-free Flow • 24/7 Support
-
-🧩 Что я умею делать | Автоматизация для РФ, КЗ, РБ
-What I Can Do | Automation for RU, KZ, BY
-Вместо сложных программ — фокус на прозрачных результатах для вашего бизнеса.
-Instead of complex software — focus on transparent results for your business.
-
-🏛️ Аудит процессов | Поиск точек роста
-Process Audit | Growth Points Search
-Поиск узких мест | Оценка затрат | Локализация под регион
-Bottleneck Search | Cost Evaluation | Regional Localization
-
-⚡ Вайб-кодинг (Сборка) | Без программистов
-Vibe-coding Assembly | No Programmers Needed
-Google AI Studio | Antigravity / Cursor | Готовые интеграции для СНГ
-Google AI Studio | Antigravity / Cursor | Ready Integrations for CIS
-
-🔗 Связка сервисов | Интеграция под ключ
-Service Linking | Turnkey Integration
-Telegram | CRM | Обмен данными | Поддержка локальных сервисов
-Telegram | CRM | Data Exchange | Local Services Support
-
-🤖 Умные помощники | ИИ для вашего бизнеса
-Smart Assistants | AI for Your Business
-AI Чат-боты | Бот-менеджеры | Мультиязычность (RU/KZ/BY)
-AI Chatbots | Bot Managers | Multilingual Support (RU/KZ/BY)
-
-Опыт работы
-Work Experience
-
-05.2025 – 07.2025 | Специалист по данным | Москва, РФ
-Data Scientist | Moscow Polytechnic | Moscow, RU
-Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.
-Developed cascaded sentiment model for business analytics. Created web app for real-time data processing.
-
-12.2024 | Инженер по компьютерному зрению | Медицина, РФ
-Computer Vision Engineer | QGI (Medical) | RU
-Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.
-Paneth cell detection for medical diagnostics. Implemented attention mechanisms for improved accuracy.
-
-11.2024 | Разработчик ИИ-решений | Медицина, РФ
-AI Solutions Developer | QGI (Medical) | RU
-Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.
-Optimized models for fast inference. Implemented EfficientNet for medical image analysis.
-
-04.2024 – 06.2024 | Разработчик ИИ-решений | Спорт-тех, РФ
-AI Solutions Developer | Volley Play | RU
-Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.
-Volleyball court segmentation for sports analytics. Integrated AI into Android application.
-
-01.2024 – 03.2024 | Специалист по данным | Образование, РФ
-Data Scientist | SGMU (Razumovskiy) | RU
-Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.
-Created knowledge bases and tested chatbots on vector databases for support automation.
-
-Кейсы для бизнеса | Автоматизация в РФ • КЗ • РБ
-Business Cases | Automation in RU • KZ • BY
-
-👶 ИИ-консультант для родителей (3–6 лет) | Семейные технологии
-AI Parenting Consultant (Ages 3–6) | Family Tech
-Интеллектуальный помощник для родителей дошкольников. Помогает с поведением ребёнка, развитием и снижает стресс. Доступен 24/7. Поддержка для семей в РФ, КЗ, РБ.
-Intelligent assistant for parents of preschoolers. Helps with child behavior, development, and reduces stress. Available 24/7. Support for families in RU, KZ, BY.
-Ответы 24/7 | Снижение нагрузки | Масштабируемость
-24/7 Answers | Load Reduction | Scalability
+<!-- Обновлённая первая карточка -->
+<div class="case-card animate">
+<div class="case-header">
+<h3>👶 ИИ-консультант для родителей (3–6 лет)</h3>
+<div class="subtitle">Семейные технологии • РФ • КЗ • РБ</div>
+</div>
+<div class="case-body">
+<p>Интеллектуальный помощник для родителей дошкольников. Помогает с поведением ребёнка, развитием и снижает стресс. Доступен 24/7. Поддержка для семей в России, Казахстане и Беларуси.</p>
+<div class="case-tags">
+<span class="case-tag">Ответы 24/7</span>
+<span class="case-tag">Снижение нагрузки</span>
+<span class="case-tag">Масштабируемость</span>
+</div>
 <a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139" target="_blank" class="btn">Открыть демо</a>
-<a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139" target="_blank" class="btn">Open Demo</a>
+</div>
+</div>
 
-🧠 ИИ для Психотерапии | Медицинские технологии
-AI for Psychotherapy | Health Tech
-ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.
-AI assistant for therapy sessions. Supports workflows and provides intelligent prompts.
-Медицинские технологии | Поддержка и забота
-Health Tech | Support & Care
-[Протестировать](https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true)
-[Try Demo](https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true)
+<div class="case-card">
+<div class="case-header">
+<h3>🧠 ИИ для Психотерапии</h3>
+<div class="subtitle">Медицинские технологии</div>
+</div>
+<div class="case-body">
+<p>ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
+<div class="case-tags">
+<span class="case-tag">Health Tech</span>
+<span class="case-tag">Поддержка и забота</span>
+</div>
+<a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" target="_blank" class="btn">Протестировать</a>
+</div>
+</div>
 
-📰 ИИ-Агрегатор новостей | Авто-контент
-AI News Aggregator | Auto-Content
-Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.
-Automatic delivery of AI and tech news. Smart summarization saves reading time.
-Обработка естественного языка | Автоматизация
-NLP | Automation
-[Протестировать](https://gclnk.com/XEGqVnxo)
-[Try Demo](https://gclnk.com/XEGqVnxo)
+<div class="case-card">
+<div class="case-header">
+<h3>📰 ИИ-Агрегатор новостей</h3>
+<div class="subtitle">Авто-контент</div>
+</div>
+<div class="case-body">
+<p>Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.</p>
+<div class="case-tags">
+<span class="case-tag">NLP</span>
+<span class="case-tag">Автоматизация</span>
+</div>
+<a href="https://gclnk.com/XEGqVnxo" target="_blank" class="btn">Протестировать</a>
+</div>
+</div>
 
-💬 Анализ отзывов клиентов | Аналитика для бизнеса
-Customer Feedback Analysis | Business Analytics
-Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте репутацию в реальном времени.
-Cascaded model (XGBoost + BERT) for automatic review analysis. Track your reputation in real-time.
-Точность: 95% | Мультиязычный анализ
-Accuracy: 95% | Multilingual Analysis
-[Изучить кейс](https://gratati.github.io/docs/%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf)
-[View Case](https://gratati.github.io/docs/%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf)
+<div class="case-card">
+<div class="case-header">
+<h3>💬 Анализ отзывов клиентов</h3>
+<div class="subtitle">Аналитика отзывов</div>
+</div>
+<div class="case-body">
+<p>Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте репутацию в реальном времени.</p>
+<div class="case-tags">
+<span class="case-tag">Точность: 95%</span>
+<span class="case-tag">NLP</span>
+</div>
+<a href="https://gratati.github.io/docs/%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf" target="_blank" class="btn">Изучить кейс</a>
+</div>
+</div>
 
-📱 Детекция на мобильном | ИИ для Андроид
-Mobile Object Detection | AI for Android
-Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.
-TensorFlow Lite model for Android app. Real-time object detection without internet. Perfect for field work.
-TF Lite | Офлайн-режим | Работа в регионах
-TF Lite | Offline Mode | Regional Deployment
-[Изучить кейс](https://gratati.github.io/docs/object-detection.pdf)
-[View Case](https://gratati.github.io/docs/object-detection.pdf)
+<div class="case-card">
+<div class="case-header">
+<h3>📱 Детекция на мобильном</h3>
+<div class="subtitle">ИИ для Андроид</div>
+</div>
+<div class="case-body">
+<p>Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
+<div class="case-tags">
+<span class="case-tag">TF Lite</span>
+<span class="case-tag">Офлайн-режим</span>
+</div>
+<a href="https://gratati.github.io/docs/object-detection.pdf" target="_blank" class="btn">Изучить кейс</a>
+</div>
+</div>
 
-⚽ Сегментация игрового поля | Спортивная аналитика
-Sports Field Segmentation | Sports Analytics
-Автоматическая сегментация игровых полей и игроков. Две ИИ-модели (SAM / U-Net) для авто-разметки спортивных датасетов в реальном времени.
-Automatic segmentation of sports fields and players. Two AI models (SAM / U-Net) for real-time automatic sports dataset labeling.
-SAM / U-Net | В реальном времени | Авто-разметка
-SAM / U-Net | Real-time | Auto-labeling
-[Изучить кейс](https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf)
-[View Case](https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf)
+<div class="case-card">
+<div class="case-header">
+<h3>⚽ Сегментация игрового поля</h3>
+<div class="subtitle">Спортивная аналитика</div>
+</div>
+<div class="case-body">
+<p>Автоматическая сегментация игровых полей и игроков. Две ИИ-модели (SAM / U-Net) для авто-разметки спортивных датасетов в реальном времени.</p>
+<div class="case-tags">
+<span class="case-tag">SAM / U-Net</span>
+<span class="case-tag">В реальном времени</span>
+<span class="case-tag">Авто-разметка</span>
+</div>
+<a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" target="_blank" class="btn">Изучить кейс</a>
+</div>
+</div>
 
-Квалификация
-Qualifications
+</div>
+</div>
+</section>
 
-2024 | Разработчик Android | Urbanuniversity.ru
-Android Developer | Urbanuniversity.ru
-Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.
-Mobile development with Kotlin. Ability to deploy AI models directly into client applications.
+<section class="section" id="education">
+<div class="container">
+<h2 class="section-title">Квалификация</h2>
+<div class="qualifications-grid">
+<div class="qualification-card">
+<div style="color:#4da6ff;font-weight:600">2024</div>
+<h4>Разработчик Android</h4>
+<p style="opacity:0.7;font-size:14px">Urbanuniversity.ru</p>
+<p style="margin-top:10px;opacity:0.9">Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.</p>
+</div>
+<div class="qualification-card">
+<div style="color:#4da6ff;font-weight:600">2023</div>
+<h4>Наука о данных и машинное обучение</h4>
+<p style="opacity:0.7;font-size:14px">neural-university.ru</p>
+<p style="margin-top:10px;opacity:0.9">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</p>
+</div>
+<div class="qualification-card">
+<div style="color:#4da6ff;font-weight:600">1997</div>
+<h4>Технический бэкграунд</h4>
+<p style="opacity:0.7;font-size:14px">Национальная Академия (Симферополь)</p>
+<p style="margin-top:10px;opacity:0.9">Основы аналитического мышления и технических дисциплин.</p>
+</div>
+</div>
+</div>
+</section>
 
-2023 | Наука о данных и машинное обучение | neural-university.ru
-Data Science & Machine Learning | neural-university.ru
-Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.
-Neural networks, deep learning and optimization techniques for business tasks.
+<section class="section" id="music">
+<div class="container">
+<div class="audio-section">
+<h2 style="margin-bottom:10px">🎵 ИИ Аудио-брендинг</h2>
+<p style="opacity:0.9;margin-bottom:30px">Уникальное музыкальное сопровождение для вашего бизнеса (без авторских прав).</p>
+<div class="audio-item">Уникальный звук бренда <span>▶</span></div>
+<div class="audio-item">Создатель атмосферы <span>▶</span></div>
+<div class="audio-item">Технологии и Эмоции <span>▶</span></div>
+<p style="margin-top:30px;opacity:0.9">Ознакомьтесь с другими моими песнями:</p>
+<a href="https://producer.ai/gratati" target="_blank" class="btn btn-outline">Посетить Producer.ai</a>
+</div>
+</div>
+</section>
 
-1997 | Технический бэкграунд | Национальная Академия (Симферополь)
-Technical Background | National Academy (Simferopol)
-Основы аналитического мышления и технических дисциплин.
-Fundamentals of analytical thinking and technical disciplines.
+<section class="section" id="contact">
+<div class="container">
+<h2 class="section-title">Готовы к сборке системы?</h2>
+<p style="text-align:center;max-width:600px;margin:0 auto 40px;opacity:0.9">Расскажите, что отнимает у вас время, и мы найдем способ это автоматизировать.</p>
+<div class="contact-links">
+<a href="mailto:gratati49@gmail.com">✉️ gratati49@gmail.com</a>
+<a href="https://t.me/mentvork" target="_blank">📱 Telegram</a>
+<a href="https://github.com/gratati" target="_blank">💻 GitHub</a>
+</div>
+<form class="contact-form" style="margin-top:40px">
+<div class="form-group">
+<label>Ваше имя и Компания</label>
+<input type="text" placeholder="Иван • Моя Компания">
+</div>
+<div class="form-group">
+<label>Контакт для связи</label>
+<input type="email" placeholder="email@example.com">
+</div>
+<div class="form-group">
+<label>Главная бизнес-боль / процесс</label>
+<textarea rows="4" placeholder="Что автоматизировать?"></textarea>
+</div>
+<button type="submit" class="btn" style="width:100%">Написать мне</button>
+</form>
+</div>
+</section>
 
-🎵 ИИ Аудио-брендинг
-AI Audio Branding
-Уникальное музыкальное сопровождение для вашего бизнеса (без авторских прав).
-Unique musical accompaniment for your business (copyright-free).
-Уникальный звук бренда | Unique Brand Sound ▶
-Музыка, сгенерированная специально для вашей рекламы или удержания клиентов на линии.
-Music generated specifically for your advertising or keeping customers on hold.
-Создатель атмосферы | Atmosphere Creator ▶
-Задайте правильное настроение вашим клиентам с помощью динамичных битов.
-Set the right mood for your clients with dynamic beats.
-Технологии и Эмоции | Tech & Emotion ▶
-Сочетание технологий и человеческих эмоций для смелых проектов.
-A blend of technologies and human emotions for daring projects.
-Ознакомьтесь с другими моими песнями:
-Check out my other songs:
-[Посетить Producer.ai](https://producer.ai/gratati)
-[Visit Producer.ai](https://producer.ai/gratati)
+<footer>
+<div class="container">
+<p><strong>Гратати</strong> • Архитектура. Интеграция. Системы.</p>
+<p>© 2026 Все права защищены.</p>
+</div>
+</footer>
 
-Готовы к сборке системы?
-Ready to Assemble Your System?
-Расскажите, что отнимает у вас время, и мы найдем способ это автоматизировать.
-Tell us what's taking up your time and we'll find a way to automate it.
-[✉️](mailto:gratati49@gmail.com)[ gratati49@gmail.com](mailto:gratati49@gmail.com)
-[📱](https://t.me/mentvork)[ Telegram](https://t.me/mentvork)
-[💻](https://github.com/gratati)[ GitHub](https://github.com/gratati)
-Ваше имя и Компания | Your Name & Company
-Контакт для связи | Contact Details
-Главная бизнес-боль / процесс | Main Business Pain / Process
-[Написать мне](#contact)
-[Contact Me](#contact)
-Гратати | Архитектура. Интеграция. Системы.
-Gratati | Architecture. Integration. Systems.
-© 2026 Все права защищены. | All rights reserved.
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+anchor.addEventListener('click',function(e){
+e.preventDefault();
+document.querySelector(this.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+document.querySelector('nav')?.classList.remove('active');
+});
+});
+document.querySelectorAll('.animate').forEach((el,i)=>{
+el.style.animationDelay=i*0.1+'s';
+});
+</script>
 
 </body>
 </html>
