@@ -1,741 +1,142 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Гратати — Создаю умные IT-системы</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:        #050a12;
-            --bg2:       #080f1c;
-            --bg3:       #0c1526;
-            --card:      #0d1b2e;
-            --card2:     #111f35;
-            --border:    rgba(56,189,248,0.15);
-            --primary:   #38bdf8;
-            --primary2:  #0ea5e9;
-            --accent:    #a78bfa;
-            --accent2:   #7c3aed;
-            --green:     #34d399;
-            --text:      #e2eaf4;
-            --muted:     #6b8aab;
-            --glow:      rgba(56,189,248,0.35);
-            --glow2:     rgba(167,139,250,0.3);
-            --gradient:  linear-gradient(135deg, #0ea5e9, #7c3aed);
-            --gradient2: linear-gradient(135deg, #38bdf8, #a78bfa);
-        }
-        *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Exo 2', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body::before { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgba(56,189,248,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,0.04) 1px, transparent 1px); background-size: 48px 48px; }
-        body::after { content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none; background: radial-gradient(ellipse 60% 40% at 15% 20%, rgba(14,165,233,0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 35% at 85% 70%, rgba(124,58,237,0.08) 0%, transparent 60%); }
+<title>Автоматизация бизнеса под ключ | AI системы | Россия Казахстан Беларусь</title>
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
+<meta name="description" content="Автоматизация бизнеса под ключ: Россия, Казахстан, Беларусь. Внедрение AI систем, CRM и процессов за 72 часа. Устраняю хаос и увеличиваю прибыль.">
 
-        header { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 1rem 0; background: rgba(5,10,18,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); transition: padding 0.3s; }
-        .header-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: 900; letter-spacing: 0.05em; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-decoration: none; filter: drop-shadow(0 0 12px rgba(56,189,248,0.5)); }
-        .nav-toggle { display: none; font-size: 1.4rem; background: none; border: none; cursor: pointer; color: var(--primary); }
-        nav ul { display: flex; gap: 1.5rem; list-style: none; }
-        nav a { text-decoration: none; color: var(--muted); font-weight: 500; font-size: 0.88rem; letter-spacing: 0.03em; transition: color 0.3s, text-shadow 0.3s; }
-        nav a:hover { color: var(--primary); text-shadow: 0 0 12px var(--glow); }
-        .lang-switch { padding: 0.4rem 1rem; border: 1px solid var(--primary); border-radius: 20px; background: none; color: var(--primary); font-weight: 700; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; cursor: pointer; transition: all 0.3s; box-shadow: 0 0 8px rgba(56,189,248,0.2); }
-        .lang-switch:hover { background: var(--primary); color: var(--bg); box-shadow: 0 0 20px var(--glow); }
+<meta name="keywords" content="автоматизация бизнеса, CRM внедрение, AI системы, бизнес процессы, малый бизнес автоматизация, интеграция сервисов">
 
-        .hero { padding: 9rem 0 5.5rem; text-align: center; position: relative; overflow: hidden; }
-        .hero-glow { position: absolute; inset: 0; pointer-events: none; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(14,165,233,0.13) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 50% 100%, rgba(124,58,237,0.1) 0%, transparent 60%); }
-        .hero-label { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--primary); border: 1px solid rgba(56,189,248,0.3); padding: 0.35rem 1rem; border-radius: 20px; margin-bottom: 1.5rem; background: rgba(56,189,248,0.06); animation: fadeUp 0.6s ease both; }
-        .hero h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1.5rem; background: linear-gradient(135deg, #e2eaf4 0%, #38bdf8 50%, #a78bfa 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: fadeUp 0.6s 0.1s ease both; }
-        .hero p { font-size: 1.1rem; color: var(--muted); max-width: 780px; margin: 0 auto 2rem; animation: fadeUp 0.6s 0.2s ease both; }
-        .hero-tags { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; animation: fadeUp 0.6s 0.3s ease both; }
-        .hero-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--muted); padding: 0.28rem 0.85rem; border: 1px solid rgba(107,138,171,0.22); border-radius: 20px; background: rgba(255,255,255,0.02); }
-        .hero-btns { animation: fadeUp 0.6s 0.4s ease both; display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
-        .hero-btns .btn { margin: 0; }
+<meta name="geo.region" content="RU-KZ-BY">
+<meta name="geo.placename" content="Russia, Kazakhstan, Belarus">
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+<link rel="alternate" hreflang="ru" href="https://gratati.github.io/">
+<link rel="alternate" hreflang="x-default" href="https://gratati.github.io/">
 
-        .btn { display: inline-block; padding: 0.75rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 700; margin: 0.4rem; font-family: 'Exo 2', sans-serif; font-size: 0.95rem; letter-spacing: 0.03em; transition: transform 0.25s, box-shadow 0.25s; cursor: pointer; border: none; }
-        .btn-primary { background: var(--gradient); color: white; box-shadow: 0 4px 24px rgba(14,165,233,0.28); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(14,165,233,0.5); }
-        .btn-outline { background: transparent; border: 1px solid rgba(56,189,248,0.4); color: var(--primary); }
-        .btn-outline:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 0 20px rgba(56,189,248,0.2); background: rgba(56,189,248,0.06); }
-        .btn-sm { display: inline-block; padding: 0.42rem 1.2rem; background: var(--gradient); color: white; border-radius: 6px; text-decoration: none; font-size: 0.83rem; font-weight: 700; transition: transform 0.2s, box-shadow 0.2s; }
-        .btn-sm:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(14,165,233,0.38); }
-        .btn-full { width: 100%; padding: 0.85rem; background: var(--gradient); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 700; font-family: 'Exo 2', sans-serif; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px rgba(14,165,233,0.22); }
-        .btn-full:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(14,165,233,0.4); }
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "ProfessionalService",
+"name": "GRATATI AI Automation",
+"areaServed": ["RU","KZ","BY","US"],
+"serviceType": "Business Automation",
+"description": "Автоматизация бизнес процессов и внедрение AI систем под ключ",
+"url": "https://gratati.github.io/"
+}
+</script>
 
-        section { padding: 5rem 0; position: relative; z-index: 1; overflow: hidden; }
-        .section-dark { background: var(--bg2); }
-        .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .section-title p { color: var(--muted); max-width: 600px; margin-inline: auto; }
-
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-        .about-text p { color: var(--muted); margin-bottom: 1rem; }
-        .about-text p:first-child { color: var(--text); }
-        .about-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
-        .stat-card { background: var(--card); border: 1px solid var(--border); padding: 1.5rem; border-radius: 12px; text-align: center; transition: border-color 0.3s, box-shadow 0.3s; }
-        .stat-card:hover { border-color: rgba(56,189,248,0.4); box-shadow: 0 0 20px rgba(56,189,248,0.1); }
-        .stat-card .number { font-size: 2.2rem; font-weight: 900; font-family: 'JetBrains Mono', monospace; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: block; }
-        .stat-card .label { color: var(--muted); font-size: 0.85rem; }
-
-        /* Vibe Coding / Flowcharts CSS */
-        .vibe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-        .vibe-step { background: rgba(56,189,248,0.03); border: 1px solid var(--border); padding: 1.75rem; border-radius: 12px; text-align: center; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
-        .vibe-step:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(14,165,233,0.15); border-color: rgba(56,189,248,0.4); }
-        .vibe-step::after { content: '→'; position: absolute; right: -1.2rem; top: 50%; transform: translateY(-50%); font-size: 2rem; color: var(--primary); opacity: 0.5; font-family: 'JetBrains Mono', monospace; }
-        @media (max-width: 900px) { .vibe-step::after { display: none; } }
-        .vibe-step:last-child::after { content: none; }
-        .vibe-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-        .vibe-title { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-        .vibe-desc { color: var(--muted); font-size: 0.9rem; }
-
-        .flowchart { display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin: 1rem 0; padding: 1rem 0.5rem; background: rgba(13,27,46,0.6); border-radius: 8px; border: 1px dashed rgba(56,189,248,0.3); flex-wrap: wrap; transition: transform 0.3s; }
-        .project-card:hover .flowchart { transform: scale(1.02); border-color: rgba(167,139,250,0.5); }
-        .flow-step { flex: 1; text-align: center; padding: 0.5rem; background: var(--card2); border: 1px solid rgba(56,189,248,0.2); border-radius: 6px; font-size: 0.72rem; font-family: 'JetBrains Mono', monospace; color: var(--text); min-width: 80px; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
-        .flow-arrow { color: var(--primary); font-size: 1rem; font-family: 'JetBrains Mono', monospace; }
-
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 1.5rem; }
-        .skill-card { background: var(--card); border: 1px solid var(--border); padding: 1.75rem; border-radius: 12px; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
-        .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); opacity: 0; transition: opacity 0.3s; }
-        .skill-card:hover { transform: translateY(-6px); border-color: rgba(56,189,248,0.35); box-shadow: 0 12px 40px rgba(14,165,233,0.1); }
-        .skill-card:hover::before { opacity: 1; }
-        .skill-card h3 { margin-bottom: 1rem; color: var(--text); font-weight: 700; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        .skill-tag { padding: 0.25rem 0.75rem; background: rgba(56,189,248,0.07); border: 1px solid rgba(56,189,248,0.15); border-radius: 20px; font-size: 0.78rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; }
-
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 1.5rem; }
-        .project-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; }
-        .project-card:hover { transform: translateY(-6px); border-color: rgba(167,139,250,0.4); box-shadow: 0 12px 40px rgba(124,58,237,0.14); }
-        .project-top { height: 3px; background: var(--gradient); }
-        .project-content { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
-        .project-content h3 { color: var(--text); font-weight: 700; margin-bottom: 0.35rem; transition: color 0.3s; }
-        .project-card:hover .project-content h3 { color: var(--primary); }
-        .project-sub { color: var(--primary); font-size: 0.77rem; font-family: 'JetBrains Mono', monospace; margin-bottom: 0.75rem; }
-        .project-content p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; flex: 1; }
-        .project-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-        .project-tag { padding: 0.2rem 0.7rem; background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.2); border-radius: 20px; font-size: 0.73rem; color: var(--accent); font-family: 'JetBrains Mono', monospace; }
-
-        .education-grid { display: grid; gap: 1.25rem; max-width: 800px; margin-inline: auto; }
-        .education-item { background: var(--card); border: 1px solid var(--border); border-left: 3px solid var(--primary); padding: 1.5rem; border-radius: 12px; transition: border-left-color 0.3s, box-shadow 0.3s; }
-        .education-item:hover { border-left-color: var(--accent); box-shadow: 0 0 20px rgba(167,139,250,0.1); }
-        .education-year { font-family: 'JetBrains Mono', monospace; font-weight: 600; color: var(--primary); font-size: 0.83rem; }
-        .education-item strong { color: var(--text); }
-        .education-item p { color: var(--muted); margin-top: 0.5rem; font-size: 0.9rem; }
-
-        /* Animation Classes */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
-
-        /* MUSIC SECTION */
-        .music-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px,1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
-        .music-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; position: relative; overflow: hidden; }
-        .music-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gradient); opacity: 0; transition: opacity 0.3s; }
-        .music-card:hover { transform: translateY(-4px); border-color: rgba(255,0,110,0.35); box-shadow: 0 8px 30px rgba(255,0,110,0.1); }
-        .music-card:hover::before { opacity: 1; }
-        .music-title { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; letter-spacing: 0.02em; }
-        .music-controls { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-        .music-play-btn { width: 44px; height: 44px; border-radius: 50%; border: none; flex-shrink: 0; background: linear-gradient(135deg, var(--primary2), var(--accent2)); color: white; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 14px rgba(14,165,233,0.4); transition: transform 0.2s, box-shadow 0.2s; }
-        .music-play-btn:hover { transform: scale(1.08); box-shadow: 0 0 24px rgba(14,165,233,0.6); }
-        .music-play-btn:active { transform: scale(0.95); }
-        .music-play-btn.playing { background: linear-gradient(135deg, var(--accent2), #ff006e); box-shadow: 0 0 14px rgba(255,0,110,0.5); }
-        .music-progress { flex: 1; height: 5px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; cursor: pointer; }
-        .music-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary2), var(--accent)); border-radius: 3px; width: 0%; transition: width 0.1s linear; box-shadow: 0 0 6px rgba(56,189,248,0.5); }
-        .music-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-        .contact-links { display: flex; flex-direction: column; gap: 1rem; }
-        .contact-link { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.3s; }
-        .contact-link:hover { border-color: rgba(56,189,248,0.4); transform: translateX(6px); box-shadow: 0 0 16px rgba(56,189,248,0.08); }
-        .contact-form { background: var(--card); border: 1px solid var(--border); padding: 2rem; border-radius: 12px; }
-        .form-group { margin-bottom: 1rem; }
-        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-        .form-group input, .form-group textarea { width: 100%; padding: 0.75rem 1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(56,189,248,0.14); border-radius: 8px; font-size: 0.95rem; color: var(--text); font-family: 'Exo 2', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; }
-        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(56,189,248,0.1); }
-        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(107,138,171,0.4); }
-        .form-group textarea { min-height: 120px; resize: vertical; }
-
-        footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 3rem 0 1.5rem; text-align: center; position: relative; z-index: 1; }
-        .footer-brand { font-size: 1.4rem; font-weight: 900; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
-        .footer-desc { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
-        .footer-copy { color: rgba(107,138,171,0.45); font-size: 0.78rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; }
-
-        [data-lang="en"] { display: none; }
-        body.lang-en [data-lang="ru"] { display: none; }
-        body.lang-en [data-lang="en"] { display: revert; }
-
-        span[data-lang], a[data-lang], strong[data-lang], div[data-lang] { display: initial; }
-        span[data-lang="en"], a[data-lang="en"], strong[data-lang="en"], div[data-lang="en"] { display: none; }
-        body.lang-en span[data-lang="ru"], body.lang-en a[data-lang="ru"], body.lang-en strong[data-lang="ru"], body.lang-en div[data-lang="ru"] { display: none; }
-        body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en strong[data-lang="en"] { display: initial; }
-
-        .skill-tag[data-lang="en"]  { display: none; }
-        body.lang-en .skill-tag[data-lang="ru"] { display: none; }
-        body.lang-en .skill-tag[data-lang="en"] { display: inline-block; }
-        .skill-tag:not([data-lang])  { display: inline-block !important; }
-
-        .project-tag[data-lang="en"]  { display: none; }
-        body.lang-en .project-tag[data-lang="ru"] { display: none; }
-        body.lang-en .project-tag[data-lang="en"] { display: inline-block; }
-        .project-tag:not([data-lang]) { display: inline-block !important; }
-
-        .hero-tag[data-lang="en"]  { display: none; }
-        body.lang-en .hero-tag[data-lang="ru"] { display: none; }
-        body.lang-en .hero-tag[data-lang="en"] { display: inline-block; }
-
-        @media (max-width: 768px) {
-            .nav-toggle { display: block; }
-            nav ul { display: none; flex-direction: column; width: 100%; gap: 0.5rem; padding: 0.5rem 0; }
-            nav ul.active { display: flex; }
-            .header-content { flex-wrap: wrap; gap: 0.75rem; }
-            .hero h1 { font-size: 2.2rem; }
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .about-stats { grid-template-columns: repeat(2,1fr); }
-            .flowchart { flex-direction: column; }
-            .flow-arrow { transform: rotate(90deg); margin: 0.2rem 0; }
-        }
-    </style>
+<style>
+body{font-family:Arial;background:#0b0f1a;color:#fff;margin:0}
+.container{max-width:1100px;margin:auto;padding:20px}
+h1{font-size:42px}
+.btn{display:inline-block;padding:12px 24px;background:#4da6ff;color:#fff;text-decoration:none;margin-top:10px}
+section{padding:60px 0;border-bottom:1px solid #222}
+</style>
 </head>
-<body class="lang-ru">
 
-<header>
-    <div class="container header-content">
-        <a href="#" class="logo">Гратати</a>
-        <button class="nav-toggle" onclick="document.querySelector('nav ul').classList.toggle('active')">☰</button>
-        <nav><ul>
-            <li><a href="#about"      data-lang="ru">Обо мне</a>       <a href="#about"      data-lang="en">About</a></li>
-            <li><a href="#vibe-coding" data-lang="ru">Вайб-кодинг</a>   <a href="#vibe-coding" data-lang="en">Vibe-coding</a></li>
-            <li><a href="#solutions"  data-lang="ru">Услуги</a>         <a href="#solutions"  data-lang="en">Services</a></li>
-            <li><a href="#projects"   data-lang="ru">Кейсы</a>          <a href="#projects"   data-lang="en">Cases</a></li>
-            <li><a href="#experience" data-lang="ru">Опыт</a>           <a href="#experience" data-lang="en">Experience</a></li>
-            <li><a href="#education"  data-lang="ru">Образование</a>    <a href="#education"  data-lang="en">Education</a></li>
-            <li><a href="#music"      data-lang="ru">Аудио-брендинг</a> <a href="#music"      data-lang="en">Audio Branding</a></li>
-            <li><a href="#contact"    data-lang="ru">Контакты</a>       <a href="#contact"    data-lang="en">Contact</a></li>
-        </ul></nav>
-        <button class="lang-switch" onclick="toggleLanguage()">EN</button>
-    </div>
-</header>
+<body>
 
-<section class="hero">
-    <div class="hero-glow"></div>
-    <div class="container">
-        <div class="hero-label">
-            <span data-lang="ru">Аудит процессов · Вайб-кодинг · Автоматизация</span>
-            <span data-lang="en">Process Audit · Vibe-coding · Automation</span>
-        </div>
-        <h1 data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</h1>
-        <h1 data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</h1>
-        <p data-lang="ru">Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой.</p>
-        <p data-lang="en">Freeing you from routine using modern tools. I assemble ready IT-solutions for your tasks so you can focus on business growth rather than operations.</p>
-        <div class="hero-tags">
-            <span class="hero-tag" data-lang="ru">Вайб-кодинг</span><span class="hero-tag" data-lang="en">Vibe-coding</span>
-            <span class="hero-tag" data-lang="ru">Готовые решения</span><span class="hero-tag" data-lang="en">Ready Solutions</span>
-            <span class="hero-tag" data-lang="ru">Бизнес-автоматизация</span><span class="hero-tag" data-lang="en">Business Automation</span>
-        </div>
-        <div class="hero-btns">
-            <a href="#projects" class="btn btn-primary" data-lang="ru">Смотреть как это работает</a>
-            <a href="#projects" class="btn btn-primary" data-lang="en">See How It Works</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="ru">Заказать аудит</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="en">Order Audit</a>
-        </div>
-    </div>
+<section>
+<div class="container">
+
+<h1>УБИРАЮ ХАОС В БИЗНЕСЕ<br>И СОБИРАЮ СИСТЕМЫ ЗА 72 ЧАСА</h1>
+
+<p>
+Автоматизирую бизнес-процессы для малого и среднего бизнеса в России, Казахстане и Беларуси.
+Убираю хаос в заявках, внедряю AI-системы и собираю работающие решения за 72 часа.
+</p>
+
+<a href="#contact" class="btn">Разобрать мой бизнес</a>
+
+</div>
 </section>
 
-<!-- От идеи до MVP — 72 часа -->
-<section id="vibe-coding" class="section-dark">
-    <div class="container">
-        <div class="section-title reveal">
-            <h2>⚡ <span data-lang="ru">Вайб-кодинг: Запуск за 72 часа</span><span data-lang="en">Vibe-coding: Launch in 72 hours</span></h2>
-            <p data-lang="ru">Мы не пишем код годами. Мы собираем проект из готовых блоков и нейросетей — это быстрее, надежнее и дешевле.</p>
-            <p data-lang="en">We don't write code for years. We assemble the project from ready blocks and neural networks — it's faster, more reliable, and cheaper.</p>
-        </div>
-        <div class="vibe-grid">
-            <div class="vibe-step reveal delay-100">
-                <div class="vibe-icon">🧠</div>
-                <div class="vibe-title" data-lang="ru">1. Разбор задач</div><div class="vibe-title" data-lang="en">1. Task Analysis</div>
-                <div class="vibe-desc" data-lang="ru">Изучаем ваши процессы и подбираем готовые решения, чтобы настроить работу без лишних затрат.</div><div class="vibe-desc" data-lang="en">We audit your processes and select ready solutions to automate work without extra costs.</div>
-            </div>
-            <div class="vibe-step reveal delay-200">
-                <div class="vibe-icon">⚙️</div>
-                <div class="vibe-title" data-lang="ru">2. Сборка из блоков</div><div class="vibe-title" data-lang="en">2. Block Assembly</div>
-                <div class="vibe-desc" data-lang="ru">Скрепляем лучшие сервисы и AI-агентов в единый механизм без долгого и дорогого программирования.</div><div class="vibe-desc" data-lang="en">We connect the best services and AI agents into a single mechanism without long, expensive coding.</div>
-            </div>
-            <div class="vibe-step reveal delay-300">
-                <div class="vibe-icon">🚀</div>
-                <div class="vibe-title" data-lang="ru">3. Быстрый старт</div><div class="vibe-title" data-lang="en">3. Quick Start</div>
-                <div class="vibe-desc" data-lang="ru">Вы получаете систему, которая работает сама и не требует сложной технической поддержки.</div><div class="vibe-desc" data-lang="en">You get a system that works on its own and does not require complex technical support.</div>
-            </div>
-        </div>
-    </div>
+<section>
+<div class="container">
+
+<h2>Что я делаю</h2>
+
+<p>
+Я собираю системы из готовых инструментов и AI вместо долгой разработки.
+</p>
+
+<p>
+Работаю с бизнесами из России, Казахстана и Беларуси: эксперты, сервисы, онлайн-проекты.
+</p>
+
+<ul>
+<li>автоматизация заявок</li>
+<li>системы продаж</li>
+<li>AI-ассистенты</li>
+<li>интеграции сервисов</li>
+</ul>
+
+</div>
 </section>
 
-<section id="about">
-    <div class="container">
-        <div class="section-title reveal">
-            <h2 data-lang="ru">Обо мне</h2><h2 data-lang="en">About Me</h2>
-            <p data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы</p><p data-lang="en">Helping you earn more by automating processes</p>
-        </div>
-        <div class="about-grid">
-            <div class="about-text reveal delay-100">
-                <p data-lang="ru">Я собираю умные системы для среднего бизнеса. Мой подход — минимизировать рутинное написание кода там, где можно использовать готовые "Вайб-кодинг" решения. Это снижает затраты и ускоряет внедрение.</p>
-                <p data-lang="en">I build smart systems for SMEs. My approach is to minimize routine coding where ready "Vibe-coding" solutions can be used. This reduces costs and accelerates deployment.</p>
-                <p data-lang="ru">Разбираю бардак в бизнесе, собираю надежные связки между сервисами и фокусируюсь на вашей прибыли.</p>
-                <p data-lang="en">I sort out business chaos, build reliable connections between your services, and focus on your profit.</p>
-            </div>
-            <div class="about-stats reveal delay-200">
-                <div class="stat-card"><span class="number">72ч</span><span class="label" data-lang="ru">До запуска системы</span><span class="label" data-lang="en">To System Launch</span></div>
-                <div class="stat-card"><span class="number">10+</span><span class="label" data-lang="ru">Готовых кейсов</span><span class="label" data-lang="en">Ready Cases</span></div>
-                <div class="stat-card"><span class="number">2x</span><span class="label" data-lang="ru">Ускорение работы</span><span class="label" data-lang="en">Work Acceleration</span></div>
-                <div class="stat-card"><span class="number">24/7</span><span class="label" data-lang="ru">Работа без людей</span><span class="label" data-lang="en">Staff-free Flow</span></div>
-            </div>
-        </div>
-    </div>
+<section>
+<div class="container">
+
+<h2>Решения</h2>
+
+<h3>Аудит</h3>
+<p>Показываю где теряются деньги</p>
+
+<h3>Система под ключ</h3>
+<p>Собираю процессы в работающую модель</p>
+
+<h3>Запуск</h3>
+<p>Готовый результат за 72 часа</p>
+
+</div>
 </section>
 
-<section id="solutions" class="section-dark">
-    <div class="container">
-        <div class="section-title reveal">
-            <h2>🧩 <span data-lang="ru">Что я умею делать</span><span data-lang="en">What I Can Do</span></h2>
-            <p data-lang="ru">Вместо сложных программ — фокус на прозрачных результатах для вашего бизнеса.</p>
-            <p data-lang="en">Instead of complex software — focus on transparent results for your business.</p>
-        </div>
-        <div class="skills-grid">
-            <div class="skill-card reveal delay-100">
-                <h3>🏛️ <span data-lang="ru">Аудит процессов</span><span data-lang="en">Process Audit</span></h3>
-                <div class="skill-tags">
-                    <span class="skill-tag" data-lang="ru">Поиск узких мест</span><span class="skill-tag" data-lang="en">Bottleneck Search</span>
-                    <span class="skill-tag" data-lang="ru">Оценка затрат</span><span class="skill-tag" data-lang="en">Cost Evaluation</span>
-                </div>
-            </div>
-            <div class="skill-card reveal delay-200">
-                <h3>⚡ <span data-lang="ru">Вайб-кодинг (Сборка)</span><span data-lang="en">Vibe-coding Assembly</span></h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Google AI Studio</span>
-                    <span class="skill-tag">Antigravity / Cursor</span>
-                    <span class="skill-tag" data-lang="ru">Без программистов</span><span class="skill-tag" data-lang="en">No Programmers</span>
-                </div>
-            </div>
-            <div class="skill-card reveal delay-300">
-                <h3>🔗 <span data-lang="ru">Связка сервисов</span><span data-lang="en">Service Linking</span></h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">Telegram</span><span class="skill-tag">CRM</span>
-                    <span class="skill-tag" data-lang="ru">Обмен данными</span><span class="skill-tag" data-lang="en">Data Exchange</span>
-                </div>
-            </div>
-            <div class="skill-card reveal delay-400">
-                <h3>🤖 <span data-lang="ru">Умные помощники</span><span data-lang="en">Smart Assistants</span></h3>
-                <div class="skill-tags">
-                    <span class="skill-tag">AI Чат-боты</span>
-                    <span class="skill-tag" data-lang="ru">Бот-менеджеры</span><span class="skill-tag" data-lang="en">Bot Managers</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<section>
+<div class="container">
 
-<!-- EXPERIENCE -->
-<section id="experience" class="section-dark">
-    <div class="container">
-        <div class="section-title">
-            <h2 data-lang="ru">Опыт работы</h2><h2 data-lang="en">Work Experience</h2>
-        </div>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-date">05.2025 – 07.2025</div>
-                <div class="timeline-role" data-lang="ru">Специалист по данным</div><div class="timeline-role" data-lang="en">Data Scientist</div>
-                <div class="timeline-company">Московский Политех / Moscow Polytechnic</div>
-                <p data-lang="ru">Разработала каскадную модель тональности для бизнес-аналитики. Создала веб-приложение для обработки данных в реальном времени.</p>
-                <p data-lang="en">Developed cascaded sentiment model for business analytics. Created web app for real-time data processing.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">12.2024</div>
-                <div class="timeline-role" data-lang="ru">Инженер по компьютерному зрению</div><div class="timeline-role" data-lang="en">Computer Vision Engineer</div>
-                <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
-                <p data-lang="ru">Детекция клеток Панета для медицинской диагностики. Внедрила механизмы внимания для повышения точности.</p>
-                <p data-lang="en">Paneth cell detection for medical diagnostics. Implemented attention mechanisms for improved accuracy.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">11.2024</div>
-                <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div><div class="timeline-role" data-lang="en">AI Solutions Developer</div>
-                <div class="timeline-company">КьюДжейАй (Медицина) / QGI (Medical)</div>
-                <p data-lang="ru">Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
-                <p data-lang="en">Optimized models for fast inference. Implemented EfficientNet for medical image analysis.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">04.2024 – 06.2024</div>
-                <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div><div class="timeline-role" data-lang="en">AI Solutions Developer</div>
-                <div class="timeline-company">Волей Плей / Volley Play</div>
-                <p data-lang="ru">Сегментация волейбольной площадки для спортивной аналитики. Интегрировала ИИ в Андроид приложение.</p>
-                <p data-lang="en">Volleyball court segmentation for sports analytics. Integrated AI into Android application.</p>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-date">01.2024 – 03.2024</div>
-                <div class="timeline-role" data-lang="ru">Специалист по данным</div><div class="timeline-role" data-lang="en">Data Scientist</div>
-                <div class="timeline-company">СГМУ (Разумовского) / SGMU (Razumovskiy)</div>
-                <p data-lang="ru">Создала базы знаний и тестировала чат-ботов на векторных базах для автоматизации поддержки.</p>
-                <p data-lang="en">Created knowledge bases and tested chatbots on vector databases for support automation.</p>
-            </div>
-        </div>
-    </div>
-</section>
+<h2>Кейсы</h2>
 
-<!-- PROJECTS -->
-<section id="projects">
-    <div class="container">
-        <div class="section-title">
-            <h2 data-lang="ru">Кейсы для бизнеса</h2><h2 data-lang="en">Business Cases</h2>
-        </div>
-        <div class="projects-grid">
+<h3>👶 AI-консультант для родителей (3–6 лет)</h3>
 
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>📄 <span data-lang="ru">ИИ-конструктор документов</span><span data-lang="en">AI Document Builder</span></h3>
-                <div class="project-sub"><span data-lang="ru">Автоматизация права</span><span data-lang="en">Legal Automation</span></div>
-                <p data-lang="ru">Сокращает время создания юридических документов на 70%. ИИ-консультант встроен прямо в редактор.</p>
-                <p data-lang="en">Reduces legal document creation time by 70%. AI consultant built directly into the editor.</p>
-                <div class="project-tags">
-                    <span class="project-tag" data-lang="ru">Экономия времени</span><span class="project-tag" data-lang="en">Time Saving</span>
-                    <span class="project-tag" data-lang="ru">Юридическая обработка</span><span class="project-tag" data-lang="en">Legal Tech</span>
-                </div>
-                <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn-sm" data-lang="ru">Протестировать</a>
-                <a href="https://ai.studio/apps/61bac76f-e1ae-4d9e-95cf-37ab47a22882?fullscreenApplet=true" class="btn-sm" data-lang="en">Try Demo</a>
-            </div></div>
+<p>
+Интеллектуальный помощник для родителей.
+Помогает с поведением ребёнка и снижает стресс.
+</p>
 
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>🧠 <span data-lang="ru">ИИ для Психотерапии</span><span data-lang="en">AI for Psychotherapy</span></h3>
-                <div class="project-sub"><span data-lang="ru">Медицинские технологии</span><span data-lang="en">Health Tech</span></div>
-                <p data-lang="ru">ИИ-ассистент для сеансов терапии. Поддерживает рабочие процессы и предоставляет интеллектуальные подсказки.</p>
-                <p data-lang="en">AI assistant for therapy sessions. Supports workflows and provides intelligent prompts.</p>
-                <div class="project-tags">
-                    <span class="project-tag" data-lang="ru">Медицинские технологии</span><span class="project-tag" data-lang="en">Health Tech</span>
-                    <span class="project-tag" data-lang="ru">Поддержка и забота</span><span class="project-tag" data-lang="en">Support & Care</span>
-                </div>
-                <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn-sm" data-lang="ru">Протестировать</a>
-                <a href="https://ai.studio/apps/92e7a306-6495-40e9-97df-c70cf2ef7e7b?fullscreenApplet=true" class="btn-sm" data-lang="en">Try Demo</a>
-            </div></div>
+<p>
+Результат:
+— ответы 24/7  
+— снижение нагрузки  
+— масштабируемый продукт
+</p>
 
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>📰 <span data-lang="ru">ИИ-Агрегатор новостей</span><span data-lang="en">AI News Aggregator</span></h3>
-                <div class="project-sub"><span data-lang="ru">Авто-контент</span><span data-lang="en">Auto-Content</span></div>
-                <p data-lang="ru">Автоматическая доставка новостей об ИИ и технологиях. Умное суммирование текста экономит время на чтение.</p>
-                <p data-lang="en">Automatic delivery of AI and tech news. Smart summarization saves reading time.</p>
-                <div class="project-tags">
-                    <span class="project-tag" data-lang="ru">Обработка естественного языка</span><span class="project-tag" data-lang="en">NLP</span>
-                    <span class="project-tag" data-lang="ru">Автоматизация</span><span class="project-tag" data-lang="en">Automation</span>
-                </div>
-                <a href="https://gclnk.com/XEGqVnxo" class="btn-sm" data-lang="ru">Протестировать</a>
-                <a href="https://gclnk.com/XEGqVnxo" class="btn-sm" data-lang="en">Try Demo</a>
-            </div></div>
+<a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139" target="_blank" class="btn">
+Открыть демо
+</a>
 
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>💬 <span data-lang="ru">Анализ отзывов клиентов</span><span data-lang="en">Customer Feedback Analysis</span></h3>
-                <div class="project-sub"><span data-lang="ru">Аналитика отзывов</span><span data-lang="en">Customer Review Analytics</span></div>
-                <p data-lang="ru">Каскадная модель (XGBoost + BERT) для автоматического анализа отзывов. Отслеживайте репутацию в реальном времени.</p>
-                <p data-lang="en">Cascaded model (XGBoost + BERT) for automatic review analysis. Track your reputation in real-time.</p>
-                <div class="project-tags">
-                    <span class="project-tag" data-lang="ru">Точность: 95%</span><span class="project-tag" data-lang="en">Accuracy: 95%</span>
-                    <span class="project-tag">NLP</span>
-                </div>
-                <a href="https://gratati.github.io/docs/%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf" class="btn-sm" data-lang="ru">Изучить кейс</a>
-                <a href="https://gratati.github.io/docs/%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%20%D1%82%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D1%81%D1%82%D0%B8.pdf" class="btn-sm" data-lang="en">View Case</a>
-            </div></div>
-
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>📱 <span data-lang="ru">Детекция на мобильном</span><span data-lang="en">Mobile Object Detection</span></h3>
-                <div class="project-sub"><span data-lang="ru">ИИ для Андроид</span><span data-lang="en">AI for Android</span></div>
-                <p data-lang="ru">Модель TensorFlow Lite для Андроид приложения. Детекция объектов в реальном времени без интернета. Идеально для полевой работы.</p>
-                <p data-lang="en">TensorFlow Lite model for Android app. Real-time object detection without internet. Perfect for field work.</p>
-                <div class="project-tags">
-                    <span class="project-tag">TF Lite</span>
-                    <span class="project-tag" data-lang="ru">Офлайн-режим</span><span class="project-tag" data-lang="en">Offline Mode</span>
-                </div>
-                <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn-sm" data-lang="ru">Изучить кейс</a>
-                <a href="https://gratati.github.io/docs/object-detection.pdf" class="btn-sm" data-lang="en">View Case</a>
-            </div></div>
-
-            <div class="project-card"><div class="project-top"></div><div class="project-content">
-                <h3>⚽ <span data-lang="ru">Сегментация игрового поля</span><span data-lang="en">Sports Field Segmentation</span></h3>
-                <div class="project-sub"><span data-lang="ru">Спортивная аналитика</span><span data-lang="en">Sports Analytics</span></div>
-                <p data-lang="ru">Автоматическая сегментация игровых полей и игроков. Две ИИ-модели (SAM / U-Net) для авто-разметки спортивных датасетов в реальном времени.</p>
-                <p data-lang="en">Automatic segmentation of sports fields and players. Two AI models (SAM / U-Net) for real-time automatic sports dataset labeling.</p>
-                <div class="project-tags">
-                    <span class="project-tag">SAM / U-Net</span>
-                    <span class="project-tag" data-lang="ru">В реальном времени</span><span class="project-tag" data-lang="en">Real-time</span>
-                    <span class="project-tag" data-lang="ru">Авто-разметка</span><span class="project-tag" data-lang="en">Auto-labeling</span>
-                </div>
-                <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn-sm" data-lang="ru">Изучить кейс</a>
-                <a href="https://gratati.github.io/docs/cv_segmentation_sam_unet.pdf" class="btn-sm" data-lang="en">View Case</a>
-            </div></div>
-
-        </div>
-    </div>
-</section>
-
-<!-- EDUCATION -->
-<section id="education" class="section-dark">
-    <div class="container">
-        <div class="section-title">
-            <h2 data-lang="ru">Квалификация</h2><h2 data-lang="en">Qualifications</h2>
-        </div>
-        <div class="education-grid">
-            <div class="education-item">
-                <div class="education-year">2024</div>
-                <strong><span data-lang="ru">Разработчик Android</span><span data-lang="en">Android Developer</span></strong> — Urbanuniversity.ru
-                <p data-lang="ru">Мобильная разработка на Kotlin. Возможность внедрять ИИ-модели прямо в клиентские приложения.</p>
-                <p data-lang="en">Mobile development with Kotlin. Ability to deploy AI models directly into client applications.</p>
-            </div>
-            <div class="education-item">
-                <div class="education-year">2023</div>
-                <strong><span data-lang="ru">Наука о данных и машинное обучение</span><span data-lang="en">Data Science & Machine Learning</span></strong> — neural-university.ru
-                <p data-lang="ru">Нейронные сети, глубокое обучение и техники оптимизации для бизнес-задач.</p>
-                <p data-lang="en">Neural networks, deep learning and optimization techniques for business tasks.</p>
-            </div>
-            <div class="education-item">
-                <div class="education-year">1997</div>
-                <strong><span data-lang="ru">Технический бэкграунд</span><span data-lang="en">Technical Background</span></strong> — Национальная Академия (Симферополь)
-                <p data-lang="ru">Основы аналитического мышления и технических дисциплин.</p>
-                <p data-lang="en">Fundamentals of analytical thinking and technical disciplines.</p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<!-- MUSIC SECTION RESTORED -->
-<section id="music" class="section-dark">
-    <div class="container">
-        <div class="section-title reveal">
-            <h2>🎵 <span data-lang="ru">ИИ Аудио-брендинг</span><span data-lang="en">AI Audio Branding</span></h2>
-            <p data-lang="ru">Уникальное музыкальное сопровождение для вашего бизнеса (без авторских прав).</p>
-            <p data-lang="en">Unique musical accompaniment for your business (copyright-free).</p>
-        </div>
-        <div class="music-grid">
-            <div class="music-card reveal delay-100">
-                <div class="music-title"><span data-lang="ru">Уникальный звук бренда</span><span data-lang="en">Unique Brand Sound</span></div>
-                <div class="music-controls">
-                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Яблоко в руке.mp3">▶</button>
-                    <div class="music-progress"><div class="music-progress-bar"></div></div>
-                </div>
-                <p data-lang="ru">Музыка, сгенерированная специально для вашей рекламы или удержания клиентов на линии.</p>
-                <p data-lang="en">Music generated specifically for your advertising or keeping customers on hold.</p>
-            </div>
-            <div class="music-card reveal delay-200">
-                <div class="music-title"><span data-lang="ru">Создатель атмосферы</span><span data-lang="en">Atmosphere Creator</span></div>
-                <div class="music-controls">
-                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Carnival Drift.mp3">▶</button>
-                    <div class="music-progress"><div class="music-progress-bar"></div></div>
-                </div>
-                <p data-lang="ru">Задайте правильное настроение вашим клиентам с помощью динамичных битов.</p>
-                <p data-lang="en">Set the right mood for your clients with dynamic beats.</p>
-            </div>
-            <div class="music-card reveal delay-300">
-                <div class="music-title"><span data-lang="ru">Технологии и Эмоции</span><span data-lang="en">Tech & Emotion</span></div>
-                <div class="music-controls">
-                    <button class="music-play-btn" data-src="https://gratati.github.io/music/audio/Code of Desire.mp3">▶</button>
-                    <div class="music-progress"><div class="music-progress-bar"></div></div>
-                </div>
-                <p data-lang="ru">Сочетание технологий и человеческих эмоций для смелых проектов.</p>
-                <p data-lang="en">A blend of technologies and human emotions for daring projects.</p>
-            </div>
-        </div>
-        <div class="reveal delay-400" style="text-align: center; margin-top: 1.5rem;">
-            <p style="color: var(--muted); font-size: 1.05rem; margin-bottom: 1.25rem;">
-                <span data-lang="ru">Ознакомьтесь с другими моими песнями:</span>
-                <span data-lang="en">Check out my other songs:</span>
-            </p>
-            <a href="https://producer.ai/gratati" target="_blank" class="btn btn-primary">
-                <span data-lang="ru">Посетить Producer.ai</span>
-                <span data-lang="en">Visit Producer.ai</span>
-            </a>
-        </div>
-    </div>
+</div>
 </section>
 
 <section id="contact">
-    <div class="container">
-        <div class="section-title reveal">
-            <h2 data-lang="ru">Готовы к сборке системы?</h2><h2 data-lang="en">Ready to Assemble Your System?</h2>
-            <p data-lang="ru">Расскажите, что отнимает у вас время, и мы найдем способ это автоматизировать.</p>
-            <p data-lang="en">Tell us what's taking up your time and we'll find a way to automate it.</p>
-        </div>
-        <div class="contact-grid">
-            <div class="contact-links reveal delay-100">
-                <a href="mailto:gratati49@gmail.com" class="contact-link"><span>✉️</span> gratati49@gmail.com</a>
-                <a href="https://t.me/mentvork" class="contact-link" target="_blank"><span>📱</span> Telegram</a>
-                <a href="https://github.com/gratati" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
-            </div>
-            <form class="contact-form reveal delay-200" action="https://formsubmit.co/ajax/gratati49@gmail.com" method="POST" onsubmit="handleSubmit(event)">
-                <input type="hidden" name="_subject" value="Новая заявка с сайта Гратати!">
-                <input type="hidden" name="_template" value="table">
-                <div class="form-group">
-                    <label data-lang="ru">Ваше имя и Компания</label><label data-lang="en">Your Name & Company</label>
-                    <input type="text" name="Имя_и_Компания" required placeholder="—">
-                </div>
-                <div class="form-group">
-                    <label data-lang="ru">Контакт для связи</label><label data-lang="en">Contact Details</label>
-                    <input type="email" name="Email" required placeholder="—">
-                </div>
-                <div class="form-group">
-                    <label data-lang="ru">Главная бизнес-боль / процесс</label><label data-lang="en">Main Business Pain / Process</label>
-                    <textarea name="Сообщение_RU" data-lang="ru" placeholder="Что съедает время сотрудников и требует автоматизации?"></textarea>
-                    <textarea name="Сообщение_EN" data-lang="en" placeholder="What consumes employees' time and requires automation?"></textarea>
-                </div>
-                <button type="submit" class="btn-full" data-lang="ru">Написать мне</button>
-                <button type="submit" class="btn-full" data-lang="en">Contact Me</button>
-            </form>
-        </div>
-    </div>
+<div class="container">
+
+<h2>Контакт</h2>
+
+<p>Напишите — покажу, как автоматизировать ваш бизнес</p>
+
+<a href="mailto:gratati49@gmail.com" class="btn">Связаться</a>
+
+</div>
 </section>
 
 <footer>
-    <div class="container">
-        <div class="footer-brand">Гратати</div>
-        <div class="footer-desc" data-lang="ru">Архитектура. Интеграция. Системы.</div>
-        <div class="footer-desc" data-lang="en">Architecture. Integration. Systems.</div>
-        <div class="footer-copy">© 2026 <span data-lang="ru">Все права защищены.</span><span data-lang="en">All rights reserved.</span></div>
-    </div>
+<div class="container">
+<p>© 2026 GRATATI | AI Automation</p>
+</div>
 </footer>
 
-<script>
-// ЛОГИКА ЯЗЫКОВ
-let currentLang = 'ru';
-function toggleLanguage() {
-    currentLang = currentLang === 'ru' ? 'en' : 'ru';
-    document.body.className = 'lang-' + currentLang;
-    document.querySelector('.lang-switch').textContent = currentLang === 'ru' ? 'EN' : 'RU';
-}
-
-// ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-        const href = a.getAttribute('href');
-        if (href === '#' || href === '#email') return;
-        e.preventDefault();
-        const t = document.querySelector(href);
-        if (t) { t.scrollIntoView({ behavior:'smooth', block:'start' }); document.querySelector('nav ul')?.classList.remove('active'); }
-    });
-});
-
-// ХЕДЕР
-window.addEventListener('scroll', () => {
-    document.querySelector('header').style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
-});
-
-// ФОРМА (Отправка на почту через FormSubmit)
-async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btnRu = form.querySelector('button[data-lang="ru"]');
-    const btnEn = form.querySelector('button[data-lang="en"]');
-    const originalTextRu = btnRu.textContent;
-    const originalTextEn = btnEn.textContent;
-    
-    // Блокируем кнопку
-    btnRu.textContent = 'Отправка...';
-    btnEn.textContent = 'Sending...';
-    
-    const formData = new FormData(form);
-    
-    // Удаляем ненужный язык из данных
-    if (currentLang === 'en') {
-        formData.set('Message', formData.get('Сообщение_EN'));
-    } else {
-        formData.set('Message', formData.get('Сообщение_RU'));
-    }
-    formData.delete('Сообщение_RU');
-    formData.delete('Сообщение_EN');
-
-    try {
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-        
-        if (response.ok) {
-            alert(currentLang === 'ru' 
-                ? 'Успешно! Если это первая отправка, проверьте почту gratati49@gmail.com для активации формы.' 
-                : 'Success! If this is the first submission, check your email gratati49@gmail.com to activate.');
-            form.reset();
-        } else {
-            alert(currentLang === 'ru' ? 'Ошибка сервиса отправки.' : 'Service error.');
-        }
-    } catch (error) {
-        alert(currentLang === 'ru' ? 'Ошибка сети.' : 'Network error.');
-    } finally {
-        btnRu.textContent = originalTextRu;
-        btnEn.textContent = originalTextEn;
-    }
-}
-
-// АНИМАЦИИ ПРИ СКРОЛЛЕ
-const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// АУДИОПЛЕЕР
-const musicButtons = document.querySelectorAll('.music-play-btn');
-let currentAudio = null;
-let currentBtn = null;
-
-musicButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const src = btn.getAttribute('data-src');
-        const progressBar = btn.parentElement.querySelector('.music-progress-bar');
-
-        if (currentBtn === btn && currentAudio && !currentAudio.paused) {
-            currentAudio.pause();
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            return;
-        }
-        if (currentBtn === btn && currentAudio && currentAudio.paused) {
-            currentAudio.play();
-            btn.textContent = '⏸';
-            btn.classList.add('playing');
-            return;
-        }
-        if (currentAudio) {
-            currentAudio.pause();
-            currentAudio.currentTime = 0;
-            if (currentBtn) {
-                currentBtn.textContent = '▶';
-                currentBtn.classList.remove('playing');
-                currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
-            }
-        }
-        currentAudio = new Audio(src);
-        currentBtn = btn;
-        currentAudio.play();
-        btn.textContent = '⏸';
-        btn.classList.add('playing');
-
-        currentAudio.addEventListener('timeupdate', () => {
-            if (currentAudio.duration) {
-                progressBar.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
-            }
-        });
-        currentAudio.addEventListener('ended', () => {
-            btn.textContent = '▶';
-            btn.classList.remove('playing');
-            progressBar.style.width = '0%';
-            currentAudio = null;
-            currentBtn = null;
-        });
-    });
-});
-</script>
 </body>
 </html>
