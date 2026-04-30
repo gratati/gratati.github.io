@@ -101,8 +101,8 @@
         section { padding: 5rem 0; position: relative; z-index: 1; overflow: hidden; }
         .section-dark { background: var(--bg2); }
         .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .section-title p { color: var(--muted); max-width: 600px; margin-inline: auto; }
+        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-flex; align-items: center; gap: 0.5rem; }
+        .section-title p { color: var(--muted); max-width: 700px; margin: 1rem auto 0; font-size: 1.1rem; line-height: 1.6; }
 
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
         .about-text p { color: var(--muted); margin-bottom: 1rem; }
@@ -316,8 +316,10 @@
             <span data-lang="ru">Аудит процессов · Вайб-кодинг · Автоматизация • РФ • КЗ • РБ</span>
             <span data-lang="en">Process Audit · Vibe-coding · Automation • RU • KZ • BY</span>
         </div>
-        <h1 data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</h1>
-        <h1 data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</h1>
+        <h1>
+            <span data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</span>
+            <span data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</span>
+        </h1>
         <p data-lang="ru">Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой. Работаю с компаниями из России, Казахстана и Беларуси.</p>
         <p data-lang="en">Freeing you from routine using modern tools. I assemble ready IT-solutions for your tasks so you can focus on business growth rather than operations. Serving businesses across Russia, Kazakhstan, and Belarus.</p>
         <div class="hero-tags">
@@ -365,8 +367,13 @@
 <section id="about">
     <div class="container">
         <div class="section-title reveal">
-            <h2 data-lang="ru">Обо мне</h2><h2 data-lang="en">About Me</h2>
-            <p data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы • РФ • КЗ • РБ</p><p data-lang="en">Helping you earn more by automating processes • RU • KZ • BY</p>
+            <h2>
+                <span data-lang="ru">Обо мне</span><span data-lang="en">About Me</span>
+            </h2>
+            <p>
+                <span data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы • РФ • КЗ • РБ</span>
+                <span data-lang="en">Helping you earn more by automating processes • RU • KZ • BY</span>
+            </p>
         </div>
         <div class="about-grid">
             <div class="about-text reveal delay-100">
