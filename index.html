@@ -180,7 +180,7 @@
         .music-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary2), var(--accent)); border-radius: 3px; width: 0%; transition: width 0.1s linear; box-shadow: 0 0 6px rgba(56,189,248,0.5); }
         .music-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-        ./* Заголовок секции контактов */
+        /* Заголовок секции контактов */
         .section-title {
             max-width: 640px;
             margin: 0 auto 3rem;
@@ -193,8 +193,8 @@
         /* Сетка для контактов */
         .contact-grid {
             display: grid;
-            grid-template-columns: 1fr;      /* одна колонка */
-            justify-items: center;           /* содержимое по центру */
+            grid-template-columns: 1fr;
+            justify-items: center;
             gap: 3rem;
         }
         
@@ -203,7 +203,7 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            align-items: center;             /* выровнять плашки по центру */
+            align-items: center;
         }
         
         /* Ссылки-плашки */
@@ -225,7 +225,7 @@
             box-shadow: 0 0 16px rgba(56,189,248,0.08);
         }
         
-        /* Футер — можно оставить как был */
+        /* Футер */
         footer {
             background: var(--bg2);
             border-top: 1px solid var(--border);
@@ -255,10 +255,11 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        span[data-lang], a[data-lang], strong[data-lang], div[data-lang] { display: initial; }
-        span[data-lang="en"], a[data-lang="en"], strong[data-lang="en"], div[data-lang="en"] { display: none; }
-        body.lang-en span[data-lang="ru"], body.lang-en a[data-lang="ru"], body.lang-en strong[data-lang="ru"], body.lang-en div[data-lang="ru"] { display: none; }
-        body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en strong[data-lang="en"] { display: initial; }
+        /* ЯЗЫКОВЫЕ ПЕРЕКЛЮЧАТЕЛИ — унифицированные селекторы */
+        [data-lang] { display: initial; }
+        [data-lang="en"] { display: none; }
+        body.lang-en [data-lang="ru"] { display: none; }
+        body.lang-en [data-lang="en"] { display: initial; }
 
         .skill-tag[data-lang="en"]  { display: none; }
         body.lang-en .skill-tag[data-lang="ru"] { display: none; }
@@ -699,49 +700,66 @@
 
 
 <script>
-// ЛОГИКА ЯЗЫКОВ
-let currentLang = 'ru';
-function toggleLanguage() {
-    currentLang = currentLang === 'ru' ? 'en' : 'ru';
-    document.body.className = 'lang-' + currentLang;
-    document.querySelector('.lang-switch').textContent = currentLang === 'ru' ? 'EN' : 'RU';
+// === ЛОГИКА ЯЗЫКОВ ===
+const LANG_KEY = 'gratati_lang';
+let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
+
+function applyLanguage(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelector('.lang-switch').textContent = lang === 'ru' ? 'EN' : 'RU';
+    currentLang = lang;
+    localStorage.setItem(LANG_KEY, lang);
 }
 
-// ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ
+function toggleLanguage() {
+    const newLang = currentLang === 'ru' ? 'en' : 'ru';
+    applyLanguage(newLang);
+}
+
+// Применяем язык при загрузке (только из localStorage, без автоопределения)
+document.addEventListener('DOMContentLoaded', () => {
+    applyLanguage(currentLang);
+});
+
+// === ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ ===
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
         const href = a.getAttribute('href');
         if (href === '#' || href === '#email') return;
         e.preventDefault();
         const t = document.querySelector(href);
-        if (t) { t.scrollIntoView({ behavior:'smooth', block:'start' }); document.querySelector('nav ul')?.classList.remove('active'); }
+        if (t) { 
+            t.scrollIntoView({ behavior:'smooth', block:'start' }); 
+            document.querySelector('nav ul')?.classList.remove('active'); 
+        }
     });
 });
 
-// ХЕДЕР
+// === ХЕДЕР ===
 window.addEventListener('scroll', () => {
-    document.querySelector('header').style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
+    const header = document.querySelector('header');
+    if (header) {
+        header.style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
+    }
 });
 
-// ФОРМА (Отправка на почту через FormSubmit)
+// === ФОРМА ===
 async function handleSubmit(e) {
     e.preventDefault();
     const form = e.target;
     const btnRu = form.querySelector('button[data-lang="ru"]');
     const btnEn = form.querySelector('button[data-lang="en"]');
-    const originalTextRu = btnRu.textContent;
-    const originalTextEn = btnEn.textContent;
+    const originalTextRu = btnRu?.textContent || '';
+    const originalTextEn = btnEn?.textContent || '';
     
-    // Блокируем кнопку
-    btnRu.textContent = 'Отправка...';
-    btnEn.textContent = 'Sending...';
+    if (btnRu) btnRu.textContent = 'Отправка...';
+    if (btnEn) btnEn.textContent = 'Sending...';
     
     const formData = new FormData(form);
     
-    // Удаляем ненужный язык из данных
-    if (currentLang === 'en') {
+    if (currentLang === 'en' && formData.has('Сообщение_EN')) {
         formData.set('Message', formData.get('Сообщение_EN'));
-    } else {
+    } else if (formData.has('Сообщение_RU')) {
         formData.set('Message', formData.get('Сообщение_RU'));
     }
     formData.delete('Сообщение_RU');
@@ -765,12 +783,12 @@ async function handleSubmit(e) {
     } catch (error) {
         alert(currentLang === 'ru' ? 'Ошибка сети.' : 'Network error.');
     } finally {
-        btnRu.textContent = originalTextRu;
-        btnEn.textContent = originalTextEn;
+        if (btnRu) btnRu.textContent = originalTextRu;
+        if (btnEn) btnEn.textContent = originalTextEn;
     }
 }
 
-// АНИМАЦИИ ПРИ СКРОЛЛЕ
+// === АНИМАЦИИ ПРИ СКРОЛЛЕ ===
 const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -782,7 +800,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// АУДИОПЛЕЕР
+// === АУДИОПЛЕЕР ===
 const musicButtons = document.querySelectorAll('.music-play-btn');
 let currentAudio = null;
 let currentBtn = null;
@@ -810,7 +828,8 @@ musicButtons.forEach(btn => {
             if (currentBtn) {
                 currentBtn.textContent = '▶';
                 currentBtn.classList.remove('playing');
-                currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
+                const prevBar = currentBtn.parentElement.querySelector('.music-progress-bar');
+                if (prevBar) prevBar.style.width = '0%';
             }
         }
         currentAudio = new Audio(src);
@@ -820,14 +839,14 @@ musicButtons.forEach(btn => {
         btn.classList.add('playing');
 
         currentAudio.addEventListener('timeupdate', () => {
-            if (currentAudio.duration) {
+            if (currentAudio.duration && progressBar) {
                 progressBar.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
             }
         });
         currentAudio.addEventListener('ended', () => {
             btn.textContent = '▶';
             btn.classList.remove('playing');
-            progressBar.style.width = '0%';
+            if (progressBar) progressBar.style.width = '0%';
             currentAudio = null;
             currentBtn = null;
         });
