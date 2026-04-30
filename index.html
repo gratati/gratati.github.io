@@ -101,8 +101,8 @@
         section { padding: 5rem 0; position: relative; z-index: 1; overflow: hidden; }
         .section-dark { background: var(--bg2); }
         .section-title { text-align: center; margin-bottom: 3rem; }
-        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-flex; align-items: center; gap: 0.5rem; }
-        .section-title p { color: var(--muted); max-width: 700px; margin: 1rem auto 0; font-size: 1.1rem; line-height: 1.6; }
+        .section-title h2 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .section-title p { color: var(--muted); max-width: 600px; margin-inline: auto; }
 
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
         .about-text p { color: var(--muted); margin-bottom: 1rem; }
@@ -180,86 +180,25 @@
         .music-progress-bar { height: 100%; background: linear-gradient(90deg, var(--primary2), var(--accent)); border-radius: 3px; width: 0%; transition: width 0.1s linear; box-shadow: 0 0 6px rgba(56,189,248,0.5); }
         .music-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-        /* Заголовок секции контактов */
-        .section-title {
-            max-width: 640px;
-            margin: 0 auto 3rem;
-            text-align: center;
-        }
-        .section-title p {
-            margin-bottom: 0.5rem;
-        }
-        
-        /* Сетка для контактов */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            justify-items: center;
-            gap: 3rem;
-        }
-        
-        /* Колонка с плашками */
-        .contact-links {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            align-items: center;
-        }
-        
-        /* Ссылки-плашки */
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 1.25rem;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s;
-        }
-        .contact-link:hover {
-            border-color: rgba(56,189,248,0.4);
-            transform: translateX(6px);
-            box-shadow: 0 0 16px rgba(56,189,248,0.08);
-        }
-        
-        /* Футер */
-        footer {
-            background: var(--bg2);
-            border-top: 1px solid var(--border);
-            padding: 3rem 0 1.5rem;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-        }
-        .footer-brand {
-            font-size: 1.4rem;
-            font-weight: 900;
-            background: var(--gradient2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-        }
-        .footer-desc {
-            color: var(--muted);
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-        }
-        .footer-copy {
-            color: rgba(107,138,171,0.45);
-            font-size: 0.78rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            font-family: 'JetBrains Mono', monospace;
-        }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: start; }
+        .contact-links { display: flex; flex-direction: column; gap: 1rem; max-width: 500px; margin: 0 auto; }
+        .contact-link { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; background: var(--card); border: 1px solid var(--border); border-radius: 12px; text-decoration: none; color: var(--text); transition: all 0.3s; justify-content: center; }
+        .contact-link:hover { border-color: rgba(56,189,248,0.4); transform: translateX(6px); box-shadow: 0 0 16px rgba(56,189,248,0.08); }
 
-        /* ЯЗЫКОВЫЕ ПЕРЕКЛЮЧАТЕЛИ */
-        [data-lang] { display: initial; }
+        footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 3rem 0 1.5rem; text-align: center; position: relative; z-index: 1; }
+        .footer-brand { font-size: 1.4rem; font-weight: 900; background: var(--gradient2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem; }
+        .footer-desc { color: var(--muted); margin-bottom: 1rem; font-size: 0.9rem; }
+        .footer-privacy { color: var(--muted); font-size: 0.8rem; margin: 1rem 0; padding: 0 1rem; line-height: 1.5; max-width: 800px; margin-inline: auto; }
+        .footer-copy { color: rgba(107,138,171,0.45); font-size: 0.78rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); font-family: 'JetBrains Mono', monospace; }
+
         [data-lang="en"] { display: none; }
         body.lang-en [data-lang="ru"] { display: none; }
-        body.lang-en [data-lang="en"] { display: initial; }
+        body.lang-en [data-lang="en"] { display: revert; }
+
+        span[data-lang], a[data-lang], strong[data-lang], div[data-lang] { display: initial; }
+        span[data-lang="en"], a[data-lang="en"], strong[data-lang="en"], div[data-lang="en"] { display: none; }
+        body.lang-en span[data-lang="ru"], body.lang-en a[data-lang="ru"], body.lang-en strong[data-lang="ru"], body.lang-en div[data-lang="ru"] { display: none; }
+        body.lang-en span[data-lang="en"], body.lang-en a[data-lang="en"], body.lang-en strong[data-lang="en"] { display: initial; }
 
         .skill-tag[data-lang="en"]  { display: none; }
         body.lang-en .skill-tag[data-lang="ru"] { display: none; }
@@ -281,9 +220,8 @@
             nav ul.active { display: flex; }
             .header-content { flex-wrap: wrap; gap: 0.75rem; }
             .hero h1 { font-size: 2.2rem; }
-            .about-grid { grid-template-columns: 1fr; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
             .about-stats { grid-template-columns: repeat(2,1fr); }
-            .contact-grid { grid-template-columns: 1fr; }
             .flowchart { flex-direction: column; }
             .flow-arrow { transform: rotate(90deg); margin: 0.2rem 0; }
         }
@@ -316,10 +254,8 @@
             <span data-lang="ru">Аудит процессов · Вайб-кодинг · Автоматизация • РФ • КЗ • РБ</span>
             <span data-lang="en">Process Audit · Vibe-coding · Automation • RU • KZ • BY</span>
         </div>
-        <h1>
-            <span data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</span>
-            <span data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</span>
-        </h1>
+        <h1 data-lang="ru">АВТОМАТИЗАЦИЯ БИЗНЕСА<br>И УМНЫЕ СИСТЕМЫ</h1>
+        <h1 data-lang="en">BUSINESS AUTOMATION<br>& SMART SYSTEMS</h1>
         <p data-lang="ru">Избавляю вас от рутины с помощью современных инструментов. Собираю готовые IT-решения под ваши задачи, чтобы вы могли заниматься развитием бизнеса, а не операционкой. Работаю с компаниями из России, Казахстана и Беларуси.</p>
         <p data-lang="en">Freeing you from routine using modern tools. I assemble ready IT-solutions for your tasks so you can focus on business growth rather than operations. Serving businesses across Russia, Kazakhstan, and Belarus.</p>
         <div class="hero-tags">
@@ -330,8 +266,8 @@
         <div class="hero-btns">
             <a href="#projects" class="btn btn-primary" data-lang="ru">Смотреть как это работает</a>
             <a href="#projects" class="btn btn-primary" data-lang="en">See How It Works</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="ru">Заказать аудит</a>
-            <a href="#contact"  class="btn btn-outline" data-lang="en">Order Audit</a>
+            <a href="#contact"  class="btn btn-outline" data-lang="ru">Связаться</a>
+            <a href="#contact"  class="btn btn-outline" data-lang="en">Get in Touch</a>
         </div>
     </div>
 </section>
@@ -367,13 +303,8 @@
 <section id="about">
     <div class="container">
         <div class="section-title reveal">
-            <h2>
-                <span data-lang="ru">Обо мне</span><span data-lang="en">About Me</span>
-            </h2>
-            <p>
-                <span data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы • РФ • КЗ • РБ</span>
-                <span data-lang="en">Helping you earn more by automating processes • RU • KZ • BY</span>
-            </p>
+            <h2 data-lang="ru">Обо мне</h2><h2 data-lang="en">About Me</h2>
+            <p data-lang="ru">Помогаю зарабатывать больше, автоматизируя процессы • РФ • КЗ • РБ</p><p data-lang="en">Helping you earn more by automating processes • RU • KZ • BY</p>
         </div>
         <div class="about-grid">
             <div class="about-text reveal delay-100">
@@ -461,7 +392,7 @@
             <div class="timeline-item">
                 <div class="timeline-date">11.2024</div>
                 <div class="timeline-role" data-lang="ru">Разработчик ИИ-решений</div><div class="timeline-role" data-lang="en">AI Solutions Developer</div>
-                <div class="timeline-company">КьюДГиАй (Медицина) / QGI (Medical)</div>
+                <div class="timeline-company">КьюДжиАй (Медицина) / QGI (Medical)</div>
                 <p data-lang="ru">Оптимизировала модели для быстрого вывода. Внедрила продвинутую нейросеть EfficientNet для анализа медицинских снимков.</p>
                 <p data-lang="en">Optimized models for fast inference. Implemented EfficientNet for medical image analysis.</p>
             </div>
@@ -494,7 +425,7 @@
             <!-- Обновлённая первая карточка: ИИ-консультант для родителей (3–6 лет) -->
             <div class="project-card"><div class="project-top"></div><div class="project-content">
                 <h3>👶 <span data-lang="ru">ИИ-консультант для родителей (3–6 лет)</span><span data-lang="en">AI Parenting Consultant (Ages 3–6)</span></h3>
-                <div class="project-sub"><span data-lang="ru">Семейные технологии</span><span data-lang="en">Family Tech</span></div>
+                <div class="project-sub"><span data-lang="ru">Семейные технологии • РФ • КЗ • РБ</span><span data-lang="en">Family Tech • RU • KZ • BY</span></div>
                 <p data-lang="ru">Интеллектуальный помощник для родителей дошкольников. Помогает с поведением ребёнка, развитием и снижает стресс. Доступен 24/7. Поддержка для семей в России, Казахстане и Беларуси.</p>
                 <p data-lang="en">Intelligent assistant for parents of preschoolers. Helps with child behavior, development, and reduces stress. Available 24/7. Support for families in Russia, Kazakhstan, and Belarus.</p>
                 <div class="project-tags">
@@ -502,8 +433,8 @@
                     <span class="project-tag" data-lang="ru">Снижение нагрузки</span><span class="project-tag" data-lang="en">Load Reduction</span>
                     <span class="project-tag" data-lang="ru">Масштабируемость</span><span class="project-tag" data-lang="en">Scalability</span>
                 </div>
-                <a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139?fullscreenApplet=true" class="btn-sm" data-lang="ru">Протестировать</a>
-                <a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139?fullscreenApplet=true" class="btn-sm" data-lang="en">Try Demo</a>
+                <a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139" class="btn-sm" data-lang="ru">Открыть демо</a>
+                <a href="https://ai.studio/apps/586bce56-064d-4abb-b419-d63f16c31139" class="btn-sm" data-lang="en">Open Demo</a>
             </div></div>
 
             <div class="project-card"><div class="project-top"></div><div class="project-content">
@@ -659,26 +590,15 @@
 <section id="contact">
     <div class="container">
         <div class="section-title reveal">
-            <h2 data-lang="ru">Готовы к сборке системы?</h2>
-            <h2 data-lang="en">Ready to Assemble Your System?</h2>
-            <p data-lang="ru">
-                Расскажите, что отнимает у вас время. Напишите мне напрямую удобным способом.
-            </p>
-            <p data-lang="en">
-                Tell me what's taking up your time. Contact me directly in a way that suits you.
-            </p>
+            <h2 data-lang="ru">Готовы к сборке системы?</h2><h2 data-lang="en">Ready to Assemble Your System?</h2>
+            <p data-lang="ru">Напишите мне напрямую — обсудим, как автоматизировать ваши процессы.</p>
+            <p data-lang="en">Contact me directly — let's discuss how to automate your processes.</p>
         </div>
         <div class="contact-grid">
             <div class="contact-links reveal delay-100">
-                <a href="mailto:gratati49@gmail.com" class="contact-link">
-                    <span>✉️</span> gratati49@gmail.com
-                </a>
-                <a href="https://t.me/mentvork" class="contact-link" target="_blank">
-                    <span>📱</span> Telegram
-                </a>
-                <a href="https://github.com/gratati" class="contact-link" target="_blank">
-                    <span>💻</span> GitHub
-                </a>
+                <a href="mailto:gratati49@gmail.com" class="contact-link"><span>✉️</span> gratati49@gmail.com</a>
+                <a href="https://t.me/mentvork" class="contact-link" target="_blank"><span>📱</span> Telegram</a>
+                <a href="https://github.com/gratati" class="contact-link" target="_blank"><span>💻</span> GitHub</a>
             </div>
         </div>
     </div>
@@ -689,114 +609,38 @@
         <div class="footer-brand">Гратати</div>
         <div class="footer-desc" data-lang="ru">Архитектура. Интеграция. Системы. • РФ • КЗ • РБ</div>
         <div class="footer-desc" data-lang="en">Architecture. Integration. Systems. • RU • KZ • BY</div>
-        <div class="footer-copy">
-            © 2026 <span data-lang="ru">Все права защищены.</span>
-            <span data-lang="en">All rights reserved.</span>
-        </div>
-    </div>
-    <div class="container">
-        <div class="footer-desc" data-lang="ru">
-            Сайт носит информационный характер и не собирает персональные данные через формы.
-            При обращении по указанным контактам обработка данных осуществляется средствами соответствующих сервисов.
-        </div>
-        <div class="footer-desc" data-lang="en">
-            This website is informational and does not collect personal data via forms.
-            When you contact me, your data is processed by the respective services (email, messengers).
-        </div>
+        <div class="footer-privacy" data-lang="ru">Сайт носит информационный характер и не собирает персональные данные через формы. При обращении по указанным контактам обработка данных осуществляется средствами соответствующих сервисов.</div>
+        <div class="footer-privacy" data-lang="en">This site is for informational purposes only and does not collect personal data via forms. When contacting via the provided contacts, data processing is carried out by the respective services.</div>
+        <div class="footer-copy">© 2026 <span data-lang="ru">Все права защищены.</span><span data-lang="en">All rights reserved.</span></div>
     </div>
 </footer>
 
-
 <script>
-// === ЛОГИКА ЯЗЫКОВ ===
-const LANG_KEY = 'gratati_lang';
-let currentLang = localStorage.getItem(LANG_KEY) || 'ru';
-
-function applyLanguage(lang) {
-    document.body.className = 'lang-' + lang;
-    document.querySelector('.lang-switch').textContent = lang === 'ru' ? 'EN' : 'RU';
-    currentLang = lang;
-    localStorage.setItem(LANG_KEY, lang);
-}
-
+// ЛОГИКА ЯЗЫКОВ
+let currentLang = 'ru';
 function toggleLanguage() {
-    const newLang = currentLang === 'ru' ? 'en' : 'ru';
-    applyLanguage(newLang);
+    currentLang = currentLang === 'ru' ? 'en' : 'ru';
+    document.body.className = 'lang-' + currentLang;
+    document.querySelector('.lang-switch').textContent = currentLang === 'ru' ? 'EN' : 'RU';
 }
 
-// Применяем язык при загрузке (только из localStorage, без автоопределения)
-document.addEventListener('DOMContentLoaded', () => {
-    applyLanguage(currentLang);
-});
-
-// === ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ ===
+// ПЛАВНЫЙ СКРОЛЛ НАВИГАЦИИ
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
         const href = a.getAttribute('href');
         if (href === '#' || href === '#email') return;
         e.preventDefault();
         const t = document.querySelector(href);
-        if (t) { 
-            t.scrollIntoView({ behavior:'smooth', block:'start' }); 
-            document.querySelector('nav ul')?.classList.remove('active'); 
-        }
+        if (t) { t.scrollIntoView({ behavior:'smooth', block:'start' }); document.querySelector('nav ul')?.classList.remove('active'); }
     });
 });
 
-// === ХЕДЕР ===
+// ХЕДЕР
 window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (header) {
-        header.style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
-    }
+    document.querySelector('header').style.padding = window.scrollY > 60 ? '0.5rem 0' : '1rem 0';
 });
 
-// === ФОРМА ===
-async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btnRu = form.querySelector('button[data-lang="ru"]');
-    const btnEn = form.querySelector('button[data-lang="en"]');
-    const originalTextRu = btnRu?.textContent || '';
-    const originalTextEn = btnEn?.textContent || '';
-    
-    if (btnRu) btnRu.textContent = 'Отправка...';
-    if (btnEn) btnEn.textContent = 'Sending...';
-    
-    const formData = new FormData(form);
-    
-    if (currentLang === 'en' && formData.has('Сообщение_EN')) {
-        formData.set('Message', formData.get('Сообщение_EN'));
-    } else if (formData.has('Сообщение_RU')) {
-        formData.set('Message', formData.get('Сообщение_RU'));
-    }
-    formData.delete('Сообщение_RU');
-    formData.delete('Сообщение_EN');
-
-    try {
-        const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-        
-        if (response.ok) {
-            alert(currentLang === 'ru' 
-                ? 'Успешно! Если это первая отправка, проверьте почту gratati49@gmail.com для активации формы.' 
-                : 'Success! If this is the first submission, check your email gratati49@gmail.com to activate.');
-            form.reset();
-        } else {
-            alert(currentLang === 'ru' ? 'Ошибка сервиса отправки.' : 'Service error.');
-        }
-    } catch (error) {
-        alert(currentLang === 'ru' ? 'Ошибка сети.' : 'Network error.');
-    } finally {
-        if (btnRu) btnRu.textContent = originalTextRu;
-        if (btnEn) btnEn.textContent = originalTextEn;
-    }
-}
-
-// === АНИМАЦИИ ПРИ СКРОЛЛЕ ===
+// АНИМАЦИИ ПРИ СКРОЛЛЕ
 const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -808,7 +652,7 @@ const observer = new IntersectionObserver((entries) => {
 }, observerOptions);
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-// === АУДИОПЛЕЕР ===
+// АУДИОПЛЕЕР
 const musicButtons = document.querySelectorAll('.music-play-btn');
 let currentAudio = null;
 let currentBtn = null;
@@ -836,8 +680,7 @@ musicButtons.forEach(btn => {
             if (currentBtn) {
                 currentBtn.textContent = '▶';
                 currentBtn.classList.remove('playing');
-                const prevBar = currentBtn.parentElement.querySelector('.music-progress-bar');
-                if (prevBar) prevBar.style.width = '0%';
+                currentBtn.parentElement.querySelector('.music-progress-bar').style.width = '0%';
             }
         }
         currentAudio = new Audio(src);
@@ -847,14 +690,14 @@ musicButtons.forEach(btn => {
         btn.classList.add('playing');
 
         currentAudio.addEventListener('timeupdate', () => {
-            if (currentAudio.duration && progressBar) {
+            if (currentAudio.duration) {
                 progressBar.style.width = (currentAudio.currentTime / currentAudio.duration * 100) + '%';
             }
         });
         currentAudio.addEventListener('ended', () => {
             btn.textContent = '▶';
             btn.classList.remove('playing');
-            if (progressBar) progressBar.style.width = '0%';
+            progressBar.style.width = '0%';
             currentAudio = null;
             currentBtn = null;
         });
